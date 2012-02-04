@@ -1,0 +1,11 @@
+<%if @courts.blank? %>
+<p>There are no courts in the CIRL database.</p>
+<% else %>
+  <p>These are the current courts in the CIRL database</p>
+  <ul id="courts">
+    <% @courts.each do |c| %>
+      <li><%= link_to c.title, {:action => 'show', :id => c.id} -%></li>
+    <% end %>
+  </ul>
+<% end %>
+<p><%= link_to "Add new court", {:action => 'new' }%></p>
