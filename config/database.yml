@@ -17,8 +17,9 @@ development:
   encoding: unicode
   database: cirl_development
   pool: 5
-  username: cirl
+  username: postgres
   password: Foenix1!
+  host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +44,15 @@ test:
   encoding: unicode
   database: cirl_test
   pool: 5
-  username: cirl
+  username: postgres
   password: Foenix1!
+  host: localhost
 
 production:
   adapter: postgresql
   encoding: unicode
   database: cirl_production
   pool: 5
-  username: cirl
+  username: postgres
   password: Foenix1!
+  host: localhost
