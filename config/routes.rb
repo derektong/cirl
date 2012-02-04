@@ -1,4 +1,6 @@
 Cirl::Application.routes.draw do
+  resources :tests
+
   match 'court/list' => 'court#list'
   resources :court
   # The priority is based upon order of creation:
