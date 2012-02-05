@@ -1,5 +1,16 @@
 Cirl::Application.routes.draw do
-  resources :tests
+  get "pages/home"
+
+  get "pages/contact"
+
+  get "pages/about"
+
+  get "pages/add_case"
+
+  get "courts/new"
+  #resources :courts
+
+  #match 'court/list' => 'court#list'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
