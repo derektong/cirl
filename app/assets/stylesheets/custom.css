@@ -1,0 +1,171 @@
+.container {
+  width: 1000px;
+}
+
+body {
+  background: #333;
+  ;
+}
+
+header#main {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+header#main img {
+  padding: 1em; 
+  background: #fff;
+}
+
+header#second {
+  white-space: nowrap;
+}
+
+header#second ul {
+  margin: 0;
+  padding: 0;
+}
+
+header#second ul li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+header#second ul li a {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 205px;
+  color: #000;
+  background: #fff;
+  font-size: 150%;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+header#second ul li a:visited {
+  color: #000;
+}
+
+header#second ul li a:hover {
+  text-decoration: none;
+}
+
+section {
+  font-size: 120%;
+  padding: 20px;
+  background: #fff;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  margin-top: 10px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer nav {
+  float: none;
+}
+
+/* Links */
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #000;
+}
+
+a.tabs {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 130px;
+  color: #000;
+  background: blue;
+  font-size: 150%;
+  padding: 20px;
+}
+
+/* Navigation */
+
+nav {
+  float: right;
+}
+
+nav {
+  background-color: white;
+  padding: 0 0.7em;
+  white-space: nowrap;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 0.2em 0;
+}
+
+nav ul li a {
+  padding: 0 5 px;
+}
+
+nav ul li a:visited {
+  color: #000;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Round corners */
+
+.almostround {
+  -moz-border-radius: 0 10px 10px 10px;
+  -webkit-border-radius: 0 10px 10px 10px;
+  border-radius: 0 10px 10px 10px;
+}
+
+.round {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Sidebar */
+
+table.whole {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+td.main {
+  width: 70%;
+  padding: 1em;
+}
+
+td.sidebar {
+  width: 30%;
+  padding: 1em;
+  vertical-align: top;
+  background: #999;
+}
+
+

@@ -2,11 +2,22 @@
 <html>
 <head>
   <title><%= title %></title>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tag %>
+  <%= render 'layouts/stylesheets' %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="container">
+    <%= render 'layouts/header' %>
+    <header id="second">
+    <ul>
+      <li><a href='#'>Case Law Database</a></li>
+      <li><a href='#'>Literature</a></li>
+    </ul>
+    </header>
+    <section class="almostround">
+    <%= yield %>
+    </section>
+    <%= render 'layouts/footer' %>
+  </div>
 </body>
 </html>
