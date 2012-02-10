@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CourtsController do
+describe JurisdictionsController do
   render_views
 
   describe "GET 'list'" do
@@ -11,7 +11,7 @@ describe CourtsController do
 
     it "should have the right title" do
       get 'list'
-      response.should have_selector("title", :content => "Manage Courts")
+      response.should have_selector("title", :content => "Manage Jurisdictions")
     end
   end
 

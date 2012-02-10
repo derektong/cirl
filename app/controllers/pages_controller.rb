@@ -11,7 +11,8 @@ class PagesController < ApplicationController
     @title = "About"
   end
 
-  def add_case
-    @title = "Add New Case"
+  def help
+    @title = "Help"
   end
+
 end

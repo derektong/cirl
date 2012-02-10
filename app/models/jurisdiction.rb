@@ -1,4 +1,4 @@
 class Jurisdiction < ActiveRecord::Base
-  has_many :courts
-  validates_presence_of :name
+  attr_accessible :name
+  validates :name, :presence => true
 end
