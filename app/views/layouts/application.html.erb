@@ -4,12 +4,23 @@
   <title><%= title %></title>
   <%= csrf_meta_tag %>
   <%= render 'layouts/stylesheets' %>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+  <% if protect_against_forgery? %>
+  <script type='text/javascript'>
+    //<!CDATA[
+    window._auth_token_name = "#{request_forgery_protection_token}";
+    window._auth_token = "#{form_authenticity_token}";
+    //]]>
+  </script>
+  <% end %>
+  <% javascript_include_tag :defaults %>
 </head>
 <body>
   <div class="container">
     <%= render 'layouts/header' %>
     <header id="second">
     <ul>
+      <li><a href='#'>Home</a></li>
       <li><a href='#'>Case Law Database</a></li>
       <li><a href='#'>Literature</a></li>
     </ul>
@@ -18,6 +29,7 @@
     <%= yield %>
     </section>
     <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %>
   </div>
 </body>
 </html>
