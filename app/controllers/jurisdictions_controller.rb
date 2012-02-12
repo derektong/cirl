@@ -4,7 +4,8 @@ class JurisdictionsController < ApplicationController
     @jurisdiction = Jurisdiction.find(params[:id])
   end
 
-  def list
+  def index
+    @jurisdictions = Jurisdiction.all
     @jurisdiction = Jurisdiction.new
     @title = "Manage Jurisdictions"
   end

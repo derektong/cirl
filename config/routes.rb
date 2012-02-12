@@ -1,18 +1,15 @@
 Cirl::Application.routes.draw do
   
-  get "issues/list"
-
+  match '/jurisdictions/manage', :to => 'jurisdictions#list'
+  match '/courts/manage', :to => 'courts#list'
+  match '/issues/manage', :to => 'issues#list'
+  resources :jurisdictions
+  resources :subjects
+  resources :issues
+  get "courts/edit"
+  get "subjects/edit"
   get "issues/edit"
 
-  get "subjects/list"
-
-  get "subjects/edit"
-
-  match '/jurisdictions/manage', :to => 'jurisdictions#list'
-  resources :jurisdictions
-  get "courts/edit"
-
-  match '/courts/manage', :to => 'courts#list'
   match '/signup', :to => 'users#new'
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'

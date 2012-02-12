@@ -1,0 +1,22 @@
+<%= render 'shared/sidebar' %>
+<div class="main">
+<h3>Manage Legal Subjects</h3>
+<ul class="tidylist">
+  <% @subjects.each do |subject| %>
+  <li>
+  <%= subject.description %>
+  </li>
+  <% end %>
+</ul>
+
+<%= form_for(@subject) do |f| %>
+  <%= render 'shared/error_messages' %>
+  <div class="field">
+    <%= f.label :description, "Add new legal subject to the database: " %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add" %>
+  </div>
+<% end %>
+</div>

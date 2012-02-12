@@ -1,0 +1,13 @@
+<header id="second">
+  <ul>
+    <li <%= raw "class=\"front_tab\"" if check_tab == "home" %>>
+      <%= link_to "Home", root_path %>
+    </li>
+    <li <%= raw "class=\"front_tab\"" if check_tab == "case_law_db" %>>
+      <%= link_to "Case Law Database", subjects_path %>
+    </li>
+    <li <%= raw "class=\"front_tab\"" if check_tab == "literature" %>>
+      <%= link_to "Literature", about_path %>
+    </li>
+  </ul>
+</header>

@@ -1,2 +1,19 @@
-<h1>Issues#list</h1>
-<p>Find me in app/views/issues/list.html.erb</p>
+<h1>Manage issues</h1>
+
+<ul class="tidylist">
+  <% @issues.each do |issue| %>
+    <li>
+    <%= issue.description %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_for(@issue) do |f| %>
+  <div class="field">
+    <%= f.label :description, "Add new issue: " %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add" %>
+  </div>
+<% end %>

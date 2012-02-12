@@ -1,5 +1,13 @@
 <h1>Manage Jurisdictions</h1>
 
+<ul class="tidylist">
+  <% @jurisdictions.each do |jurisdiction| %>
+    <li>
+    <%= jurisdiction.name %>
+    </li>
+  <% end %>
+</ul>
+
 <%= form_for(@jurisdiction) do |f| %>
   <div class="field">
     <%= f.label :name, "Add new jurisdiction: " %>
