@@ -1,5 +1,6 @@
-<h1>Manage Jurisdictions</h1>
-
+<h3>Manage Jurisdictions</h3>
+<%= render 'shared/sidebar' %>
+<div class="main">
 <ul class="tidylist">
   <% @jurisdictions.each do |jurisdiction| %>
     <li>
@@ -17,3 +18,4 @@
     <%= f.submit "Add" %>
   </div>
 <% end %>
+</div>

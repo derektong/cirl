@@ -22,4 +22,17 @@ module ApplicationHelper
     end
   end
 
+  def get_object_name( object_name )
+    case object_name
+    when "Subject"
+      return "legal subject"
+    when "Issue"
+      return "legal issue"
+    when "Jurisdiction"
+      return "jurisdiction"
+    when "Court"
+      return "court"
+    end
+  end
+
 end

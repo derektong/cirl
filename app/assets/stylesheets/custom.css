@@ -9,13 +9,20 @@ body {
 }
 
 header#main {
-  padding-top: 20px;
-  padding-bottom: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 header#main img {
   padding: 1em; 
   background: #fff;
+}
+
+header#main div {
+  padding: 1em;
+  background: #fff;
+  width: 600px;
+  height: 35px;
 }
 
 header#second {
@@ -38,7 +45,7 @@ header#second ul li.front_tab a {
 
 header#second ul li a {
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 5px;
   display: block;
   text-align: center;
   width: 150px;
@@ -46,7 +53,7 @@ header#second ul li a {
   background: #888;
   font-size: 120%;
   padding: 10px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 
 header#second ul li a:visited {
@@ -93,18 +100,6 @@ a:visited {
   color: #000;
 }
 
-a.tabs {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  text-align: center;
-  width: 130px;
-  color: #000;
-  background: blue;
-  font-size: 150%;
-  padding: 20px;
-}
-
 /* Navigation */
 
 nav {
@@ -125,11 +120,11 @@ nav ul {
 nav ul li {
   list-style-type: none;
   display: inline-block;
-  padding: 0.2em 0;
+  padding: 0.2em 1em;
 }
 
 nav ul li a {
-  padding: 0 10px;
+  padding: 0px;
 }
 
 nav ul li a:visited {
@@ -143,27 +138,26 @@ nav ul li a:hover {
 /* Round corners */
 
 .almostround {
-  -moz-border-radius: 0 10px 10px 10px;
-  -webkit-border-radius: 0 10px 10px 10px;
-  border-radius: 0 10px 10px 10px;
+  -moz-border-radius: 0 5px 5px 5px;
+  -webkit-border-radius: 0 5px 5px 5px;
+  border-radius: 0 5px 5px 5px;
 }
 
 .round {
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 /* Sidebar */
 
 div.main {
   width: 70%;
-  padding: 1em;
+  height: 500px;
 }
 
 div.sidebar {
   float: right;
-  margin-top: 80px;
   width: 30%;
   padding: 1em;
   background: #999;

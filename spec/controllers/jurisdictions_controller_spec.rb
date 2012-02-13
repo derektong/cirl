@@ -3,14 +3,14 @@ require 'spec_helper'
 describe JurisdictionsController do
   render_views
 
-  describe "GET 'list'" do
+  describe "GET 'index'" do
     it "should be successful" do
-      get 'list'
+      get 'index'
       response.should be_success
     end
 
     it "should have the right title" do
-      get 'list'
+      get 'index'
       response.should have_selector("title", :content => "Manage Jurisdictions")
     end
   end

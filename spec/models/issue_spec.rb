@@ -21,5 +21,11 @@ describe Issue do
     long_description_issue.should_not be_valid
   end
 
+  it "should reject duplicates" do
+    upcased_description = @attr[:description].upcase
+    Issue.create!(@attr.merge(:description => upcased_description))
+    issue_with_duplicate_description = Issue.new(@attr)
+    issue_with_duplicate_description.should_not be_valid
+  end
 
 end

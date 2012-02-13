@@ -21,4 +21,11 @@ describe Subject do
     long_description_subject.should_not be_valid
   end
 
+  it "should reject duplicates" do
+    upcased_description = @attr[:description].upcase
+    Subject.create!(@attr.merge(:description => upcased_description))
+    subject_with_duplicate_description = Subject.new(@attr)
+    subject_with_duplicate_description.should_not be_valid
+  end
+
 end

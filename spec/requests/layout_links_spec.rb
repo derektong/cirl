@@ -22,13 +22,13 @@ describe "LayoutLinks" do
     response.should have_selector('title', :content =>"Sign Up")
   end
 
-  it "should have a manage courts page at '/courts/manage'" do
-    get '/courts/manage'
+  it "should have a manage courts page at '/courts'" do
+    get '/courts'
     response.should have_selector('title', :content =>"Manage Courts")
   end
 
-  it "should have a manage jurisdictions page at '/jurisdictions/manage'" do
-    get '/jurisdictions/manage'
+  it "should have a manage jurisdictions page at '/jurisdictions'" do
+    get '/jurisdictions'
     response.should have_selector('title', :content =>"Manage Jurisdictions")
   end
 

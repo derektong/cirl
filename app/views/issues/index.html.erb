@@ -1,15 +1,15 @@
-<h3>Manage Legal Subjects</h3>
+<h3>Manage issues</h3>
 <%= render 'shared/sidebar' %>
 <div class="main">
 <ul class="tidylist">
-   <%= render @subjects %>
+  <%= render @issues %>
 </ul>
 
-<%= form_for(@subject) do |f| %>
-  <% @object = @subject %>
+<%= form_for(@issue) do |f| %>
+  <% @object = @issue %>
   <%= render :partial => "shared/error_messages", :object => @object %>
   <div class="field">
-    <%= f.label :description, "Add new legal subject to the database: " %>
+    <%= f.label :description, "Add new issue: " %>
     <%= f.text_field :description %>
   </div>
   <div class="actions">

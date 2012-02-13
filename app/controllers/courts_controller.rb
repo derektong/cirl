@@ -1,5 +1,6 @@
 class CourtsController < ApplicationController
-  def list
+  def index
+    @courts = Court.all
     @title = "Manage Courts"
   end
 

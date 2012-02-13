@@ -1,14 +1,13 @@
-<h1>CIRL</h1>
-<p>Home page</p>
-
 <%= javascript_include_tag :fade %>
-
+<div class="sidebar round">
+  <p>CIRL is about blah blah blah.</p>
+</div>
 <div class="slideshow">
-  <%= image_tag("home/bw/#{@file}", :class => "a") %>
-  <%= image_tag("home/colour/#{@file}", :class => "b") %>
+  <%= image_tag("home/bw/#{@file}", :class => "a round") %>
+  <%= image_tag("home/colour/#{@file}", :class => "b round") %>
 </div>
 
-<%= link_to "Sign up now!", signup_path %>
+<%= link_to "Sign up", signup_path %>
 
 
 
