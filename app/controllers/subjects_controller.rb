@@ -9,14 +9,11 @@ class SubjectsController < ApplicationController
   def edit
   end
 
-  def show
-  end
-
   def create
     @subjects = Subject.all.sort_by {|a| a[:description].downcase}
     @subject = Subject.new(params[:subject])
     if @subject.save
-      redirect_to subject_path
+      redirect_to subjects_path
     else
       @title = "Manage Subjects"
       render 'index'
@@ -26,7 +23,7 @@ class SubjectsController < ApplicationController
   def destroy
     Subject.find(params[:id]).destroy
     flash[:success] = "Legal subject removed."
-    redirect_to subject_path
+    redirect_to subjects_path
   end
 
 end
