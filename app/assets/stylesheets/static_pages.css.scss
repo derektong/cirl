@@ -1,0 +1,26 @@
+// Place all the styles related to the Pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Slideshow for Homepage */
+
+.slideshow {  
+  padding: 0;  
+  margin:  0;  
+  height: 500px;
+  position: relative;
+} 
+                 
+.slideshow img.a {  
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.slideshow img.b {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+

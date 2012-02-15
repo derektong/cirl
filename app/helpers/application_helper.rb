@@ -1,10 +1,10 @@
 module ApplicationHelper
-  def title
+  def title(page_title)
     base_title = "CIRL"
-    if @title.nil?
+    if page_title.nil?
       base_title
     else
-      "#{base_title} | #{@title}"
+      "#{base_title} | #{page_title}"
     end
   end
 
