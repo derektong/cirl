@@ -3,7 +3,6 @@ class SubjectsController < ApplicationController
   def index
     @subjects = Subject.all.sort_by {|a| a[:description].downcase}
     @subject = Subject.new
-    @title = "Manage Subjects"
   end
 
   def edit
@@ -15,7 +14,6 @@ class SubjectsController < ApplicationController
     if @subject.save
       redirect_to subjects_path
     else
-      @title = "Manage Subjects"
       render 'index'
     end
   end

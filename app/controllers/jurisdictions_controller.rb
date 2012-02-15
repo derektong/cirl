@@ -7,7 +7,6 @@ class JurisdictionsController < ApplicationController
   def index
     @jurisdictions = Jurisdiction.all
     @jurisdiction = Jurisdiction.new
-    @title = "Manage Jurisdictions"
   end
 
   def edit

@@ -2,7 +2,6 @@ class IssuesController < ApplicationController
   def index
     @issues = Issue.all.sort_by {|a| a[:description].downcase}
     @issue = Issue.new
-    @title = "Manage Issues"
   end
 
   def edit
@@ -14,7 +13,6 @@ class IssuesController < ApplicationController
     if @issue.save
       redirect_to issue_path
     else
-      @title = "Manage Issues"
       render 'index'
     end
   end
