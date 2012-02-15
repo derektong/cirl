@@ -4,11 +4,18 @@
       <h2><%= pluralize(@object.errors.count, "error") %>
         prohibited this <%= get_object_name(@object.type.to_s) %> from being saved:</h2>
       <br />
-      <p>There were problems with the following fields:</p>
       <ul>
-        <% @object.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
+        <% case @object.type.to_s %>
+        <%# Jurisdiction specific errors %>
+          <% when "Jurisdiction" %>
+          <%# only one error for jurisdictions%>
+            <li>Jurisdiction has already been added</li>
+
+          <% else 
+               @object.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          <% end %>
       </ul>
     </div>
   <% end %>

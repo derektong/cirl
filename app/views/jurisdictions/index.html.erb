@@ -3,17 +3,15 @@
 <%= render 'shared/sidebar' %>
 <div class="main">
 <ul class="tidylist">
-  <% @jurisdictions.each do |jurisdiction| %>
-    <li>
-    <%= jurisdiction.name %>
-    </li>
-  <% end %>
+  <%= render @jurisdictions %>
 </ul>
 
 <%= form_for(@jurisdiction) do |f| %>
+  <% @object = @jurisdiction %>
+  <%= render :partial => "shared/error_messages", :object => @object %>
   <div class="field">
     <%= f.label :name, "Add new jurisdiction: " %>
-    <%= f.text_field :name %>
+    <%= f.select :name, get_countries %>
   </div>
   <div class="actions">
     <%= f.submit "Add" %>

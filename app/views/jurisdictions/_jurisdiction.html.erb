@@ -1,0 +1,8 @@
+<li>
+  <%= jurisdiction.name %>
+  <%# if current_user.admin? %>
+  | <%= link_to "delete", jurisdiction,
+        :method => :delete, :confirm => "You sure?", 
+        :title => "Delete #{jurisdiction.name}" %>
+  <%# end %>
+</li>

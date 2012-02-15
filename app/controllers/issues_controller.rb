@@ -11,10 +11,16 @@ class IssuesController < ApplicationController
     @issues = Issue.all.sort_by {|a| a[:description].downcase}
     @issue = Issue.new(params[:issue])
     if @issue.save
-      redirect_to issue_path
+      redirect_to issues_path
     else
       render 'index'
     end
+  end
+
+  def destroy
+    Issue.find(params[:id]).destroy
+    flash[:success] = "Legal issue removed."
+    redirect_to issues_path
   end
 
 end

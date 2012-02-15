@@ -1,22 +1,25 @@
 <%= provide(:title, "Manage Courts") %>
-<h1>Listing courts</h1>
+<h3>Manage Courts</h3>
+<%= render 'shared/sidebar' %>
+<div class="main">
+<ul class="tidylist">
+  <%= render @courts %>
+</ul>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @courts.each do |court| %>
-  <tr>
-    <td><%= link_to 'Show', court %></td>
-    <td><%= link_to 'Edit', edit_court_path(court) %></td>
-    <td><%= link_to 'Destroy', court, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<%= form_for(@court) do |f| %>
+  <% @object = @court %>
+  <%= render :partial => "shared/error_messages", :object => @object %>
+  <h3>Add new court</h3>
+  <div class="field">
+    <%= f.label :name, "Name: " %>
+    <%= f.text_field :name %>
+    <%= f.label :jurisdiction_id, "Jurisdiction: " %>
+    <%= collection_select(:court, :jurisdiction_id, Jurisdiction.all, :id, :name) %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add" %>
+  </div>
 <% end %>
-</table>
+</div>
 
-<br />
 
-<%= link_to 'New Court', new_court_path %>
