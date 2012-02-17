@@ -1,0 +1,8 @@
+<div>
+<%= "#{@case.claimant} v #{@case.respondent}" %>
+  <%# if current_user.admin? %>
+  | <%= link_to "delete", @case,
+        :method => :delete, :confirm => "You sure?", 
+        :title => "Delete this case?" %>
+  <%# end %>
+</div>

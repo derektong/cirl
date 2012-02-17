@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def get_countries
-    return [ "Australia", "Brazil" ]
+    return [ "Australia", "Brazil", "Canada" ]
   end
 
 end

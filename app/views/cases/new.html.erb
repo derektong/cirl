@@ -1,0 +1,50 @@
+<%= provide(:title, "Add new case") %>
+<h3>Add new case</h3>
+<%= render 'shared/sidebar' %>
+<div class="main">
+
+<%= form_for(@case) do |f| %>
+  <% @object = @case %>
+  <%= render :partial => "shared/error_messages", :object => @object %>
+  <div class="field">
+    <%= f.label :claimant, "Name of claimant: " %>
+    <%= f.text_field :claimant %><br />
+    <%= f.label :respondent, "Name of respondent: " %>
+    <%= f.text_field :respondent %><br />
+    <%= f.label :decision_date, "Date of decision: " -%>
+    <%= f.select :day, 1..31, :prompt => "day" -%>
+    <%= f.select :month, 1..12, :prompt => "month" -%>
+    <%= f.select :year, 1900..Time.now.year, :prompt => "year" %><br />
+    <%= f.label :country_origin, "Claimant's country of origin: " %>
+    <%= f.select :country_origin, get_countries,
+                 :prompt => "(Select a country)" %><br />
+    <%= f.label :jurisdiction_id, "Jurisdiction: " %>
+    <%= collection_select(:case, :jurisdiction_id, Jurisdiction.all, 
+                          :id, :name, 
+                          :prompt => "(Select a jurisdiction)") %><br />
+    <%= f.label :court_id, "Court: " %>
+    <%= collection_select(:case, :court_id, Court.all, :id, :name,
+                          :prompt => "(Select a court)" ) %><br />
+
+    <%= f.label :subject_ids, "Legal Subjects :" %><br />
+    <% for subject in Subject.find(:all) %>
+      <%= check_box_tag "case[subject_ids][]", subject.id, 
+          @case.subjects.include?(subject) %>
+      <%= subject.description %>
+    <% end %><br />
+
+    <%= f.label :issue_ids, "Legal Issues :" %><br />
+    <% for issue in Issue.find(:all) %>
+      <%= check_box_tag "case[issue_ids][]", issue.id, 
+          @case.issues.include?(issue) %>
+      <%= issue.description %>
+    <% end %><br />
+
+  </div>
+  <div class="actions">
+    <%= f.submit "Add" %>
+  </div>
+<% end %>
+</div>
+
+

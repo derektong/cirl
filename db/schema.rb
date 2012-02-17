@@ -10,7 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212231424) do
+ActiveRecord::Schema.define(:version => 20120216154627) do
+
+  create_table "cases", :force => true do |t|
+    t.date     "decision_date"
+    t.string   "country_origin"
+    t.integer  "court_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "respondent"
+    t.string   "claimant"
+  end
+
+  create_table "cases_issues", :id => false, :force => true do |t|
+    t.integer "case_id"
+    t.integer "issue_id"
+  end
+
+  create_table "cases_subjects", :id => false, :force => true do |t|
+    t.integer "case_id"
+    t.integer "subject_id"
+  end
 
   create_table "courts", :force => true do |t|
     t.string   "name"
@@ -25,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20120212231424) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "issues", ["description"], :name => "index_issues_on_description", :unique => true
+
   create_table "jurisdictions", :force => true do |t|
     t.string "name", :limit => 128, :null => false
   end
@@ -35,11 +57,15 @@ ActiveRecord::Schema.define(:version => 20120212231424) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "subjects", ["description"], :name => "index_subjects_on_description", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

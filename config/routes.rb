@@ -4,6 +4,7 @@ Cirl::Application.routes.draw do
   resources :subjects
   resources :courts
   resources :issues
+  resources :cases
 
   match '/signup', :to => 'users#new'
   match '/contact', :to => 'static_pages#contact'

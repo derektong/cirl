@@ -4,4 +4,6 @@ class Court < ActiveRecord::Base
                     :length => { :maximum => 50 },
                     :uniqueness => { :case_sensitive => false }
 
+  belongs_to :jurisdiction
+  has_many :cases
 end
