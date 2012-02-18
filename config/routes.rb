@@ -6,6 +6,7 @@ Cirl::Application.routes.draw do
   resources :issues
   resources :cases
 
+  match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   match '/signup', :to => 'users#new'
   match '/contact', :to => 'static_pages#contact'
   match '/about', :to => 'static_pages#about'

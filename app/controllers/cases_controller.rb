@@ -34,5 +34,4 @@ class CasesController < ApplicationController
   end
 
 
-
 end

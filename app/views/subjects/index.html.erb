@@ -6,7 +6,7 @@
    <%= render @subjects %>
 </ul>
 
-<%= form_for(@subject) do |f| %>
+<%= form_for(@subject, :remote => true) do |f| %>
   <% @object = @subject %>
   <%= render :partial => "shared/error_messages", :object => @object %>
   <div class="field">

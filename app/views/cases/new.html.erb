@@ -24,7 +24,8 @@
                           :prompt => "(Select a jurisdiction)") %><br />
     <%= f.label :court_id, "Court: " %>
     <%= collection_select(:case, :court_id, Court.all, :id, :name,
-                          :prompt => "(Select a court)" ) %><br />
+                          { :prompt => "(Select a court)" }, 
+                          { :disabled => true }) %><br />
 
     <%= f.label :subject_ids, "Legal Subjects :" %><br />
     <% for subject in Subject.find(:all) %>
