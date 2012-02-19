@@ -1,18 +1,16 @@
 <%= provide( :title, 'Manage Subjects') %>
-<h3>Manage Legal Subjects</h3>
+<h3>Manage Legal Subjects</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
-<ul class="tidylist">
-   <%= render @subjects %>
-</ul>
+<table class="table-striped">
+ <%= render @subjects %>
+</table>
 
-<%= form_for(@subject, :remote => true) do |f| %>
+<%= form_for(@subject) do |f| %>
   <% @object = @subject %>
   <%= render :partial => "shared/error_messages", :object => @object %>
-  <div class="field">
-    <%= f.label :description, "Add new legal subject to the database: " %>
-    <%= f.text_field :description %>
-  </div>
+  <%= f.label :description, "Add new legal subject to the database: " %>
+  <%= f.text_field :description %>
   <div class="actions">
     <%= f.submit "Add" %>
   </div>

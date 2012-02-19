@@ -1,7 +1,11 @@
-<li>
+<tr>
+  <td>
   <%= subject.description %>
+  </td>
+  <td>
   <%# if current_user.admin? %>
-  | <%= link_to "delete", subject,  :method => :delete, :confirm => "You sure?", 
-                                         :title => "Delete #{subject.description}" %>
+  <%= link_to "delete", subject, :method => :delete, :confirm => "You sure?", 
+                                 :title => "Delete #{subject.description}" %>
   <%# end %>
-</li>
+</td>
+</tr>

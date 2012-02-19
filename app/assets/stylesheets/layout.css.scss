@@ -158,8 +158,8 @@ nav {
 /* Sidebar */
 
 div.main {
-  width: 70%;
-  min-height: 500px;
+  width: 60%;
+  min-height: 400px;
 }
 
 div.sidebar {
@@ -178,16 +178,6 @@ div.sidebar {
 
 div.field, div.actions {
   margin-bottom: 10px;
-}
-
-/* Tidy list for managing jurisdictions, courts etc */
-
-ul.tidylist {
-  margin-top: 1em;
-
-  li {
-    list-style: none;
-  }
 }
 
 

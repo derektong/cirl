@@ -1,14 +1,14 @@
 <%= provide(:title, "Add new case") %>
-<h3>Add new case</h3>
 <%= render 'shared/sidebar' %>
 <div class="main">
 
-<%= form_for(@case) do |f| %>
+  <%= form_for(@case, :html => { :class => "well" }) do |f| %>
   <% @object = @case %>
   <%= render :partial => "shared/error_messages", :object => @object %>
-  <div class="field">
+  <div>
+    <h3>Add new case</h3><br />
     <%= f.label :claimant, "Name of claimant: " %>
-    <%= f.text_field :claimant %><br />
+    <%= f.text_field :claimant %>
     <%= f.label :respondent, "Name of respondent: " %>
     <%= f.text_field :respondent %><br />
     <%= f.label :decision_date, "Date of decision: " -%>
@@ -27,25 +27,20 @@
                           { :prompt => "(Select a court)" }, 
                           { :disabled => true }) %><br />
 
-    <%= f.label :subject_ids, "Legal Subjects :" %><br />
-    <% for subject in Subject.find(:all) %>
-      <%= check_box_tag "case[subject_ids][]", subject.id, 
-          @case.subjects.include?(subject) %>
-      <%= subject.description %>
-    <% end %><br />
+    <%= f.label :subject_ids, "Legal Subjects :" %>
+    <%= render 'subjects' %>
 
-    <%= f.label :issue_ids, "Legal Issues :" %><br />
-    <% for issue in Issue.find(:all) %>
-      <%= check_box_tag "case[issue_ids][]", issue.id, 
-          @case.issues.include?(issue) %>
-      <%= issue.description %>
-    <% end %><br />
+    <%= f.label :issue_ids, "Legal Issues :" %>
+    <%= render 'issues' %>
 
   </div>
+  <br /><br />
+
   <div class="actions">
-    <%= f.submit "Add" %>
+    <%= f.submit "Add", { :class => "btn" } %>
   </div>
-<% end %>
+  <% end %>
+
 </div>
 
 

@@ -1,0 +1,17 @@
+<fieldset class="checkboxes">
+  <table class="checkboxes">
+    <tr class="checkboxes">
+      <% @i = 1 %>
+      <% for subject in Subject.find(:all, :order => 'description' ) %>
+        <td>
+        <label class="checkbox inline aligned">
+          <%= check_box_tag "case[subject_ids][]", subject.id, false %>
+          <%= subject.description %>
+        </td>
+        <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
+        <% @i += 1 %>
+        </label>
+      <% end %>
+    </tr>
+  </table>
+</fieldset>

@@ -12,15 +12,10 @@ class SubjectsController < ApplicationController
     @subjects = Subject.all.sort_by {|a| a[:description].downcase}
     @subject = Subject.new(params[:subject])
 
-    respond_to do |format|
-      if @subject.save  
-        format.html { redirect_to(subjects_path 
-                      :notice => 'Legal subject added') }
-        format.js
-      else
-        format.html { render :action => "index" }
-        format.js
-      end
+    if @subject.save  
+      redirect_to(subjects_path) 
+    else
+      render 'index'
     end
   end
 
