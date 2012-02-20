@@ -6,13 +6,11 @@
  <%= render @subjects %>
 </table>
 
-<%= form_for(@subject) do |f| %>
+<%= form_for(@subject, :html => { :class => "well form-inline" } ) do |f| %>
   <% @object = @subject %>
   <%= render :partial => "shared/error_messages", :object => @object %>
-  <%= f.label :description, "Add new legal subject to the database: " %>
+  <%= f.label :description, "Add new legal subject: " %>
   <%= f.text_field :description %>
-  <div class="actions">
-    <%= f.submit "Add" %>
-  </div>
+  <%= f.submit "Add", :class => "btn" %>
 <% end %>
 </div>

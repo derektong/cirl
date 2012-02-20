@@ -1,11 +1,7 @@
 <tr>
   <td>
-  <%= subject.description %>
-  </td>
-  <td>
-  <%# if current_user.admin? %>
-  <%= link_to "delete", subject, :method => :delete, :confirm => "You sure?", 
-                                 :title => "Delete #{subject.description}" %>
-  <%# end %>
+    <%= raw "<p class=\"subject_edit\" id=\"#{subject.id}\">#{subject.description} " %>
+    <span class="tip">(click to edit)</span>
+    </p>
 </td>
 </tr>

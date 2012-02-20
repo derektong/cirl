@@ -1,20 +1,17 @@
-<%= provide( :title, "Manage Issues" ) %>
-<h3>Manage issues</h3>
+<%= provide( :title, 'Manage Issues') %>
+<h3>Manage Legal Issues</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
-<ul class="tidylist">
-  <%= render @issues %>
-</ul>
 
-<%= form_for(@issue) do |f| %>
+<table class="table-striped">
+ <%= render @issues %>
+</table>
+
+<%= form_for(@issue, :html => { :class => "well form-inline" } ) do |f| %>
   <% @object = @issue %>
   <%= render :partial => "shared/error_messages", :object => @object %>
-  <div class="field">
-    <%= f.label :description, "Add new issue: " %>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Add" %>
-  </div>
+  <%= f.label :description, "Add new legal issue: " %>
+  <%= f.text_field :description %>
+  <%= f.submit "Add", :class => "btn" %>
 <% end %>
 </div>

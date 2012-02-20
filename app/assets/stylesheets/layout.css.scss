@@ -59,6 +59,9 @@ header#second {
       border-radius: 5px 5px 0 0;
       -moz-border-radius: 5px 5px 0 0;
       -webkit-border-radius: 5px 5px 0 0;
+      box-shadow: 5px -5px 5px #000;
+      -moz-box-shadow: 5px -5px 5px #000;
+      -webkit-box-shadow: 5px -5px 5px #000;
 
       &:visited {
         color: #000;
@@ -144,9 +147,12 @@ nav {
 /* Round corners */
 
 .almostround {
+  border-radius: 0 5px 5px 5px;
   -moz-border-radius: 0 5px 5px 5px;
   -webkit-border-radius: 0 5px 5px 5px;
-  border-radius: 0 5px 5px 5px;
+  box-shadow: 10px -10px 20px #000;
+  -moz-box-shadow: 10px -10px 20px #000;
+  -webkit-box-shadow: 10px -10px 20px #000;
 }
 
 .round {
@@ -224,6 +230,24 @@ div.field, div.actions {
   }
 }
 
+.tip {
+  color: #888;
+  font-style: italic;
+  padding-left: 5px;
+}
+
+/* Error handling */
+
+span.inplace_error {
+  padding: 0px;
+  color: $error_color;
+  display: none;
+}
+
+div.inplace_buttons {
+  padding-top: 10px;
+  float: right;
+}
 
 
 

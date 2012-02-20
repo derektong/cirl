@@ -1,9 +1,7 @@
-<li>
-  <%= issue.description %>
-  <%# if current_user.admin? %>
-  | <%= link_to "delete", issue, :method => :delete, :confirm => "You sure?", 
-                                 :title => "Delete #{issue.description}" %>
-  <%# end %>
-</li>
-
-
+<tr>
+  <td>
+    <%= raw "<p class=\"issue_edit\" id=\"#{issue.id}\">#{issue.description} " %>
+    <span class="tip">(click to edit)</span>
+    </p>
+</td>
+</tr>
