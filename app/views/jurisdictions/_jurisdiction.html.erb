@@ -1,12 +1,12 @@
 <tr>
   <td>
   <%= jurisdiction.name %>
-  </td>
-  <td>
   <%# if current_user.admin? %>
+  <span class="tip">
   <%= link_to "delete", jurisdiction,
         :method => :delete, :confirm => "You sure?", 
         :title => "Delete #{jurisdiction.name}" %>
+  </span>
   <%# end %>
   </td>
 </tr>

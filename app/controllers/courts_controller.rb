@@ -1,12 +1,12 @@
 class CourtsController < ApplicationController
 
   def index
-    @courts = Court.all
+    @courts = Court.find(:all, :order => :name )
     @court = Court.new
   end
 
   def create
-    @courts = Court.all.sort_by {|a| a[:name].downcase}
+    @courts = Court.find(:all, :order => :name )
     @court = Court.new(params[:court])
     if @court.save
       redirect_to courts_path
@@ -31,5 +31,20 @@ class CourtsController < ApplicationController
   end
 
 
+  def edit
+    @courts = Court.all.sort_by {|a| a[:name].downcase}
+    @edited_court = Court.find(params[:id])
+    @court = Court.new
+    if @edited_court.update_attributes(:name => params[:update_value], 
+                                       :jurisdiction_id => params[:jurisdiction_id] )
+      redirect_to courts_path
+    else
+      render 'index'
+    end
+  end
+
 
 end
+
+
+

@@ -1,11 +1,11 @@
 class IssuesController < ApplicationController
   def index
-    @issues = Issue.all.sort_by {|a| a[:description].downcase}
+    @issues = Issue.find(:all, :order => :description )
     @issue = Issue.new
   end
 
   def create
-    @issues = Issue.all.sort_by {|a| a[:description].downcase}
+    @issues = Issue.find(:all, :order => :description )
     @issue = Issue.new(params[:issue])
     if @issue.save
       redirect_to issues_path

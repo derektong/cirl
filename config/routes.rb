@@ -1,7 +1,10 @@
 Cirl::Application.routes.draw do
   
   match '/issues/edit' => 'issues#edit'
+  match '/courts/edit' => 'courts#edit'
+  match '/subjects/edit' => 'subjects#edit'
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
+  match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
   match '/signup', :to => 'users#new'
   match '/contact', :to => 'static_pages#contact'
   match '/about', :to => 'static_pages#about'

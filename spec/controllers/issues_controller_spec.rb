@@ -15,13 +15,6 @@ describe IssuesController do
     end
   end
 
-  describe "GET 'edit'" do
-    it "should be successful" do
-      get 'edit'
-      response.should be_success
-    end
-  end
-
   describe "POST 'create'" do
 
     describe "failure" do

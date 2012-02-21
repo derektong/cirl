@@ -1,12 +1,12 @@
 <%= provide(:title, "Manage Courts") %>
-<h3>Manage Courts</h3>
+<h3>Manage Courts</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
-<ul class="tidylist">
+<table class="table-striped">
   <%= render @courts %>
-</ul>
+</table>
 
-<%= form_for(@court) do |f| %>
+<%= form_for(@court, :html => { :class => "well"} ) do |f| %>
   <% @object = @court %>
   <%= render :partial => "shared/error_messages", :object => @object %>
   <h3>Add new court</h3>

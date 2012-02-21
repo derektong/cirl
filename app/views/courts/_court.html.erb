@@ -1,9 +1,10 @@
-<li>
-  <%= court.name %>
-  (<%= Jurisdiction.find_by_id(court.jurisdiction_id).name %>)
-  <%# if current_user.admin? %>
-  | <%= link_to "delete", court,
-        :method => :delete, :confirm => "You sure?", 
-        :title => "Delete #{court.name}" %>
-  <%# end %>
-</li>
+<tr>
+  <td>
+    <% jurisdiction = Jurisdiction.find_by_id(court.jurisdiction_id) %>
+    <%= raw "<span class=\"court_edit\" id=\"#{court.id} #{jurisdiction.id}\">#{court.name}" %></span>
+    <span class="tip">(click to edit)</span>
+  </td>
+</tr>
+
+
+

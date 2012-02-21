@@ -21,5 +21,16 @@ class JurisdictionsController < ApplicationController
     redirect_to jurisdictions_path
   end
 
+  def get_jurisdictions
+    @jurisdictions = Jurisdiction.find(:all, :order => :name)
+    respond_to do |format|
+      format.json {render :json => @jurisdictions }
+    end
+  end
+
 
 end
+
+
+
+

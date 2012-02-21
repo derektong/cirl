@@ -29,7 +29,7 @@ describe Issue do
   end
 
   it "should reject non word characters" do
-    nonword_issue = Issue.new(@attr.merge(:description => "<br>")
+    nonword_issue = Issue.new(@attr.merge(:description => "<br>"))
     nonword_issue.should_not be_valid
   end
 

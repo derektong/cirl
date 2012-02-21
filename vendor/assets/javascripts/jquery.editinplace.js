@@ -46,7 +46,7 @@ $.fn.editInPlace = function(options) {
 $.fn.editInPlace.defaults = {
     regex:              "", // regular expression that text must match
     url:				"", // string: POST URL to send edited content
-    bg_over:			"#ffc", // string: background color of hover of unactivated editor
+    bg_over:			"#fff", // string: background color of hover of unactivated editor
     bg_out:				"transparent", // string: background color on restore from hover
     hover_class:		"",  // string: class added to root element during hover. Will override bg_over and bg_out
     show_buttons:		false, // boolean: will show the buttons: cancel or save; will automatically cancel out the onBlur functionality
@@ -59,8 +59,9 @@ $.fn.editInPlace.defaults = {
     use_html:			false, // boolean, set to true if the editor should use jQuery.fn.html() to extract the value to show from the dom node
     textarea_rows:		10, // integer: set rows attribute of textarea, if field_type is set to textarea. Use CSS if possible though
     textarea_cols:		25, // integer: set cols attribute of textarea, if field_type is set to textarea. Use CSS if possible though
-    select_text:		"Choose new value", // string: default text to show up in select box
-    select_options:		"", // string or array: Used if field_type is set to 'select'. Can be comma delimited list of options 'textandValue,text:value', Array of options ['textAndValue', 'text:value'] or array of arrays ['textAndValue', ['text', 'value']]. The last form is especially usefull if your labels or values contain colons)
+    select_id:          "",
+    select_value:		"", // string or array: Used if field_type is set to 'select'. Can be comma delimited list of options 'textandValue,text:value', Array of options ['textAndValue', 'text:value'] or array of arrays ['textAndValue', ['text', 'value']]. The last form is especially usefull if your labels or values contain colons)
+    select_value:		"", // string or array: Used if field_type is set to 'select'. Can be comma delimited list of options 'textandValue,text:value', Array of options ['textAndValue', 'text:value'] or array of arrays ['textAndValue', ['text', 'value']]. The last form is especially usefull if your labels or values contain colons)
     text_size:			null, // integer: set cols attribute of text input, if field_type is set to text. Use CSS if possible though
     
     // Specifying callback_skip_dom_reset will disable all saving_* options
@@ -222,11 +223,7 @@ $.extend(InlineEditor.prototype, {
         if (this.settings.use_html)
             this.originalValue = this.dom.html();
         else
-        {
-            var i = this.dom.text().indexOf("(click to edit)");
-            var tmp = trim(this.dom.text().substr(0, i));
-            this.originalValue = tmp;
-        }
+            this.originalValue = trim(this.dom.text());
     },
     
     restoreOriginalValue: function() {
@@ -234,8 +231,8 @@ $.extend(InlineEditor.prototype, {
     },
     
     setClosedEditorContent: function(aValue) {
-        var tip_html = '<span class="tip">(click to edit)</span>';
-        this.dom.html("<p>" + aValue + tip_html + "</p>");
+        this.dom.html(aValue);
+        this.dom.parent().find(".tip").css( 'display', 'inline' );
     },
     
     workAroundMissingBlurBug: function() {
@@ -258,25 +255,62 @@ $.extend(InlineEditor.prototype, {
         this.dom.html('<form class="inplace_form" style="display: inline; margin: 0; padding: 0;"></form>')
             .find('form')
                 .append(editorElement)
-                .append(buttons_html)
                 .append(errorSpan);
+        this.dom.parent().find(".tip").css( 'display', 'none' );
+
+        if( this.settings.field_type == "jurisdiction" ) {
+          var element_id = this.dom.attr("id").split(" ");
+          var issue_id = element_id[0];
+          var jurisdiction_id = element_id[1];
+          var form = this.dom.find("form");
+          form.append( '<br /><select name="inplace_value" class="inplace_select"><option disabled="true" value="">' + this.settings.select_text + '</option></select>' );
+          var editor = form.find(".inplace_select");
+
+          $.ajax({
+             dataType: "json",
+             cache: false,
+             url: '/jurisdictions/get_jurisdictions/' + jurisdiction_id,
+             timeout: 2000,
+             error: function(XMLHttpRequest, errorTextStatus, error){
+                 alert("Failed to submit : "+ errorTextStatus+" ;"+error);
+             },
+             success: function(data){
+
+              var row = null;
+              var selected = "";
+              $.each(data, function(i, j){
+                if( j.id == jurisdiction_id )
+                  selected = " selected";
+                row = "<option value=\"" + j.id + "\"" + selected + ">" + j.name + "</option>";
+                editor.append(row);
+                selected = "";
+              });
+              
+              return editor;
+             }
+          });
+        }
+        
+        this.dom.find("form").append(buttons_html);
     },
     
     createEditorElement: function() {
-        if (-1 === $.inArray(this.settings.field_type, ['text', 'textarea', 'select']))
+        if (-1 === $.inArray(this.settings.field_type, ['text', 'textarea', 'select', 'jurisdiction']))
             throw "Unknown field_type <fnord>, supported are 'text', 'textarea' and 'select'";
         
         var editor = null;
-        if ("select" === this.settings.field_type)
-            editor = this.createSelectEditor();
-        else if ("text" === this.settings.field_type)
-            editor = $('<input type="text" ' + this.inputNameAndClass() 
-                + ' size="' + this.settings.text_size  + '" />');
+        var textEditor = '<input type="text" ' + this.inputNameAndClass() 
+                + ' size="' + this.settings.text_size  + '" />';
+        if ("text" === this.settings.field_type)
+            editor = textEditor;
+        else if ("jurisdiction" === this.settings.field_type) {
+            editor = textEditor;
+        }
         else if ("textarea" === this.settings.field_type)
             editor = $('<textarea ' + this.inputNameAndClass() 
                 + ' rows="' + this.settings.textarea_rows + '" '
                 + ' cols="' + this.settings.textarea_cols + '" />');
-        
+
         return editor;
     },
     
@@ -284,11 +318,6 @@ $.extend(InlineEditor.prototype, {
         var initialValue = this.triggerDelegateCall('willOpenEditInPlace', this.originalValue);
         var editor = this.dom.find(':input');
         editor.val(initialValue);
-        
-        // Workaround for select fields which don't contain the original value.
-        // Somehow the browsers don't like to select the instructional choice (disabled) in that case
-        //if (editor.val() !== initialValue)
-        //	editor.val(''); // selects instructional choice
     },
     
     inputNameAndClass: function() {
@@ -296,27 +325,8 @@ $.extend(InlineEditor.prototype, {
     },
     
     createSelectEditor: function() {
-        var editor = $('<select' + this.inputNameAndClass() + '>'
-            +	'<option disabled="true" value="">' + this.settings.select_text + '</option>'
-            + '</select>');
-        
-        var optionsArray = this.settings.select_options;
-        if ( ! $.isArray(optionsArray))
-            optionsArray = optionsArray.split(',');
-        
-        for (var i=0; i<optionsArray.length; i++) {
-            var currentTextAndValue = optionsArray[i];
-            if ( ! $.isArray(currentTextAndValue))
-                currentTextAndValue = currentTextAndValue.split(':');
-            
-            var value = trim(currentTextAndValue[1] || currentTextAndValue[0]);
-            var text = trim(currentTextAndValue[0]);
-            
-            var option = $('<option>').val(value).text(text);
-            editor.append(option);
-        }
-        
-        return editor;
+
+
     },
     
     connectClosingEventsToEditor: function() {
@@ -406,7 +416,11 @@ $.extend(InlineEditor.prototype, {
         enteredText = this.triggerDelegateCall('willCloseEditInPlace', enteredText);
 
         
-        if ( confirm("Are you sure you want to delete this Post?") ) {
+        if ( confirm("Are you sure you want to delete this entry?") ) {
+          var id = this.dom.attr("id");
+          if( this.settings.field_type == "jurisdiction" ) {
+            id = id.split(" ")[0];
+          }
           var url = this.settings.url.replace('/edit', '/' + this.dom.attr("id"));
           $.ajax({
             url: url.replace('/edit', ''),
@@ -424,13 +438,21 @@ $.extend(InlineEditor.prototype, {
             return;
         
         var enteredText = this.dom.find(':input').val();
+        var selectOption = "";
+        if( this.settings.field_type == "jurisdiction" )
+        {
+          selectOption = this.dom.find('.inplace_select').val();
+        }
+
+
         enteredText = this.triggerDelegateCall('willCloseEditInPlace', enteredText);
         
+        /* won't work for select box change but not text
         if (this.isDisabledDefaultSelectChoice()
             || this.isUnchangedInput(enteredText)) {
             this.handleCancelEditor(anEvent);
             return;
-        }
+        }*/
         
         if (this.didForgetRequiredText(enteredText)) {
             this.showErrorMessage("cannot be blank");
@@ -448,7 +470,7 @@ $.extend(InlineEditor.prototype, {
         if (this.settings.callback)
             this.handleSubmitToCallback(enteredText);
         else
-            this.handleSubmitToServer(enteredText);
+            this.handleSubmitToServer(enteredText, selectOption);
     },
 
     showErrorMessage: function(message) {
@@ -510,10 +532,13 @@ $.extend(InlineEditor.prototype, {
         }
     },
     
-    handleSubmitToServer: function(enteredText) {
+    handleSubmitToServer: function(enteredText, selectOption) {
+        var element_id = this.dom.attr("id").split(" ");
+        var issue_id = element_id[0];
         var data = this.settings.update_value + '=' + encodeURIComponent(enteredText) 
-            + '&' + this.settings.id + '=' + this.dom.attr("id") 
+            + '&' + this.settings.id + '=' + issue_id 
             + ((this.settings.params) ? '&' + this.settings.params : '')
+            + '&' + this.settings.select_id + '=' + selectOption
             + '&' + this.settings.original_html + '=' + encodeURIComponent(this.originalValue) /* DEPRECATED in 2.2.0 */
             + '&' + this.settings.original_value + '=' + encodeURIComponent(this.originalValue);
         
@@ -521,8 +546,8 @@ $.extend(InlineEditor.prototype, {
         this.didStartSaving();
         var that = this;
         var newText = enteredText;
-        var tip_html = '<span class="tip">(click to edit)</span>';
-        this.dom.html("<p>" + newText + tip_html + "</p>");
+        this.dom.html(newText);
+        this.dom.parent().find(".tip").css( 'display', 'inline' );
         $.ajax({
             url: that.settings.url,
             type: "POST",
