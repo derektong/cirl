@@ -3,38 +3,10 @@
 <div class="main">
 
   <%= form_for(@case, :html => { :class => "well" }) do |f| %>
-  <% @object = @case %>
-  <%= render :partial => "shared/error_messages", :object => @object %>
-  <div>
+  <%= render "shared/error_messages", :object => f.object %>
     <h3>Add new case</h3><br />
-    <%= f.label :claimant, "Name of claimant: " %>
-    <%= f.text_field :claimant %>
-    <%= f.label :respondent, "Name of respondent: " %>
-    <%= f.text_field :respondent %><br />
-    <%= f.label :decision_date, "Date of decision: " -%>
-    <%= f.select :day, 1..31, :prompt => "day" -%>
-    <%= f.select :month, 1..12, :prompt => "month" -%>
-    <%= f.select :year, 1900..Time.now.year, :prompt => "year" %><br />
-    <%= f.label :country_origin, "Claimant's country of origin: " %>
-    <%= f.select :country_origin, get_countries,
-                 :prompt => "(Select a country)" %><br />
-    <%= f.label :jurisdiction_id, "Jurisdiction: " %>
-    <%= collection_select(:case, :jurisdiction_id, Jurisdiction.all, 
-                          :id, :name, 
-                          :prompt => "(Select a jurisdiction)") %><br />
-    <%= f.label :court_id, "Court: " %>
-    <%= collection_select(:case, :court_id, Court.all, :id, :name,
-                          { :prompt => "(Select a court)" }, 
-                          { :disabled => true }) %><br />
-
-    <%= f.label :subject_ids, "Legal Subjects :" %>
-    <%= render 'subjects' %>
-
-    <%= f.label :issue_ids, "Legal Issues :" %>
-    <%= render 'issues' %>
-
-  </div>
-  <br /><br />
+    <%= render 'fields', :f => f %>
+  <br />
 
   <div class="actions">
     <%= f.submit "Add", { :class => "btn" } %>

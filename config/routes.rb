@@ -1,5 +1,6 @@
 Cirl::Application.routes.draw do
   
+  match '/cases/:id/delete' => 'cases#delete'
   match '/issues/edit' => 'issues#edit'
   match '/courts/edit' => 'courts#edit'
   match '/subjects/edit' => 'subjects#edit'
@@ -14,7 +15,12 @@ Cirl::Application.routes.draw do
   resources :subjects
   resources :courts
   resources :issues
-  resources :cases
+  resources :cases do
+    member do
+      get 'download'
+    end
+  end
+
 
 
   #match 'court/list' => 'court#list'

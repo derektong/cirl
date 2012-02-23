@@ -1,11 +1,12 @@
 <%= provide(:title, "List of all cases") %>
-<h3>List of all cases</h3>
+<h3>List of all cases</h3><br />
 <%= render 'shared/sidebar' %>
 
 <div class="main">
-  <ul class="tidylist">
+  <table class="table">
+    <%# cannot have partial called 'case' to avoid confusion with case statements %>
     <% @cases.each do |@case| %>
       <%= render :partial => "cirl_case_summary", :case => @case %>
     <% end %>
-  </ul>
+  </table>
 </div>

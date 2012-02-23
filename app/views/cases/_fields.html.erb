@@ -1,0 +1,31 @@
+<%= f.label :claimant, "Name of claimant: " %>
+<%= f.text_field :claimant %>
+<%= f.label :respondent, "Name of respondent: " %>
+<%= f.text_field :respondent %><br />
+
+<%= f.label :decision_date, "Date of decision: " -%>
+<%= f.select :day, 1..31, :prompt => "day" %>
+<%= f.select :month, 1..12, :prompt => "month" -%>
+<%= f.select :year, 1900..Time.now.year, :prompt => "year" -%>
+
+<%= f.label :country_origin, "Claimant's country of origin: " %>
+<%= f.select :country_origin, get_countries,
+             :prompt => "(Select a country)" %><br />
+
+<%= f.label :jurisdiction_id, "Jurisdiction: " %>
+<%= collection_select(:case, :jurisdiction_id, Jurisdiction.all, 
+                      :id, :name, 
+                      :prompt => "(Select a jurisdiction)" ) %><br />
+
+<%= f.label :court_id, "Court: " %>
+<%= collection_select(:case, :court_id, 
+                      Court.find_all_by_jurisdiction_id(f.object.jurisdiction_id), 
+                      :id, :name,
+                      { :prompt => "(Select a court)" }, 
+                      { :disabled => f.object.id.nil? }) %><br />
+
+<%= f.label :subject_ids, "Legal Subjects :" %>
+<%= render 'subjects', :subjects => f.object.subjects %>
+
+<%= f.label :issue_ids, "Legal Issues :" %>
+<%= render 'issues', :issues => f.object.issues %>

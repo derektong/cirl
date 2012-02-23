@@ -7,8 +7,7 @@
 </table>
 
 <%= form_for(@subject, :html => { :class => "well form-inline" } ) do |f| %>
-  <% @object = @subject %>
-  <%= render :partial => "shared/error_messages", :object => @object %>
+  <%= render "shared/error_messages", :object => f.object %>
   <%= f.label :description, "Add new legal subject: " %>
   <%= f.text_field :description %>
   <%= f.submit "Add", :class => "btn" %>

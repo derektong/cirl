@@ -22,8 +22,6 @@ class CourtsController < ApplicationController
   end
 
   def for_jurisdiction_id
-    #@courts = Court.find(:all, :conditions => [" jurisdiction_id = ?", 
-     #                    params[:id]] ).sort_by {|a| a[:name].downcase }
     @courts = Court.find_all_by_jurisdiction_id( params[:id] ) 
     respond_to do |format|
       format.json {render :json => @courts }

@@ -10,7 +10,15 @@ class CasesController < ApplicationController
   end
 
   def show
-    @case = Case.find(params[:id])
+    redirect_to cases_path
+  end
+  
+  def edit
+      @case = Case.find(params[:id])
+      @case.day = @case.decision_date.day
+      @case.month = @case.decision_date.month
+      @case.year = @case.decision_date.year
+      @case.jurisdiction_id = Court.find(@case.court_id).jurisdiction_id
   end
 
   def create
@@ -30,7 +38,19 @@ class CasesController < ApplicationController
   end
 
   def update
-    params[:case][:subject_ids] || []
+    if params[:commit].eql?('Cancel')
+      redirect_to cases_path
+    else
+      @case = Case.find(params[:id])
+      params[:case][:subject_ids] ||= []
+      params[:case][:issue_ids] ||= []
+      if @case.update_attributes(params[:case])
+        flash[:notice] = 'Case updated.'
+        redirect_to cases_path
+      else
+        render 'edit'
+      end
+    end
   end
 
 

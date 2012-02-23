@@ -538,9 +538,7 @@ $.extend(InlineEditor.prototype, {
         var data = this.settings.update_value + '=' + encodeURIComponent(enteredText) 
             + '&' + this.settings.id + '=' + issue_id 
             + ((this.settings.params) ? '&' + this.settings.params : '')
-            + '&' + this.settings.select_id + '=' + selectOption
-            + '&' + this.settings.original_html + '=' + encodeURIComponent(this.originalValue) /* DEPRECATED in 2.2.0 */
-            + '&' + this.settings.original_value + '=' + encodeURIComponent(this.originalValue);
+            + '&' + this.settings.select_id + '=' + selectOption;
         
         this.enableOrDisableAnimationCallbacks(true, false);
         this.didStartSaving();

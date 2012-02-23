@@ -2,13 +2,17 @@
 <h3>Manage Jurisdictions</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
+
+<% if @del_jurisdiction != nil then %>
+  <%= render "shared/error_messages", :object => @del_jurisdiction %>
+<% end %>
+
 <table>
   <%= render @jurisdictions %>
 </table>
 
 <%= form_for(@jurisdiction, :html => { :class => "well form-inline" } ) do |f| %>
-  <% @object = @jurisdiction %>
-  <%= render :partial => "shared/error_messages", :object => @object %>
+  <%= render "shared/error_messages", :object => f.object %>
     <%= f.label :name, "Add new jurisdiction: " %>
     <%= f.select :name, get_countries, :prompt => "(Select a jurisdiction)" %>
     <%= f.submit "Add jurisdiction" %>

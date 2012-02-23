@@ -5,7 +5,7 @@
       <% for subject in Subject.find(:all, :order => 'description' ) %>
         <td>
         <label class="checkbox inline aligned">
-          <%= check_box_tag "case[subject_ids][]", subject.id, false %>
+          <%= check_box_tag "case[subject_ids][]", subject.id, subjects.include?(subject) %>
           <%= subject.description %>
         </td>
         <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>

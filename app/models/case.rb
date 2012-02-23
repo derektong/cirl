@@ -21,15 +21,14 @@ class Case < ActiveRecord::Base
 
   validates :jurisdiction_id, :presence => true
 
+  belongs_to :court
   validates :court_id, :presence => true
 
+  has_and_belongs_to_many :subjects
   validates :subject_ids, :presence => true
 
-  validates :issue_ids, :presence => true
-
-  belongs_to :court
-  has_and_belongs_to_many :subjects
   has_and_belongs_to_many :issues
+  validates :issue_ids, :presence => true
 
   private
 
@@ -45,8 +44,12 @@ class Case < ActiveRecord::Base
   end
 
   def validate_decision_date
-    errors.add("#{self.day}/#{self.month}/#{self.year}", 
-               "is an invalid decision date.") unless convert_date
+    if self.year.blank? || self.month.blank? || self.day.blank? 
+      errors.add(:decision_date, "has not been completed fully")
+    else
+    errors.add(:decision_date, "#{self.day}/#{self.month}/#{self.year} is not a valid date.") unless convert_date
+    end
+    return errors.blank?
   end
 
 

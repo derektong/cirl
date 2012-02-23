@@ -2,6 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+span.case_claimant {
+  font-style: italic;
+  font-weight: bold;
+}
+
+span.case_court {
+  font-weight: bold;
+  float: right;
+}
+
+span.case_decision_date {
+  font-weight: bold;
+  float: right;
+}
+
+span.case_other_attribute {
+  font-weight: bold;
+}
+
 input#case_claimant {
   width: 95%;
 }

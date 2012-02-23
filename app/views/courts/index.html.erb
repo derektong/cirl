@@ -7,8 +7,7 @@
 </table>
 
 <%= form_for(@court, :html => { :class => "well"} ) do |f| %>
-  <% @object = @court %>
-  <%= render :partial => "shared/error_messages", :object => @object %>
+  <%= render "shared/error_messages", :object => f.object %>
   <h3>Add new court</h3>
   <div class="field">
     <%= f.label :name, "Name: " %>

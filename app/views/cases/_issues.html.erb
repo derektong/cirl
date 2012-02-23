@@ -5,7 +5,7 @@
       <% for issue in Issue.find(:all, :order => 'description' ) %>
         <td>
         <label class="checkbox inline aligned">
-          <%= check_box_tag "case[issue_ids][]", issue.id, false %>
+          <%= check_box_tag "case[issue_ids][]", issue.id, issues.include?(issue) %>
           <%= issue.description %>
         </td>
         <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
