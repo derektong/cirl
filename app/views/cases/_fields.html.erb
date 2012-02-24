@@ -29,3 +29,8 @@
 
 <%= f.label :issue_ids, "Legal Issues :" %>
 <%= render 'issues', :issues => f.object.issues %>
+
+<%= f.label :pdf %>
+<%= f.file_field :pdf %>
+
+

@@ -1,6 +1,6 @@
 $(document).ready ->
     $(".court_edit").editInPlace
-        url:            '/courts/edit'
+        url:            '/courts/'
         regex:          '^[\\w\\-\\s]+$'
         show_buttons:   true
         field_type:     'jurisdiction'

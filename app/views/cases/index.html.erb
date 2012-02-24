@@ -1,12 +1,21 @@
-<%= provide(:title, "List of all cases") %>
-<h3>List of all cases</h3><br />
+<%= provide :title, "Search cases" %>
+<h3>Search cases</h3><br />
 <%= render 'shared/sidebar' %>
 
 <div class="main">
+<%= form_tag cases_path, :method => :get, :class => "well form-inline" do %>
+  <b>Full text search</b><br />
+  <%= text_field_tag :search, params[:search], :class => "search" %>
+  &nbsp;
+  <%= submit_tag "Search", :name => nil, :class => "search_button" %>
+<% end %>
+
+<% if @cases != nil then %>
   <table class="table">
     <%# cannot have partial called 'case' to avoid confusion with case statements %>
     <% @cases.each do |@case| %>
       <%= render :partial => "cirl_case_summary", :case => @case %>
     <% end %>
   </table>
+<% end %>
 </div>

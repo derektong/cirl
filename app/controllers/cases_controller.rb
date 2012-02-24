@@ -6,7 +6,9 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.all 
+    if( params[:search] != nil && params[:search].strip != "" )
+      @cases = Case.search params[:search]
+     end
   end
 
   def show
@@ -24,8 +26,9 @@ class CasesController < ApplicationController
   def create
     @cases = Case.all.sort_by {|a| a[:claimant].downcase}
     @case = Case.new(params[:case])
+
     if @case.save
-      redirect_to @case
+      redirect_to cases_path
     else
       render 'new'
     end

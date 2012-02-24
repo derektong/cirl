@@ -17,13 +17,14 @@ class IssuesController < ApplicationController
   def destroy
     Issue.find(params[:id]).destroy
     flash[:success] = "Legal issue removed."
+    redirect_to issues_path
     respond_to do |format|
       format.html { redirect_to issues_path }
       format.js { render :js => "window.location = '" + issues_path + "'" }
     end
   end
 
-  def edit
+  def update
     @issues = Issue.all.sort_by {|a| a[:description].downcase}
     @edited_issue = Issue.find(params[:id])
     @issue = Issue.new

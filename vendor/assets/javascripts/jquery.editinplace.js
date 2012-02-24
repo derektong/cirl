@@ -21,6 +21,8 @@ learn to use a search engine.
 
 */
 
+/* modified 23.02.12 for cirl project */
+
 (function($){
 
 $.fn.editInPlace = function(options) {
@@ -56,7 +58,6 @@ $.fn.editInPlace.defaults = {
     params:				"", // string: example: first_name=dave&last_name=hauenstein extra paramters sent via the post request to the server
     field_type:			"text", // string: "text", "textarea", or "select";  The type of form field that will appear on instantiation
     default_text:		"(Click here to add text)", // string: text to show up if the element that has this functionality is empty
-    use_html:			false, // boolean, set to true if the editor should use jQuery.fn.html() to extract the value to show from the dom node
     textarea_rows:		10, // integer: set rows attribute of textarea, if field_type is set to textarea. Use CSS if possible though
     textarea_cols:		25, // integer: set cols attribute of textarea, if field_type is set to textarea. Use CSS if possible though
     select_id:          "",
@@ -72,8 +73,6 @@ $.fn.editInPlace.defaults = {
     value_required:		true, // boolean: if set to true, the element will not be saved unless a value is entered
     id:			"id", // string: name of parameter holding the id or the editable
     update_value:		"update_value", // string: name of parameter holding the updated/edited value
-    original_value:		'original_value', // string: name of parameter holding the updated/edited value
-    original_html:		"original_html", // string: name of parameter holding original_html value of the editable /* DEPRECATED in 2.2.0 */ use original_value instead.
     save_if_nothing_changed:	false,  // boolean: submit to function or server even if the user did not change anything
     on_blur:			"save", // string: "save" or null; what to do on blur; will be overridden if show_buttons is true
     cancel:				"", // string: if not empty, a jquery selector for elements that will not cause the editor to open even though they are clicked. E.g. if you have extra buttons inside editable fields
@@ -220,10 +219,7 @@ $.extend(InlineEditor.prototype, {
     },
     
     saveOriginalValue: function() {
-        if (this.settings.use_html)
-            this.originalValue = this.dom.html();
-        else
-            this.originalValue = trim(this.dom.text());
+        this.originalValue = trim(this.dom.text());
     },
     
     restoreOriginalValue: function() {
@@ -263,7 +259,7 @@ $.extend(InlineEditor.prototype, {
           var issue_id = element_id[0];
           var jurisdiction_id = element_id[1];
           var form = this.dom.find("form");
-          form.append( '<br /><select name="inplace_value" class="inplace_select"><option disabled="true" value="">' + this.settings.select_text + '</option></select>' );
+          form.append( '<br /><select name="inplace_value" class="inplace_select"></select>' );
           var editor = form.find(".inplace_select");
 
           $.ajax({
@@ -376,7 +372,7 @@ $.extend(InlineEditor.prototype, {
         if ($.browser.safari)
             this.bindSubmitOnEnterInInput();
         
-        form.submit(saveEditorAction);
+        //form.submit(saveEditorAction);
     },
     
     bindSubmitOnEnterInInput: function() {
@@ -418,15 +414,17 @@ $.extend(InlineEditor.prototype, {
         
         if ( confirm("Are you sure you want to delete this entry?") ) {
           var id = this.dom.attr("id");
-          if( this.settings.field_type == "jurisdiction" ) {
+          if( this.settings.field_type == "jurisdiction" ) 
             id = id.split(" ")[0];
-          }
-          var url = this.settings.url.replace('/edit', '/' + this.dom.attr("id"));
           $.ajax({
-            url: url.replace('/edit', ''),
+            url: url + id,
             type: 'post',
             dataType: 'script',
             data: { '_method': 'delete' },
+            //success: function(data){
+             // alert("test");
+             // window.location.href = window.location.href;
+           // }
           });
         }
 
@@ -535,6 +533,7 @@ $.extend(InlineEditor.prototype, {
     handleSubmitToServer: function(enteredText, selectOption) {
         var element_id = this.dom.attr("id").split(" ");
         var issue_id = element_id[0];
+        var jurisdiction_id = element_id[1];
         var data = this.settings.update_value + '=' + encodeURIComponent(enteredText) 
             + '&' + this.settings.id + '=' + issue_id 
             + ((this.settings.params) ? '&' + this.settings.params : '')
@@ -547,22 +546,21 @@ $.extend(InlineEditor.prototype, {
         this.dom.html(newText);
         this.dom.parent().find(".tip").css( 'display', 'inline' );
         $.ajax({
-            url: that.settings.url,
-            type: "POST",
+            url: that.settings.url + issue_id,
+            type: "PUT",
             data: data,
             dataType: "html",
             complete: function(request){
                 that.didEndSaving();
             },
             success: function(){
-                //var new_text = html || that.settings.default_text;
-                //var tip_html = '<span class="tip">(click to edit)</span>';
-                
-                /* put the newly updated info into the original element */
-                // FIXME: should be affected by the preferences switch
-                //that.dom.html("<p>" + newText + tip_html + "</p>");
 
-                // REFACT: remove dom parameter, already in this, not documented, should be easy to remove
+              if( that.settings.field_type == "jurisdiction" && 
+                  jurisdiction_id != selectOption ) {
+                  that.dom.attr("id", issue_id + " " + selectOption);
+                  // if the jurisdiction has changed, refresh required to move row location
+                  window.location.href = window.location.href;
+              }
                 // REFACT: callback should be able to override what gets put into the DOM
                 //that.triggerCallback(that.settings.success, html);
             },

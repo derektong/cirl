@@ -2,9 +2,20 @@
 <h3>Manage Courts</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
-<table class="table-striped">
-  <%= render @courts %>
-</table>
+
+  <table class="table">
+  <% Jurisdiction.find(:all, :order => :name ).each do |jurisdiction|%>
+    <tr><th><%= jurisdiction.name %></th></tr>
+    <% courts = Court.find_all_by_jurisdiction_id(jurisdiction.id, :order => :name ) %>
+    <% if courts.empty? %>  
+      <tr><td><span class="tip">No courts in this jurisdiction</span></td></tr>
+    <% else %>
+      <% courts.each do |court| %>
+        <%= render court %>
+      <% end %>
+    <% end %>
+  <% end %>
+  </table>
 
 <%= form_for(@court, :html => { :class => "well"} ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>

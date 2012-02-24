@@ -8,6 +8,12 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'json'
 gem 'jquery-rails'
+gem 'remotipart'
+gem 'Ascii85'
+gem 'ruby-rc4'
+gem 'pdf-reader'
+gem 'riddle'
+gem 'thinking-sphinx'
 
 # Gems used only for assets and not required
 # in production environments by default.

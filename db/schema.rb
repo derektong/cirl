@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120216154627) do
+ActiveRecord::Schema.define(:version => 20120223101146) do
 
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20120216154627) do
     t.datetime "updated_at",     :null => false
     t.string   "respondent"
     t.string   "claimant"
+    t.text     "fulltext"
   end
 
   create_table "cases_issues", :id => false, :force => true do |t|

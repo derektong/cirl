@@ -1,8 +1,9 @@
-<%= provide(:title, "Edit a case") %>
+<%= provide :title, "Edit a case" %>
 <%= render 'shared/sidebar' %>
 <div class="main">
 
-  <%= form_for(@case, :html => { :class => "well" }) do |f| %>
+<%= form_for @case, :html => { :class => "well", :multipart => true }, 
+                    :remote => true do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
 
   <h3>Edit a case</h3><br />
@@ -11,8 +12,10 @@
     <%= f.submit "Save changes", { :class => "btn" } %>
     <%= f.submit "Cancel", { :class => "btn" } %>
   </div>
-  <% end %>
+<% end %>
 
 </div>
+
+
 
 

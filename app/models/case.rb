@@ -1,10 +1,10 @@
 class Case < ActiveRecord::Base
 
-  attr_accessor :year, :month, :day, :jurisdiction_id
+  attr_accessor :year, :month, :day, :jurisdiction_id, :pdf
 
   attr_accessible :claimant, :respondent, :decision_date, 
                   :country_origin, :court_id, :year, :month, :day, 
-                  :subject_ids, :issue_ids, :jurisdiction_id
+                  :subject_ids, :issue_ids, :jurisdiction_id, :pdf, :fulltext
 
   validates :claimant,  :presence => true,
                         :length => { :maximum => 100 }
@@ -30,7 +30,37 @@ class Case < ActiveRecord::Base
   has_and_belongs_to_many :issues
   validates :issue_ids, :presence => true
 
+  validate  :validate_pdf
+
+  define_index do
+    indexes [claimant, respondent], :as => :case_name
+    indexes court(:name), :as => :court
+    indexes subjects.description, :as => :subjects
+    indexes issues.description, :as => :issues
+    indexes country_origin
+    indexes fulltext
+  end
+
+
+
   private
+
+  def validate_pdf
+    directory = "public/pdfs"
+    path = File.join(directory, self.id, ".pdf")
+    File.open(path, "wb") do |io|
+      io.write(self.pdf.read) 
+    end
+
+    # need to open file again for reading after writing
+    File.open(path, "rb") do |io|
+      reader = PDF::Reader.new(io)
+      # consider how to handle really large files
+       self.fulltext = reader.page(1).text
+       #logger.info reader.pages.map { |page| page.text }.join(' ') 
+    end
+  end
+
 
   # Validate dates
 
@@ -51,6 +81,7 @@ class Case < ActiveRecord::Base
     end
     return errors.blank?
   end
+
 
 
 end

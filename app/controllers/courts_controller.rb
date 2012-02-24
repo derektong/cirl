@@ -29,18 +29,18 @@ class CourtsController < ApplicationController
   end
 
 
-  def edit
+  def update
     @courts = Court.all.sort_by {|a| a[:name].downcase}
     @edited_court = Court.find(params[:id])
     @court = Court.new
     if @edited_court.update_attributes(:name => params[:update_value], 
                                        :jurisdiction_id => params[:jurisdiction_id] )
-      redirect_to courts_path
+      #redirect_to courts_path
+      render 'index'
     else
       render 'index'
     end
   end
-
 
 end
 

@@ -25,7 +25,7 @@ class SubjectsController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @subjects = Subject.all.sort_by {|a| a[:description].downcase}
     @edited_subject = Subject.find(params[:id])
     @subject = Subject.new

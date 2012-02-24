@@ -1,9 +1,6 @@
 Cirl::Application.routes.draw do
   
-  match '/cases/:id/delete' => 'cases#delete'
-  match '/issues/edit' => 'issues#edit'
-  match '/courts/edit' => 'courts#edit'
-  match '/subjects/edit' => 'subjects#edit'
+  #match '/cases/:id/delete' => 'cases#delete'
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
   match '/signup', :to => 'users#new'
@@ -12,12 +9,17 @@ Cirl::Application.routes.draw do
   match '/help', :to => 'static_pages#help'
 
   resources :jurisdictions
-  resources :subjects
-  resources :courts
-  resources :issues
+
+  resources :subjects 
+
+  resources :courts 
+
+  resources :issues 
+
   resources :cases do
     member do
       get 'download'
+      get 'delete'
     end
   end
 
