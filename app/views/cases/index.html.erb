@@ -8,9 +8,14 @@
   <%= text_field_tag :search, params[:search], :class => "search" %>
   &nbsp;
   <%= submit_tag "Search", :name => nil, :class => "search_button" %>
+  <br /><br />
+  <b>Advanced search</b><br /><br />
+  <i>Courts</i><br />
+  <%= collection_select :court, :id, @courts, :id, :name, {}, :multiple => true %>
 <% end %>
 
 <% if @cases != nil then %>
+  <h3>Search results</h3><br />
   <table class="table">
     <%# cannot have partial called 'case' to avoid confusion with case statements %>
     <% @cases.each do |@case| %>

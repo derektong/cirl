@@ -1,18 +1,17 @@
-<%= provide(:title, "Manage Courts") %>
+<%= provide :title, "Manage Courts" %>
 <h3>Manage Courts</h3><br />
 <%= render 'shared/sidebar' %>
 <div class="main">
 
   <table class="table">
-  <% Jurisdiction.find(:all, :order => :name ).each do |jurisdiction|%>
+  <% @jurisdictions.each do |jurisdiction|%>
     <tr><th><%= jurisdiction.name %></th></tr>
-    <% courts = Court.find_all_by_jurisdiction_id(jurisdiction.id, :order => :name ) %>
-    <% if courts.empty? %>  
+    <% jurisdiction.courts.each do |court| %>
+    <% if court.nil? %>  
       <tr><td><span class="tip">No courts in this jurisdiction</span></td></tr>
     <% else %>
-      <% courts.each do |court| %>
         <%= render court %>
-      <% end %>
+    <% end %>
     <% end %>
   <% end %>
   </table>
@@ -24,7 +23,7 @@
     <%= f.label :name, "Name: " %>
     <%= f.text_field :name %>
     <%= f.label :jurisdiction_id, "Jurisdiction: " %>
-    <%= collection_select(:court, :jurisdiction_id, Jurisdiction.all, :id, :name) %>
+    <%= collection_select(:court, :jurisdiction_id, @jurisdictions, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit "Add" %>

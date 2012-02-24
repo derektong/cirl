@@ -7,8 +7,8 @@
       <%= "#{@case.decision_date.strftime("%d %b %Y")}" %>
     </span>
     <span class="case_court">
-      <%= Court.exists?(@case.court_id) ? Court.find(@case.court_id).name : 
-          "Unknown court" %>
+      <%= @case.court != nil ? @case.court.name : "Unknown court" %>
+        <%#= Court.exists?(@case.court_id) ? Court.find(@case.court_id).name : %>
       &nbsp;|&nbsp; 
     </span>
   </th>

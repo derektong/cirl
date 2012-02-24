@@ -13,22 +13,22 @@
              :prompt => "(Select a country)" %><br />
 
 <%= f.label :jurisdiction_id, "Jurisdiction: " %>
-<%= collection_select(:case, :jurisdiction_id, Jurisdiction.all, 
+<%= collection_select(:case, :jurisdiction_id, @jurisdictions, 
                       :id, :name, 
                       :prompt => "(Select a jurisdiction)" ) %><br />
 
 <%= f.label :court_id, "Court: " %>
 <%= collection_select(:case, :court_id, 
-                      Court.find_all_by_jurisdiction_id(f.object.jurisdiction_id), 
+                      @courts,
                       :id, :name,
                       { :prompt => "(Select a court)" }, 
                       { :disabled => f.object.id.nil? }) %><br />
 
 <%= f.label :subject_ids, "Legal Subjects :" %>
-<%= render 'subjects', :subjects => f.object.subjects %>
+<%= render 'subjects', :object => f.object %>
 
 <%= f.label :issue_ids, "Legal Issues :" %>
-<%= render 'issues', :issues => f.object.issues %>
+<%= render 'issues', :object => f.object %>
 
 <%= f.label :pdf %>
 <%= f.file_field :pdf %>

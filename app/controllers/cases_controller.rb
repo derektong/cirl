@@ -1,14 +1,18 @@
 class CasesController < ApplicationController
 
   def new
-    @cases = Case.all
+    @courts = Court.all
+    @jurisdictions = Jurisdiction.find(:all, :order => :name )
+    @issues = Issue.find(:all, :order => :description )
+    @subjects = Subject.find(:all, :order => :description )
     @case = Case.new
   end
 
   def index
+    @courts = Court.all
     if( params[:search] != nil && params[:search].strip != "" )
-      @cases = Case.search params[:search]
-     end
+      @cases = Case.search params[:search], :include => [:court, :subjects, :issues]
+    end
   end
 
   def show
@@ -16,15 +20,19 @@ class CasesController < ApplicationController
   end
   
   def edit
-      @case = Case.find(params[:id])
-      @case.day = @case.decision_date.day
-      @case.month = @case.decision_date.month
-      @case.year = @case.decision_date.year
-      @case.jurisdiction_id = Court.find(@case.court_id).jurisdiction_id
+    @case = Case.find(params[:id])
+    @case.day = @case.decision_date.day
+    @case.month = @case.decision_date.month
+    @case.year = @case.decision_date.year
+    @case.jurisdiction_id = Court.find(@case.court_id).jurisdiction_id
+    @courts = Court.find_all_by_jurisdiction_id(@case.jurisdiction_id)
+    @jurisdictions = Jurisdiction.find(:all, :order => :name )
+    @issues = Issue.find(:all, :order => :description )
+    @subjects = Subject.find(:all, :order => :description )
   end
 
   def create
-    @cases = Case.all.sort_by {|a| a[:claimant].downcase}
+    @cases = Case.find(:all, :order => :name )
     @case = Case.new(params[:case])
 
     if @case.save
