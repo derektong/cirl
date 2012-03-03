@@ -1,17 +1,24 @@
+<%= javascript_include_tag "cases_index" %>
+<%= javascript_include_tag "cases" %>
 <%= provide :title, "Search cases" %>
 <h3>Search cases</h3><br />
 <%= render 'shared/sidebar' %>
 
 <div class="main">
-<%= form_tag cases_path, :method => :get, :class => "well form-inline" do %>
+<%= form_tag cases_path, :method => :get, :class => "well" do %>
   <b>Full text search</b><br />
   <%= text_field_tag :search, params[:search], :class => "search" %>
   &nbsp;
   <%= submit_tag "Search", :name => nil, :class => "search_button" %>
   <br /><br />
   <b>Advanced search</b><br /><br />
+  <i>Jurisdictions</i><br />
+  <%= select_tag "case_jurisdiction_id", options_from_collection_for_select(@jurisdictions, "id", "name"), :multiple => true %><br /><br />
+
   <i>Courts</i><br />
-  <%= collection_select :court, :id, @courts, :id, :name, {}, :multiple => true %>
+  <%#= select_tag "case_court_id", options_from_collection_for_select(@courts, "id", "name"), :multiple => true %>
+  <%= grouped_collection_select("case_court", :id, @jurisdictions, :courts, 
+                                :name, :id, :name) %><br /><br />
 <% end %>
 
 <% if @cases != nil then %>

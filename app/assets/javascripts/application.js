@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.editinplace.js
-//= require_tree .
+//= require jquery-ui-1.8.18.custom.min.js
+//= require jquery.multiselect.js
+// require_tree .

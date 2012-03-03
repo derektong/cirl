@@ -22,11 +22,12 @@ class CourtsController < ApplicationController
   end
 
   def for_jurisdiction_id
-    @courts = Court.find_all_by_jurisdiction_id( params[:id] ) 
+    @courts = Court.find_all_by_jurisdiction_id( params[:id].split(','), :include => :jurisdiction, :order => 'jurisdictions.name, courts.name' )
     respond_to do |format|
-      format.json {render :json => @courts }
+      format.json {render :json => @courts.to_json(:include => [:jurisdiction]) }
     end
   end
+
 
 
   def update

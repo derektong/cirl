@@ -6,32 +6,37 @@ class Case < ActiveRecord::Base
                   :country_origin, :court_id, :year, :month, :day, 
                   :subject_ids, :issue_ids, :jurisdiction_id, :pdf, :fulltext
 
+  # handle case name
   validates :claimant,  :presence => true,
                         :length => { :maximum => 100 }
-
   validates :respondent,  :presence => true,
                           :length => { :maximum => 100 }
 
+  # handle dates
   validates :year, :presence => true
   validates :month, :presence => true
   validates :day, :presence => true
   validate  :validate_decision_date
 
   validates :country_origin, :presence => true
-
   validates :jurisdiction_id, :presence => true
 
-  belongs_to :court
+  # handle courts
   validates :court_id, :presence => true
+  belongs_to :court
 
-  has_and_belongs_to_many :subjects
+  # handle subjects
   validates :subject_ids, :presence => true
+  has_and_belongs_to_many :subjects
 
-  has_and_belongs_to_many :issues
+  # handle issues
   validates :issue_ids, :presence => true
+  has_and_belongs_to_many :issues
 
+  # handle uploads
   validate  :validate_pdf
 
+  # sphinx index
   define_index do
     indexes [claimant, respondent], :as => :case_name
     indexes court(:name), :as => :court
@@ -41,10 +46,9 @@ class Case < ActiveRecord::Base
     indexes fulltext
   end
 
-
-
   private
 
+  # upload pdf
   def validate_pdf
     directory = "public/pdfs"
     path = File.join(directory, self.id, ".pdf")
@@ -81,7 +85,4 @@ class Case < ActiveRecord::Base
     end
     return errors.blank?
   end
-
-
-
 end

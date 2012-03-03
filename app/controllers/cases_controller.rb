@@ -10,6 +10,7 @@ class CasesController < ApplicationController
 
   def index
     @courts = Court.all
+    @jurisdictions = Jurisdiction.all
     if( params[:search] != nil && params[:search].strip != "" )
       @cases = Case.search params[:search], :include => [:court, :subjects, :issues]
     end

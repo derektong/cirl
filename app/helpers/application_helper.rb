@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def check_tab
-    case_law_pages = [ "subjects", "issues", "jurisdictions" ]
+    case_law_pages = [ "cases", "subjects", "issues", "jurisdictions" ]
     literature = [ "literature" ]
     if case_law_pages.include?(params[:controller])
       return "case_law_db"

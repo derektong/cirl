@@ -5,14 +5,7 @@ class Jurisdiction < ActiveRecord::Base
                     :uniqueness => { :case_sensitive => false }
 
   has_many :courts, :dependent => :restrict
-  before_destroy :check_dependencies
 
   private
-
-  def check_dependencies 
-    begin
-    rescue ArgumentError
-    end
-  end
 
 end
