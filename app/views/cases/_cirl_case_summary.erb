@@ -1,7 +1,7 @@
 <tr>
   <th>
     <span class="case_name">
-      <%= "#{@case.claimant} v #{@case.respondent}" %>
+      <%= "#{@case.claimant} (#{@case.country_origin}) v #{@case.respondent}" %>
     </span>
     <span class="case_decision_date">
       <%= "#{@case.decision_date.strftime("%d %b %Y")}" %>

@@ -44,12 +44,21 @@ class Case < ActiveRecord::Base
     indexes issues.description, :as => :issues
     indexes country_origin
     indexes fulltext
+
+    has court_id
+    has subjects(:id), :as => :subject_ids
+    has issues(:id), :as => :issue_ids
+    has court.jurisdiction(:id), :as => :jurisdiction_id
   end
 
   private
 
   # upload pdf
   def validate_pdf
+
+    #skip pdfing for the moment
+    return
+
     directory = "public/pdfs"
     path = File.join(directory, self.id, ".pdf")
     File.open(path, "wb") do |io|

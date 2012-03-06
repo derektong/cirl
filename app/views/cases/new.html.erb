@@ -4,7 +4,7 @@
 <%= render 'shared/sidebar' %>
 <div class="main">
 
-  <%= form_for @case, :html => { :class => "well", :multipart => true }, :remote => true do |f| %>
+  <%= form_for @case, :html => { :class => "well" } do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
     <h3>Add new case</h3><br />
     <%= render 'fields', :f => f %>

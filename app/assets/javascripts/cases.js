@@ -3,22 +3,52 @@ $(document).ready(function(){
   $("select#case_court_id").multiselect({
     multiple: multipleselect,
     header: headerselect,
-    noneSelectedText: "Select a court",
-    selectedList: 4
+    noneSelectedText: "Select courts",
+    selectedList: 10,
   });
 
+  $("select#case_subject_ids").multiselect({
+    multiple: true,
+    header: true,
+    noneSelectedText: "Select legal subjects",
+    selectedList: 10,
+  });
+
+  $("select#case_issue_ids").multiselect({
+    multiple: true,
+    header: true,
+    noneSelectedText: "Select legal issues",
+    selectedList: 10,
+  });
+
+  $("select#case_country_origin").multiselect({
+    multiple: true,
+    header: true,
+    noneSelectedText: "Select countries of origin",
+    selectedList: 10,
+  });
+
+  // start with all dropdowns unselected
+  $("select#case_court_id").multiselect('uncheckAll');
+  $("select#case_subject_ids").multiselect('uncheckAll');
+  $("select#case_issue_ids").multiselect('uncheckAll');
+
+  // start with the courts dropdown disabled
   $("select#case_court_id").multiselect('disable');
 
+  // jurisdiction dropdown needs to trigger court dropdown
   $("select#case_jurisdiction_id").multiselect({
     multiple: multipleselect,
     header: headerselect,
     noneSelectedText: "Select a jurisdiction",
-    selectedList: 4,
+    selectedList: 10,
 
     close: function() {
     // $("select#case_jurisdiction_id").change(function(){
         var id_value_string = $(this).val();
-        if (id_value_string == null) {
+
+        // need to check null and blank in case jqueryui does not work
+        if (id_value_string == null || id_value_string == "") {
             // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
             $("select#case_court_id").attr('disabled', true);
             $("select#case_court_id").multiselect('disable');
@@ -46,7 +76,8 @@ $(document).ready(function(){
                     var current_jurisdiction = "";
                     if( $.isArray(id_value_string) ) {
                       current_jurisdiction = data[0].jurisdiction.name;
-                      row = "<optgroup label=\"" + current_jurisdiction + "\">";
+                      row = "<optgroup class=\"" + current_jurisdiction +
+                            "\" label=\"" + current_jurisdiction + "\">";
                     }
 
                     $(row).appendTo("select#case_court_id");                        
@@ -57,20 +88,25 @@ $(document).ready(function(){
                       if( $.isArray(id_value_string) && 
                           j.jurisdiction.name !== current_jurisdiction) {
                             current_jurisdiction = j.jurisdiction.name;
-                            row = "<optgroup label=\"" + current_jurisdiction + "\">";
-                            $(row).appendTo("select#case_court_id");                    
+                            row = "<optgroup class=\"" + current_jurisdiction +
+                                  "\" label=\"" + current_jurisdiction + "\">";
+                            $(row).appendTo("select#case_court_id");    
                           }
 
                       row = "<option value=\"" + j.id + "\">" + j.name + "</option>";
-                      $(row).appendTo("select#case_court_id optgroup");                    
+
+                      if( $.isArray(id_value_string) )
+                        $("optgroup." + current_jurisdiction).append(row);
+                      else
+                        $(row).appendTo("select#case_court_id");    
+
                     });            
                     
                     // refresh
-                    //$("select#case_court_id").multiselectfilter();
                     $("select#case_court_id").multiselect('refresh');
                     $("select#case_court_id").multiselect('enable');
+                    $("select#case_court_id").multiselect('uncheckAll');
                     $("select#case_court_id").attr('disabled', false);
-                    alert ($("select#case_court_id").html());
                  }
             });
         };

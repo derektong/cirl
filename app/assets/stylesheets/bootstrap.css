@@ -578,7 +578,7 @@ select,
   height: auto;
 }
 label input, label textarea, label select {
-  display: block;
+  /*display: block; */
 }
 input[type="image"], input[type="checkbox"], input[type="radio"] {
   width: auto;
