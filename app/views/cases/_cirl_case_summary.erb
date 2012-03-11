@@ -30,6 +30,7 @@
 
   <%= link_to "Download", download_case_path(@case.id) %>
   <%# if current_user.admin? %>
+  | <%= link_to "View", case_path(@case.id) %>
   | <%= link_to "Edit", edit_case_path(@case.id) %>
   | <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
         :title => "Delete this case?" %>

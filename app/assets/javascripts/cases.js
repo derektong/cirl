@@ -29,7 +29,7 @@ $(document).ready(function(){
   });
 
   // start with all dropdowns unselected
-  $("select#case_court_id").multiselect('uncheckAll');
+  //$("select#case_court_id").multiselect('uncheckAll');
   $("select#case_subject_ids").multiselect('uncheckAll');
   $("select#case_issue_ids").multiselect('uncheckAll');
 
@@ -71,20 +71,17 @@ $(document).ready(function(){
                     $("select#case_court_id option").remove();
                     $("select#case_court_id optgroup").remove();
 
-                    //put in a empty default line
                     var row = "";
                     var current_jurisdiction = "";
-                    if( $.isArray(id_value_string) ) {
-                      current_jurisdiction = data[0].jurisdiction.name;
-                      row = "<optgroup class=\"" + current_jurisdiction +
-                            "\" label=\"" + current_jurisdiction + "\">";
-                    }
 
+                    //put in a empty default line
+                    row = "<option value=\"\">(Select a court)</option>";
                     $(row).appendTo("select#case_court_id");                        
 
                     // Fill sub category select
                     $.each(data, function(i, j){
 
+                      // Put in optgroups if in multiple selection mode
                       if( $.isArray(id_value_string) && 
                           j.jurisdiction.name !== current_jurisdiction) {
                             current_jurisdiction = j.jurisdiction.name;
@@ -114,5 +111,12 @@ $(document).ready(function(){
 
   });
 
+  // disable or enable court box 
+  if( $("select#case_jurisdiction_id").val() == "" ) 
+    $("select#case_court_id").multiselect('disable');
+  else
+    $("select#case_court_id").multiselect('enable');
 
-  });
+
+
+});

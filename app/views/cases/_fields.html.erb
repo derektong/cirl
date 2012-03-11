@@ -21,7 +21,8 @@
                       @courts,
                       :id, :name,
                       { :prompt => "(Select a court)" }, 
-                      { :disabled => f.object.id.nil? }) %><br />
+                      { :disabled => f.object.id.nil? && params[:case] != nil && params[:case][:jurisdiction_id].nil? } ) %>
+                      <br />
 
 <%= f.label :subject_ids, "Legal Subjects :" %>
 <%= render 'subjects', :object => f.object %>

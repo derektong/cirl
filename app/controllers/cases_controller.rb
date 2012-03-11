@@ -1,6 +1,6 @@
 class CasesController < ApplicationController
 
-  before_filter :init, :only => [:index, :create, :new, :edit]
+  before_filter :init, :only => [:index, :create, :new, :edit, :update]
 
   def new
     @case = Case.new
@@ -34,8 +34,6 @@ class CasesController < ApplicationController
       rescue ArgumentError
       end
 
-      #@attributes_single[:decision_date] = Date.civil( 1926, 2, 1)
-
       @attributes_multiple = Hash.new
       if( params[:case_subject_ids] != nil )
         @attributes_multiple[:subject_ids] = params[:case_subject_ids] 
@@ -56,7 +54,7 @@ class CasesController < ApplicationController
   end
 
   def show
-    redirect_to cases_path
+    @case = Case.find(params[:id])
   end
   
   def edit
@@ -74,6 +72,10 @@ class CasesController < ApplicationController
     if @case.save
       redirect_to cases_path
     else
+      if params[:case][:jurisdiction_id] != ""
+        @courts = Court.find_all_by_jurisdiction_id(params[:case][:jurisdiction_id])
+        @selected_court = params[:case][:court_id]
+      end
       render 'new'
     end
   end
@@ -91,6 +93,8 @@ class CasesController < ApplicationController
       @case = Case.find(params[:id])
       params[:case][:subject_ids] ||= []
       params[:case][:issue_ids] ||= []
+      params[:case][:pdf] ||= ""
+
       if @case.update_attributes(params[:case])
         flash[:notice] = 'Case updated.'
         redirect_to cases_path 

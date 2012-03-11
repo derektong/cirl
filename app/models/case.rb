@@ -34,7 +34,7 @@ class Case < ActiveRecord::Base
   has_and_belongs_to_many :issues
 
   # handle uploads
-  validate  :validate_pdf
+  validate :validate_pdf
 
   # sphinx index
   define_index do
@@ -57,22 +57,36 @@ class Case < ActiveRecord::Base
 
   # upload pdf
   def validate_pdf
-
-    #skip pdfing for the moment
-    return
-
-    directory = "public/pdfs"
-    path = File.join(directory, self.id, ".pdf")
-    File.open(path, "wb") do |io|
-      io.write(self.pdf.read) 
+    
+    if self.pdf.nil?
+      self.errors.add(:pdf, "upload is compulsory")
+      return false
     end
 
-    # need to open file again for reading after writing
-    File.open(path, "rb") do |io|
-      reader = PDF::Reader.new(io)
-      # consider how to handle really large files
-       self.fulltext = reader.page(1).text
-       #logger.info reader.pages.map { |page| page.text }.join(' ') 
+    # if editing and no replacement pdf is selected, do not change fulltext
+    if self.pdf == ""
+      return true
+    end
+
+    begin
+      directory = "public/pdfs"
+      path = File.join(directory, self.pdf.original_filename)
+      File.open(path, "wb") do |io|
+        io.write(self.pdf.read) 
+      end
+
+      # need to open file again for reading after writing
+      File.open(path, "rb") do |io|
+        reader = PDF::Reader.new(io)
+         #self.fulltext = reader.pages.map { |page| page.text }.join(' ') 
+        reader.pages.each do |page|
+          self.fulltext += page.text 
+        end
+      end
+
+    rescue PDF::Reader::MalformedPDFError
+      self.errors.add(:base, "File selected to upload is not a valid pdf file")
+      return false
     end
   end
 
