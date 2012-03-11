@@ -22,8 +22,8 @@ $(document).ready(function(){
   });
 
   $("select#case_country_origin").multiselect({
-    multiple: true,
-    header: true,
+    multiple: multipleselect,
+    header: headerselect,
     noneSelectedText: "Select countries of origin",
     selectedList: 10,
   });

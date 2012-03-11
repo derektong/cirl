@@ -44,8 +44,10 @@ class Case < ActiveRecord::Base
     indexes issues.description, :as => :issues
     indexes country_origin
     indexes fulltext
+    indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
 
-    has court_id
+    has court_id 
+    has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
     has subjects(:id), :as => :subject_ids
     has issues(:id), :as => :issue_ids
     has court.jurisdiction(:id), :as => :jurisdiction_id
