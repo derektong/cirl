@@ -1,64 +1,67 @@
 <%= javascript_include_tag "cases_index" %>
 <%= javascript_include_tag "cases" %>
 <%= provide :title, "Search cases" %>
-<h3>Search cases</h3><br />
-<%= render 'shared/sidebar' %>
+<%= render 'case_menu' %>
+<div class="container">
+  <h3>Search cases</h3><br />
 
-<div class="main">
-<%= form_tag cases_path, :method => :get, :class => "well" do %>
-  <b>Full text search</b><br />
-  <%= text_field_tag :search, params[:search], :class => "search" %>
-  &nbsp;
-  <%= submit_tag "Search", :name => nil, :class => "search_button" %>
-  <br /><br />
-  <b>Advanced search</b><br /><br />
+  <div class="main">
+  <%= form_tag cases_path, :method => :get, :class => "well" do %>
+    <b>Full text search</b><br />
+    <%= text_field_tag :search, params[:search], :class => "search" %>
+    &nbsp;
+    <%= submit_tag "Search", :name => nil, :class => "search_button" %>
+    <br /><br />
+    <b>Advanced search</b><br /><br />
 
-  <i>Date Range</i><br />
+    <i>Date Range</i><br />
 
-  <%= select_tag "case_day_from", options_for_select((1..31).to_a), 
-      :prompt => "day", :class => "date_field" %>
-  <%= select_tag "case_month_from", options_for_select((1..12).to_a), 
-      :prompt => "month", :class => "date_field" -%>
-  <%= select_tag "case_year_from", options_for_select((1900..Time.now.year).to_a), 
-      :prompt => "year", :class => "date_field" %>
-  <br />to<br />
-  <%= select_tag "case_day_to", options_for_select((1..31).to_a), 
-      :prompt => "day", :class => "date_field" %>
-  <%= select_tag "case_month_to", options_for_select((1..12).to_a), 
-      :prompt => "month", :class => "date_field" -%>
-  <%= select_tag "case_year_to", options_for_select((1900..Time.now.year).to_a), 
-      :prompt => "year", :class => "date_field" %>
-  <br /><br />
+    <%= select_tag "case_day_from", options_for_select((1..31).to_a), 
+        :prompt => "day", :class => "date_field" %>
+    <%= select_tag "case_month_from", options_for_select((1..12).to_a), 
+        :prompt => "month", :class => "date_field" -%>
+    <%= select_tag "case_year_from", options_for_select((1900..Time.now.year).to_a), 
+        :prompt => "year", :class => "date_field" %>
+    <br />to<br />
+    <%= select_tag "case_day_to", options_for_select((1..31).to_a), 
+        :prompt => "day", :class => "date_field" %>
+    <%= select_tag "case_month_to", options_for_select((1..12).to_a), 
+        :prompt => "month", :class => "date_field" -%>
+    <%= select_tag "case_year_to", options_for_select((1900..Time.now.year).to_a), 
+        :prompt => "year", :class => "date_field" %>
+    <br /><br />
 
-  <i>Country of origin</i><br />
-  <%= select_tag "case_country_origin", options_for_select(get_countries), :multiple => true %><br /><br />
+    <i>Country of origin</i><br />
+    <%= select_tag "case_country_origin", options_for_select(get_countries), :multiple => true %><br /><br />
 
-  <i>Jurisdictions</i><br />
-  <%= select_tag "case_jurisdiction_id", options_from_collection_for_select(@jurisdictions, "id", "name"), :multiple => true %><br /><br />
+    <i>Jurisdictions</i><br />
+    <%= select_tag "case_jurisdiction_id", options_from_collection_for_select(@jurisdictions, "id", "name"), :multiple => true %><br /><br />
 
-  <i>Courts</i><br />
-  <%= select_tag "case_court_id", options_from_collection_for_select(@courts, "id", "name"), :multiple => true %><br /><br />
+    <i>Courts</i><br />
+    <%= select_tag "case_court_id", options_from_collection_for_select(@courts, "id", "name"), :multiple => true %><br /><br />
 
-  <i>Legal subjects</i><br />
-  <%= select_tag "case_subject_ids", options_from_collection_for_select(@subjects, "id", "description"), :multiple => true %><br /><br />
+    <i>Legal subjects</i><br />
+    <%= select_tag "case_subject_ids", options_from_collection_for_select(@subjects, "id", "description"), :multiple => true %><br /><br />
 
-  <i>Legal issues</i><br />
-  <%= select_tag "case_issue_ids", options_from_collection_for_select(@issues, "id", "description"), :multiple => true %><br /><br />
-
-
-
+    <i>Legal issues</i><br />
+    <%= select_tag "case_issue_ids", options_from_collection_for_select(@issues, "id", "description"), :multiple => true %><br /><br />
 
 
 
-<% end %>
 
-<% if @cases != nil then %>
-  <h3>Search results</h3><br />
-  <table class="table">
-    <%# cannot have partial called 'case' to avoid confusion with case statements %>
-    <% @cases.each do |@case| %>
-      <%= render :partial => "cirl_case_summary", :case => @case %>
-    <% end %>
-  </table>
-<% end %>
+
+
+  <% end %>
+
+  <% if @cases != nil then %>
+    <h3>Search results</h3><br />
+    <table class="table">
+      <%# cannot have partial called 'case' to avoid confusion with case statements %>
+      <% @cases.each do |@case| %>
+        <%= render :partial => "cirl_case_summary", :case => @case %>
+      <% end %>
+    </table>
+  <% end %>
+  </div>
+  <%= render 'shared/sidebar' %>
 </div>

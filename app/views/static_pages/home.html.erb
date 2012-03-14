@@ -1,14 +1,8 @@
 <% provide(:title, 'Home') %>
 <%= javascript_include_tag :fade %>
-<div class="sidebar round">
-  <p>CIRL is about blah blah blah.</p>
-</div>
-<div class="slideshow">
-  <%= image_tag("home/bw/#{@file}", :class => "round a") %>
-  <%= image_tag("home/colour/#{@file}", :class => "round b") %>
-</div>
-
-<%= link_to "Sign up", signup_path %>
-
-
+  <div class="slideshow">
+    <%= image_tag("home/bw/#{@file}", :class => "a") %>
+    <%= image_tag("home/colour/#{@file}", :class => "b") %>
+  </div>
+<br />
 

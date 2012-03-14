@@ -1,18 +1,21 @@
 <%= provide :title, "Edit a case" %>
-<%= render 'shared/sidebar' %>
-<div class="main">
-
-<%= form_for @case, :html => { :class => "well" } do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
+<%= render 'case_menu' %>
+<div class="container">
+  <div class="main">
 
   <h3>Edit a case</h3><br />
-  <%= render 'fields', :f => f %> <br />
-  <div class="actions">
-    <%= f.submit "Save changes", { :class => "btn" } %>
-    <%= f.submit "Cancel", { :class => "btn" } %>
-  </div>
-<% end %>
+  <%= form_for @case, :html => { :class => "well" } do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
 
+    <%= render 'fields', :f => f %> <br />
+    <div class="actions">
+      <%= f.submit "Save changes", { :class => "btn" } %>
+      <%= f.submit "Cancel", { :class => "btn" } %>
+    </div>
+  <% end %>
+
+  </div>
+<%= render 'shared/sidebar' %>
 </div>
 
 

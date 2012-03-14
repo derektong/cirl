@@ -7,14 +7,12 @@
   <%= javascript_include_tag "application" %>
 </head>
 <body>
-  <div class="container">
-    <%= render 'layouts/header' %>
-    <%= render 'layouts/tabs' %>
-    <section class="almostround">
+  <%= render 'layouts/header' %>
+  <%= render 'layouts/tabs' %>
+  <section>
     <%= yield %>
-    </section>
-    <%= render 'layouts/footer' %>
-    <%= debug(params) if Rails.env.development? %>
-  </div>
+  </section>
+  <%= render 'layouts/footer' %>
+  <%= debug(params) if Rails.env.development? %>
 </body>
 </html>

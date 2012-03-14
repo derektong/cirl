@@ -1,20 +1,21 @@
 <%= javascript_include_tag "cases_new" %>
 <%= javascript_include_tag "cases" %>
 <%= provide :title, "Add new case" %>
-<%= render 'shared/sidebar' %>
-<div class="main">
-
-  <%= form_for @case, :html => { :class => "well" } do |f| %>
-  <%= render "shared/error_messages", :object => f.object %>
+<%= render 'case_menu' %>
+<div class="container">
+  <div class="main">
     <h3>Add new case</h3><br />
-    <%= render 'fields', :f => f %>
-  <br />
+    <%= form_for @case, :html => { :class => "well" } do |f| %>
+    <%= render "shared/error_messages", :object => f.object %>
+      <%= render 'fields', :f => f %>
+    <br />
 
-  <div class="actions">
-    <%= f.submit "Add", { :class => "btn" } %>
+    <div class="actions">
+      <%= f.submit "Add", { :class => "btn" } %>
+    </div>
+    <% end %>
   </div>
-  <% end %>
-
+  <%= render 'shared/sidebar' %>
 </div>
 
 
