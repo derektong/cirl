@@ -1,17 +1,20 @@
 <%= provide( :title, 'Manage Issues') %>
 <%= javascript_include_tag "issues" %>
+<%= render 'shared/admin_menu' %>
+<div class="container">
 <h3>Manage Legal Issues</h3><br />
-<%= render 'shared/sidebar' %>
 <div class="main">
-
-<table class="table-striped">
+<table class="table">
  <%= render @issues %>
 </table>
-
-<%= form_for(@issue, :html => { :class => "well form-inline" } ) do |f| %>
+<%= form_for(@issue, :html => { :class => "well" } ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
   <%= f.label :description, "Add new legal issue: " %>
   <%= f.text_field :description %>
   <%= f.submit "Add", :class => "btn" %>
 <% end %>
+</div>
+<div class="sidebar">
+Use this page to create, edit and delete the legal issues in the database.
+</div>
 </div>

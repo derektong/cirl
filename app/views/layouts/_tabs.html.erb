@@ -12,5 +12,8 @@
     <li <%= raw "class=\"front_tab\"" if check_tab == "literature" %>>
       <%= link_to "ABOUT", about_path %>
     </li>
+    <li <%= raw "class=\"front_tab\"" if check_tab == "admin" %>>
+      <%= link_to "ADMIN", admin_path %>
+    </li>
   </ul>
 </header>

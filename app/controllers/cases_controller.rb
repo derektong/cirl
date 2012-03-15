@@ -7,48 +7,46 @@ class CasesController < ApplicationController
   end
 
   def index
+    @advanced_used = "none"
+    @attributes = Hash.new
+    @conditions = Hash.new
     # query whether searching for blanks should return all results
     # if( params[:search] != nil && params[:search].strip != "" )
     if( params[:search] != nil )
-      @conditions = Hash.new
-      if( params[:case_country_origin] != nil )
-        @conditions[:country_origin] = params[:case_country_origin]
-      end
 
-      @attributes_single = Hash.new
-      if( params[:case_court_id] != nil )
-        @attributes_single[:court_id] = params[:case_court_id] 
-      end
-      if( params[:case_jurisdiction_id] != nil )
-        @attributes_single[:jurisdiction_id] = params[:case_jurisdiction_id] 
-      end
+      @conditions[:country_origin] = params[:case_country_origin] unless params[:case_country_origin].nil? 
+      @attributes[:court_id] = params[:case_court_id] unless params[:case_court_id].nil? 
+      @attributes[:jurisdiction_id] = params[:case_jurisdiction_id] unless params[:case_jurisdiction_id].nil? 
+
       begin
-        date_from = Date.civil(params[:case_year_from].to_i, params[:case_month_from].to_i, params[:case_day_from].to_i)
-        date_to = Date.civil(params[:case_year_to].to_i, params[:case_month_to].to_i, params[:case_day_to].to_i)
-        if( date_to >= date_from )
-          #have to convert dates to integers to allow input of dates before 1/1/1970 (beginning of unix)
-          @attributes_single[:decision_date] = date_from.strftime("%Y%m%d").to_i..date_to.strftime("%Y%m%d").to_i
-        else
-          #handle date range wrong
-        end
+        @year_to = params[:case_year_to]
+        @month_to = params[:case_month_to]
+        @day_to = params[:case_day_to]
+        @year_from = params[:case_year_from]
+        @month_from = params[:case_month_from]
+        @day_from = params[:case_day_from]
+        date_from = Date.civil(params[:case_year_from].to_i, 
+                               params[:case_month_from].to_i, 
+                               params[:case_day_from].to_i)
+        date_to = Date.civil(params[:case_year_to].to_i, 
+                             params[:case_month_to].to_i, 
+                             params[:case_day_to].to_i)
+        #have to convert dates to integers to allow input of dates before 1/1/1970 (beginning of unix)
+        @attributes[:decision_date] = 
+          date_from.strftime("%Y%m%d").to_i..date_to.strftime("%Y%m%d").to_i if date_to >= date_from 
       rescue ArgumentError
       end
 
-      @attributes_multiple = Hash.new
-      if( params[:case_subject_ids] != nil )
-        @attributes_multiple[:subject_ids] = params[:case_subject_ids] 
-      end
-      if( params[:case_issue_ids] != nil )
-        @attributes_multiple[:issue_ids] = params[:case_issue_ids] 
-      end
+      @attributes[:subject_ids] = params[:case_subject_ids] unless params[:case_subject_ids].nil?
+      @attributes[:issue_ids] = params[:case_issue_ids] unless params[:case_issue_ids].nil? 
 
       @cases = Case.search params[:search],
                :include => [:court, :subjects, :issues],
                :conditions => @conditions,
-               :with => @attributes_single,
-               :with_all => @attributes_multiple
-    end
+               :with => @attributes
 
+      @attributes.empty? && @conditions.empty? ? @advanced_used = "none" : @advanced_used = "block"
+    end
   end
 
   def show

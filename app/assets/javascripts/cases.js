@@ -2,8 +2,6 @@ $(document).ready(function(){
 
   // show hide advanced options
   var toggle = $(".show_hide");
-  $(".slider").hide();
-  toggle.show();
 
   toggle.click(function(){
     $(".slider").slideToggle();
@@ -55,11 +53,6 @@ $(document).ready(function(){
     noneSelectedText: "Select countries of origin",
     selectedList: 10,
   });
-
-  // start with all dropdowns unselected
-  //$("select#case_court_id").multiselect('uncheckAll');
-  $("select#case_subject_ids").multiselect('uncheckAll');
-  $("select#case_issue_ids").multiselect('uncheckAll');
 
   // start with the courts dropdown disabled
   $("select#case_court_id").multiselect('disable');

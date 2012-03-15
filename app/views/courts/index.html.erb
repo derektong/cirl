@@ -1,9 +1,10 @@
 <%= javascript_include_tag "courts" %>
 <%= provide :title, "Manage Courts" %>
+<%= render 'shared/admin_menu' %>
+<section class="container">
 <h3>Manage Courts</h3><br />
-<%= render 'shared/sidebar' %>
-<div class="main">
 
+<div class="main">
   <table class="table">
   <% @jurisdictions.each do |jurisdiction|%>
     <tr><th><%= jurisdiction.name %></th></tr>
@@ -11,17 +12,18 @@
     <% if court.nil? %>  
       <tr><td><span class="tip">No courts in this jurisdiction</span></td></tr>
     <% else %>
-        <%= render court %>
+      <%= render court %>
     <% end %>
     <% end %>
   <% end %>
   </table>
+</div>
 
+<div class="sidebar" >
 <%= form_for(@court, :html => { :class => "well"} ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
-  <h3>Add new court</h3>
   <div class="field">
-    <%= f.label :name, "Name: " %>
+    <%= f.label :name, "Add new court: " %>
     <%= f.text_field :name %>
     <%= f.label :jurisdiction_id, "Jurisdiction: " %>
     <%= collection_select(:court, :jurisdiction_id, @jurisdictions, :id, :name) %>
@@ -32,4 +34,5 @@
 <% end %>
 </div>
 
+</section>
 

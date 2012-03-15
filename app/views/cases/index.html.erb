@@ -6,48 +6,59 @@
 
   <div class="main">
   <h3>Search cases</h3><br />
-  <%= form_tag cases_path, :method => :get, :class => "well" do %>
+  <%= form_tag cases_path, :method => :get, class: "well" do %>
     <b>Full text search</b><br />
-    <%= text_field_tag :search, params[:search], :class => "search" %>
+    <%= text_field_tag :search, params[:search], class: "search" %>
     <br />
     <br />
 
-    <div class="slider">
+    <div class="slider" style="display: <%=@advanced_used%>;">
     <i>Date Range</i><br />
 
-    <%= select_tag "case_day_from", options_for_select((1..31).to_a), 
-        :prompt => "day", :class => "date_field" %>
-    <%= select_tag "case_month_from", options_for_select((1..12).to_a), 
-        :prompt => "month", :class => "date_field" -%>
-    <%= select_tag "case_year_from", options_for_select((1900..Time.now.year).to_a), 
-        :prompt => "year", :class => "date_field" %>
+    <%= select_tag "case_day_from", options_for_select((1..31).to_a, @day_from), 
+        prompt: "day", class: "date_field" %>
+    <%= select_tag "case_month_from", options_for_select((1..12).to_a, @month_from), 
+        prompt: "month", class: "date_field" -%>
+    <%= select_tag "case_year_from", options_for_select((1900..Time.now.year).to_a, @year_from), 
+        prompt: "year", class: "date_field" %>
     <br />to<br />
-    <%= select_tag "case_day_to", options_for_select((1..31).to_a), 
-        :prompt => "day", :class => "date_field" %>
-    <%= select_tag "case_month_to", options_for_select((1..12).to_a), 
-        :prompt => "month", :class => "date_field" -%>
-    <%= select_tag "case_year_to", options_for_select((1900..Time.now.year).to_a), 
-        :prompt => "year", :class => "date_field" %>
+    <%= select_tag "case_day_to", options_for_select((1..31).to_a, @day_to), 
+        prompt: "day", class: "date_field" %>
+    <%= select_tag "case_month_to", options_for_select((1..12).to_a, @month_to), 
+        prompt: "month", class: "date_field" -%>
+    <%= select_tag "case_year_to", options_for_select((1900..Time.now.year).to_a, @year_to), 
+        prompt: "year", class: "date_field" %>
     <br /><br />
 
     <i>Country of origin</i><br />
-    <%= select_tag "case_country_origin", options_for_select(get_countries), :multiple => true %><br /><br />
+    <%= select_tag "case_country_origin", 
+                   options_for_select(get_countries, @conditions[:country_origin]), 
+                   multiple: true %><br /><br />
 
     <i>Jurisdictions</i><br />
-    <%= select_tag "case_jurisdiction_id", options_from_collection_for_select(@jurisdictions, "id", "name"), :multiple => true %><br /><br />
+    <%= select_tag "case_jurisdiction_id", 
+                   options_from_collection_for_select(@jurisdictions, "id", "name", 
+                                                      @attributes[:jurisdiction_id]), 
+                   multiple: true %><br /><br />
 
     <i>Courts</i><br />
-    <%= select_tag "case_court_id", options_from_collection_for_select(@courts, "id", "name"), :multiple => true %><br /><br />
+    <%= select_tag "case_court_id", 
+                   options_from_collection_for_select(@courts, "id", "name", @attributes[:court_id]), 
+                   multiple: true %><br /><br />
 
     <i>Legal subjects</i><br />
-    <%= select_tag "case_subject_ids", options_from_collection_for_select(@subjects, "id", "description"), :multiple => true %><br /><br />
+    <%= select_tag "case_subject_ids", 
+                   options_from_collection_for_select(@subjects,"id", "description", @attributes[:subject_ids]),
+                   multiple: true %><br /><br />
 
     <i>Legal issues</i><br />
-    <%= select_tag "case_issue_ids", options_from_collection_for_select(@issues, "id", "description"), :multiple => true %><br /><br />
+    <%= select_tag "case_issue_ids", 
+                   options_from_collection_for_select(@issues, "id", "description", @attributes[:issue_ids]), 
+                   multiple: true %><br /><br />
   </div>
 
-    <%= submit_tag "Search", :name => nil, :class => "search_button" %>
-    <b><a href="#" class="show_hide">Show advanced options</a></b><br /><br />
+    <%= submit_tag "Search", :name => nil, class: "search_button" %>
+    <b><a href="#" class="show_hide"><%= @advanced_used == "block" ? "Hide" : "Show" %> advanced options</a></b><br /><br />
 
   <% end %>
   </div>

@@ -1,20 +1,26 @@
 <%= provide(:title, "Manage Jurisdictions") %>
+<%= render 'shared/admin_menu' %>
+<section class="container">
 <h3>Manage Jurisdictions</h3><br />
-<%= render 'shared/sidebar' %>
 <div class="main">
 
 <% if @del_jurisdiction != nil then %>
   <%= render "shared/error_messages", :object => @del_jurisdiction %>
 <% end %>
 
-<table>
+<table class="table">
   <%= render @jurisdictions %>
 </table>
+</div>
 
-<%= form_for(@jurisdiction, :html => { :class => "well form-inline" } ) do |f| %>
+<div class="sidebar">
+
+<%= form_for(@jurisdiction, :html => { :class => "well" } ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
     <%= f.label :name, "Add new jurisdiction: " %>
     <%= f.select :name, get_countries, :prompt => "(Select a jurisdiction)" %>
     <%= f.submit "Add jurisdiction" %>
 <% end %>
+
 </div>
+</section>
