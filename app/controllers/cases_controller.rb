@@ -42,8 +42,6 @@ class CasesController < ApplicationController
         @attributes_multiple[:issue_ids] = params[:case_issue_ids] 
       end
 
-      logger.info @attributes_single
-
       @cases = Case.search params[:search],
                :include => [:court, :subjects, :issues],
                :conditions => @conditions,

@@ -3,17 +3,16 @@
 <%= provide :title, "Search cases" %>
 <%= render 'case_menu' %>
 <div class="container">
-  <h3>Search cases</h3><br />
 
   <div class="main">
+  <h3>Search cases</h3><br />
   <%= form_tag cases_path, :method => :get, :class => "well" do %>
     <b>Full text search</b><br />
     <%= text_field_tag :search, params[:search], :class => "search" %>
-    &nbsp;
-    <%= submit_tag "Search", :name => nil, :class => "search_button" %>
-    <br /><br />
-    <b>Advanced search</b><br /><br />
+    <br />
+    <br />
 
+    <div class="slider">
     <i>Date Range</i><br />
 
     <%= select_tag "case_day_from", options_for_select((1..31).to_a), 
@@ -45,23 +44,23 @@
 
     <i>Legal issues</i><br />
     <%= select_tag "case_issue_ids", options_from_collection_for_select(@issues, "id", "description"), :multiple => true %><br /><br />
+  </div>
 
+    <%= submit_tag "Search", :name => nil, :class => "search_button" %>
+    <b><a href="#" class="show_hide">Show advanced options</a></b><br /><br />
 
-
-
-
-
-  <% end %>
-
-  <% if @cases != nil then %>
-    <h3>Search results</h3><br />
-    <table class="table">
-      <%# cannot have partial called 'case' to avoid confusion with case statements %>
-      <% @cases.each do |@case| %>
-        <%= render :partial => "cirl_case_summary", :case => @case %>
-      <% end %>
-    </table>
   <% end %>
   </div>
-  <%= render 'shared/sidebar' %>
+
+  <div class="searchresults">
+    <% if @cases != nil then %>
+      <h3>Search results (<%= pluralize( @cases.count, "case" )%> found) </h3><br />
+      <table class="table">
+        <%# cannot have partial called 'case' to avoid confusion with case statements %>
+        <% @cases.each do |cirl_case| %>
+          <%= render "cirl_case_summary", :cirl_case => cirl_case %>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
 </div>

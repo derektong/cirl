@@ -1,6 +1,7 @@
 <tr>
   <th>
     <span class="case_name">
+      <% @case = cirl_case %>
       <%= "#{@case.claimant} (#{@case.country_origin}) v #{@case.respondent}" %>
     </span>
     <span class="case_decision_date">

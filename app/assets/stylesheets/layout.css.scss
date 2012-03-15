@@ -203,11 +203,16 @@ div.leftmenu {
 
 div.main {
   float: left;
-  width: 55%;
+  width: 30%;
   margin-right: 20px;
 }
 
 /* Right Sidebar */
+
+div.searchresults {
+  float: left;
+  width: 60%;
+}
 
 div.sidebar {
   float: left;

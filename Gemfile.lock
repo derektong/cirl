@@ -177,7 +177,7 @@ DEPENDENCIES
   json
   pdf-reader
   pg
-  rails (= 3.2.1)
+  rails
   remotipart
   riddle
   rspec
