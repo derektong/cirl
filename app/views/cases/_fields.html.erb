@@ -1,34 +1,34 @@
 <%= f.label :claimant, "Name of claimant: " %>
-<%= f.text_field :claimant %>
+<%= f.text_field :claimant, autofocus: "autofocus" %>
 <%= f.label :respondent, "Name of respondent: " %>
 <%= f.text_field :respondent %><br />
 
 <%= f.label :decision_date, "Date of decision: " -%>
-<%= f.select :day, 1..31, :prompt => "day" %>
-<%= f.select :month, 1..12, :prompt => "month" -%>
-<%= f.select :year, 1900..Time.now.year, :prompt => "year" -%>
+<%= f.select :day, 1..31, prompt: "day" %>
+<%= f.select :month, 1..12, prompt: "month" -%>
+<%= f.select :year, 1900..Time.now.year, prompt: "year" -%>
 
 <%= f.label :country_origin, "Claimant's country of origin: " %>
 <%= f.select :country_origin, get_countries,
-             :prompt => "(Select a country)" %><br />
+             prompt: "(Select a country)" %><br />
 
 <%= f.label :jurisdiction_id, "Jurisdiction: " %>
 <%= collection_select(:case, :jurisdiction_id, @jurisdictions, 
-                      :id, :name, :prompt => "(Select a jurisdiction)" ) %><br />
+                      :id, :name, prompt: "(Select a jurisdiction)" ) %><br />
 
 <%= f.label :court_id, "Court: " %>
 <%= collection_select(:case, :court_id, 
                       @courts,
                       :id, :name,
-                      { :prompt => "(Select a court)" }, 
-                      { :disabled => f.object.id.nil? && params[:case] != nil && params[:case][:jurisdiction_id].nil? } ) %>
+                      { prompt: "(Select a court)" }, 
+                      { disabled: f.object.id.nil? && params[:case] && params[:case][:jurisdiction_id].nil?})%>
                       <br />
 
 <%= f.label :child_topic_ids, "Children's rights framework:" %>
-<%= render 'child_topics', :object => f.object %>
+<%= render 'child_topics', object: f.object %>
 
 <%= f.label :refugee_topic_ids, "Refugee framework:" %>
-<%= render 'refugee_topics', :object => f.object %>
+<%= render 'refugee_topics', object: f.object %>
 
 <%= f.label :pdf %>
 <%= f.file_field :pdf %>

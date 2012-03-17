@@ -9,14 +9,15 @@ class CasesController < ApplicationController
   def index
     @advanced_used = "none"
     @attributes = Hash.new
-    @conditions = Hash.new
+
     # query whether searching for blanks should return all results
     # if( params[:search] != nil && params[:search].strip != "" )
     if( params[:search] != nil )
 
-      @conditions[:country_origin] = params[:case_country_origin] unless params[:case_country_origin].nil? 
-      @attributes[:court_id] = params[:case_court_id] unless params[:case_court_id].nil? 
-      @attributes[:jurisdiction_id] = params[:case_jurisdiction_id] unless params[:case_jurisdiction_id].nil? 
+      @countries_origin = params[:case_country_origin]
+      @attributes[:country_origin] = @countries_origin.map { |c| c.to_crc32 } if @countries_origin
+      @attributes[:court_id] = params[:case_court_id] if params[:case_court_id]
+      @attributes[:jurisdiction_id] = params[:case_jurisdiction_id] if params[:case_jurisdiction_id]
 
       begin
         @year_to = params[:case_year_to]
@@ -37,15 +38,14 @@ class CasesController < ApplicationController
       rescue ArgumentError
       end
 
-      @attributes[:child_topic_ids] = params[:case_child_topic_ids] unless params[:case_child_topic_ids].nil?
-      @attributes[:refugee_topic_ids] = params[:case_refugee_topic_ids] unless params[:case_refugee_topic_ids].nil? 
+      @attributes[:child_topic_ids] = params[:case_child_topic_ids] if params[:case_child_topic_ids]
+      @attributes[:refugee_topic_ids] = params[:case_refugee_topic_ids] if params[:case_refugee_topic_ids]
 
       @cases = Case.search params[:search],
                :include => [:court, :child_topics, :refugee_topics],
-               :conditions => @conditions,
                :with => @attributes
 
-      @attributes.empty? && @conditions.empty? ? @advanced_used = "none" : @advanced_used = "block"
+      @attributes.empty? ? @advanced_used = "none" : @advanced_used = "block"
     end
   end
 
@@ -108,6 +108,5 @@ class CasesController < ApplicationController
     @refugee_topics = RefugeeTopic.find(:all, :order => :description )
     @child_topics = ChildTopic.find(:all, :order => :description )
   end
-
 
 end

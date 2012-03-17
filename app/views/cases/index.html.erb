@@ -8,7 +8,7 @@
   <h3>Search cases</h3><br />
   <%= form_tag cases_path, :method => :get, class: "well" do %>
     <b>Full text search</b><br />
-    <%= text_field_tag :search, params[:search], class: "search" %>
+    <%= text_field_tag :search, params[:search], class: "search", autofocus: "autofocus" %>
     <br />
     <br />
 
@@ -32,7 +32,7 @@
 
     <i>Country of origin</i><br />
     <%= select_tag "case_country_origin", 
-                   options_for_select(get_countries, @conditions[:country_origin]), 
+                   options_for_select(get_countries, @countries_origin), 
                    multiple: true %><br /><br />
 
     <i>Jurisdictions</i><br />

@@ -42,11 +42,12 @@ class Case < ActiveRecord::Base
     indexes court(:name), :as => :court
     indexes child_topics.description, :as => :child_topics
     indexes refugee_topics.description, :as => :refugee_topics
-    indexes country_origin
+    indexes country_origin, :as => :country_origin_text
     indexes fulltext
     indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
 
     has court_id 
+    has "CRC32(country_origin)", :as => :country_origin, :type => :integer
     has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
     has child_topics(:id), :as => :child_topic_ids
     has refugee_topics(:id), :as => :refugee_topic_ids

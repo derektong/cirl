@@ -2,7 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-span.case_claimant {
+th.table {
+  font-size: 140%
+}
+
+span.case_name {
   font-style: italic;
   font-weight: bold;
 }
@@ -18,7 +22,7 @@ span.case_decision_date {
 }
 
 span.case_other_attribute {
-  font-weight: bold;
+  font-style: italic;
 }
 
 input#case_claimant {
@@ -56,7 +60,6 @@ fieldset.checkboxes {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-
 
 table.checkboxes {
   border: 0px;
