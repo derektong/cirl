@@ -1,0 +1,18 @@
+<fieldset class="checkboxes">
+  <table class="checkboxes">
+    <tr class="checkboxes">
+      <% @i = 1 %>
+      <% @refugee_topics.each do |refugee_topic| %>
+        <td>
+        <label class="checkbox inline aligned">
+          <%= check_box_tag "case[refugee_topic_ids][]", refugee_topic.id, 
+              object.refugee_topics.include?(refugee_topic) %>
+          <%= refugee_topic.description %>
+        </td>
+        <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
+        <% @i += 1 %>
+        </label>
+      <% end %>
+    </tr>
+  </table>
+</fieldset>

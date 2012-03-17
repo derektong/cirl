@@ -4,7 +4,7 @@ class Case < ActiveRecord::Base
 
   attr_accessible :claimant, :respondent, :decision_date, 
                   :country_origin, :court_id, :year, :month, :day, 
-                  :subject_ids, :issue_ids, :jurisdiction_id, :pdf, :fulltext
+                  :child_topic_ids, :refugee_topic_ids, :jurisdiction_id, :pdf, :fulltext
 
   # handle case name
   validates :claimant,  :presence => true,
@@ -25,13 +25,13 @@ class Case < ActiveRecord::Base
   validates :court_id, :presence => true
   belongs_to :court
 
-  # handle subjects
-  validates :subject_ids, :presence => true
-  has_and_belongs_to_many :subjects
+  # handle child_topics
+  validates :child_topic_ids, :presence => true
+  has_and_belongs_to_many :child_topics
 
-  # handle issues
-  validates :issue_ids, :presence => true
-  has_and_belongs_to_many :issues
+  # handle refugee_topics
+  validates :refugee_topic_ids, :presence => true
+  has_and_belongs_to_many :refugee_topics
 
   # handle uploads
   validate :validate_pdf
@@ -40,16 +40,16 @@ class Case < ActiveRecord::Base
   define_index do
     indexes [claimant, respondent], :as => :case_name
     indexes court(:name), :as => :court
-    indexes subjects.description, :as => :subjects
-    indexes issues.description, :as => :issues
+    indexes child_topics.description, :as => :child_topics
+    indexes refugee_topics.description, :as => :refugee_topics
     indexes country_origin
     indexes fulltext
     indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
 
     has court_id 
     has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
-    has subjects(:id), :as => :subject_ids
-    has issues(:id), :as => :issue_ids
+    has child_topics(:id), :as => :child_topic_ids
+    has refugee_topics(:id), :as => :refugee_topic_ids
     has court.jurisdiction(:id), :as => :jurisdiction_id
   end
 

@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def check_tab
-    case_law_pages = [ "cases", "subjects", "issues", "jurisdictions" ]
+    case_law_pages = [ "cases", "child_topics", "refugee_topics", "jurisdictions" ]
     literature = [ "literature" ]
     if case_law_pages.include?(params[:controller])
       return "case_law_db"
@@ -24,10 +24,10 @@ module ApplicationHelper
 
   def get_object_name( object_name )
     case object_name
-    when "Subject"
-      return "legal subject"
-    when "Issue"
-      return "legal issue"
+    when "child_topic"
+      return "children's rights framework topic"
+    when "refugee_topic"
+      return "refugee framework topic"
     when "Jurisdiction"
       return "jurisdiction"
     when "Court"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223101146) do
+ActiveRecord::Schema.define(:version => 20120317134245) do
 
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
@@ -24,15 +24,23 @@ ActiveRecord::Schema.define(:version => 20120223101146) do
     t.text     "fulltext"
   end
 
-  create_table "cases_issues", :id => false, :force => true do |t|
+  create_table "cases_child_topics", :id => false, :force => true do |t|
     t.integer "case_id"
-    t.integer "issue_id"
+    t.integer "child_topic_id"
   end
 
-  create_table "cases_subjects", :id => false, :force => true do |t|
+  create_table "cases_refugee_topics", :id => false, :force => true do |t|
     t.integer "case_id"
-    t.integer "subject_id"
+    t.integer "refugee_topic_id"
   end
+
+  create_table "child_topics", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "child_topics", ["description"], :name => "index_subjects_on_description", :unique => true
 
   create_table "courts", :force => true do |t|
     t.string   "name"
@@ -41,25 +49,17 @@ ActiveRecord::Schema.define(:version => 20120223101146) do
     t.datetime "updated_at",      :null => false
   end
 
-  create_table "issues", :force => true do |t|
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "issues", ["description"], :name => "index_issues_on_description", :unique => true
-
   create_table "jurisdictions", :force => true do |t|
     t.string "name", :limit => 128, :null => false
   end
 
-  create_table "subjects", :force => true do |t|
+  create_table "refugee_topics", :force => true do |t|
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "subjects", ["description"], :name => "index_subjects_on_description", :unique => true
+  add_index "refugee_topics", ["description"], :name => "index_issues_on_description", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"

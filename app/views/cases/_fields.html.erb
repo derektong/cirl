@@ -24,11 +24,11 @@
                       { :disabled => f.object.id.nil? && params[:case] != nil && params[:case][:jurisdiction_id].nil? } ) %>
                       <br />
 
-<%= f.label :subject_ids, "Legal Subjects :" %>
-<%= render 'subjects', :object => f.object %>
+<%= f.label :child_topic_ids, "Children's rights framework:" %>
+<%= render 'child_topics', :object => f.object %>
 
-<%= f.label :issue_ids, "Legal Issues :" %>
-<%= render 'issues', :object => f.object %>
+<%= f.label :refugee_topic_ids, "Refugee framework:" %>
+<%= render 'refugee_topics', :object => f.object %>
 
 <%= f.label :pdf %>
 <%= f.file_field :pdf %>

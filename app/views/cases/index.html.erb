@@ -46,14 +46,16 @@
                    options_from_collection_for_select(@courts, "id", "name", @attributes[:court_id]), 
                    multiple: true %><br /><br />
 
-    <i>Legal subjects</i><br />
-    <%= select_tag "case_subject_ids", 
-                   options_from_collection_for_select(@subjects,"id", "description", @attributes[:subject_ids]),
+    <i>Children's rights framework</i><br />
+    <%= select_tag "case_child_topic_ids", 
+                   options_from_collection_for_select(@child_topics,"id", "description", 
+                                                      @attributes[:child_topic_ids]),
                    multiple: true %><br /><br />
 
-    <i>Legal issues</i><br />
-    <%= select_tag "case_issue_ids", 
-                   options_from_collection_for_select(@issues, "id", "description", @attributes[:issue_ids]), 
+    <i>Refugee framework</i><br />
+    <%= select_tag "case_refugee_topic_ids", 
+                   options_from_collection_for_select(@refugee_topics, "id", "description", 
+                                                      @attributes[:refugee_topic_ids]), 
                    multiple: true %><br /><br />
   </div>
 

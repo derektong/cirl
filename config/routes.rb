@@ -10,9 +10,9 @@ Cirl::Application.routes.draw do
   match '/admin', :to => 'static_pages#admin'
 
   resources :jurisdictions
-  resources :subjects 
+  resources :child_topics
   resources :courts 
-  resources :issues 
+  resources :refugee_topics
 
   resources :cases do
     member do

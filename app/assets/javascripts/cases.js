@@ -12,8 +12,8 @@ $(document).ready(function(){
       $("select#case_court_id").multiselect('disable');
       $("select#case_jurisdiction_id").multiselect('uncheckAll');
       $("select#case_country_origin").multiselect('uncheckAll');
-      $("select#case_subject_ids").multiselect('uncheckAll');
-      $("select#case_issue_ids").multiselect('uncheckAll');
+      $("select#case_child_topic_ids").multiselect('uncheckAll');
+      $("select#case_refugee_topic_ids").multiselect('uncheckAll');
       $("select#case_day_from").val("");
       $("select#case_month_from").val("");
       $("select#case_year_from").val("");
@@ -33,17 +33,17 @@ $(document).ready(function(){
     selectedList: 10,
   });
 
-  $("select#case_subject_ids").multiselect({
+  $("select#case_child_topic_ids").multiselect({
     multiple: true,
     header: true,
-    noneSelectedText: "Select legal subjects",
+    noneSelectedText: "Select topics",
     selectedList: 10,
   });
 
-  $("select#case_issue_ids").multiselect({
+  $("select#case_refugee_topic_ids").multiselect({
     multiple: true,
     header: true,
-    noneSelectedText: "Select legal issues",
+    noneSelectedText: "Select topics",
     selectedList: 10,
   });
 

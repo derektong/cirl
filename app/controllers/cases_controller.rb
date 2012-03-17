@@ -37,11 +37,11 @@ class CasesController < ApplicationController
       rescue ArgumentError
       end
 
-      @attributes[:subject_ids] = params[:case_subject_ids] unless params[:case_subject_ids].nil?
-      @attributes[:issue_ids] = params[:case_issue_ids] unless params[:case_issue_ids].nil? 
+      @attributes[:child_topic_ids] = params[:case_child_topic_ids] unless params[:case_child_topic_ids].nil?
+      @attributes[:refugee_topic_ids] = params[:case_refugee_topic_ids] unless params[:case_refugee_topic_ids].nil? 
 
       @cases = Case.search params[:search],
-               :include => [:court, :subjects, :issues],
+               :include => [:court, :child_topics, :refugee_topics],
                :conditions => @conditions,
                :with => @attributes
 
@@ -87,8 +87,8 @@ class CasesController < ApplicationController
       redirect_to cases_path 
     else
       @case = Case.find(params[:id])
-      params[:case][:subject_ids] ||= []
-      params[:case][:issue_ids] ||= []
+      params[:case][:child_topic_ids] ||= []
+      params[:case][:refugee_topic_ids] ||= []
       params[:case][:pdf] ||= ""
 
       if @case.update_attributes(params[:case])
@@ -105,8 +105,8 @@ class CasesController < ApplicationController
   def init
     @courts = Court.all
     @jurisdictions = Jurisdiction.find(:all, :order => :name )
-    @issues = Issue.find(:all, :order => :description )
-    @subjects = Subject.find(:all, :order => :description )
+    @refugee_topics = RefugeeTopic.find(:all, :order => :description )
+    @child_topics = ChildTopic.find(:all, :order => :description )
   end
 
 
