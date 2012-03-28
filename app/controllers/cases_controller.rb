@@ -100,6 +100,9 @@ class CasesController < ApplicationController
     end
   end
 
+  def import
+  end
+
   protected
 
   def init
@@ -108,5 +111,6 @@ class CasesController < ApplicationController
     @refugee_topics = RefugeeTopic.find(:all, :order => :description )
     @child_topics = ChildTopic.find(:all, :order => :description )
   end
+
 
 end

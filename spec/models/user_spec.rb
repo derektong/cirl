@@ -2,36 +2,104 @@ require 'spec_helper'
 
 describe User do
 
-  before(:each) do
-    @attr = { :name => "Example User", :email => "user@example.com" }
+  before do
+    @user = User.new(name: "Example User", email: "user@test.com",
+                     password: "testing", password_confirmation: "testing")
   end
 
-  it "should create a new instance given valid attributes" do
-    User.create!(@attr)
+  subject { @user }
+  
+  it { should respond_to(:name) }
+  it { should respond_to(:email) }
+  it { should respond_to(:password_digest) }
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) }
+  it { should respond_to(:authenticate) }
+  
+  it { should be_valid }
+
+  describe "when name is not present" do
+    before { @user.name = " " } 
+    it { should_not be_valid }
   end
 
-  it "should require a name" do
-    no_name_user = User.new(@attr.merge(:name => ""))
-    no_name_user.should_not be_valid
+  describe "when email is not present" do
+    before { @user.email = " " } 
+    it { should_not be_valid }
   end
 
-  it "should require an email" do
-    no_email_user = User.new(@attr.merge(:email => ""))
-    no_email_user.should_not be_valid
+  describe "when password is not present" do
+    before { @user.password = @user.password_confirmation = " " } 
+    it { should_not be_valid }
   end
 
-  it "should not have a name that is too long" do
-    long_name = "a" * 51
-    long_name_user = User.new(@attr.merge(:name => long_name))
-    long_name_user.should_not be_valid
+  describe "when password is not present" do
+    before { @user.password = @user.password_confirmation = "a" * 5 } 
+    it { should_not be_valid }
   end
 
-  it "should reject duplicate emails" do
-    upcased_email = @attr[:email].upcase
-    User.create!(@attr.merge(:email => upcased_email))
-    user_with_duplicate_email = User.new(@attr)
-    user_with_duplicate_email.should_not be_valid
+  describe "when password does not match confirmation" do
+    before { @user.password_confirmation = "mismatch" } 
+    it { should_not be_valid }
   end
+
+  describe "when password confirmation is nil" do
+    before { @user.password_confirmation = nil } 
+    it { should_not be_valid }
+  end
+
+  describe "return value of authenticate method" do
+    before { @user.save }
+    let(:found_user) { User.find_by_email(@user.email) }
+
+    describe "with valid password" do
+      it { should == found_user.authenticate(@user.password) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+      it { should_not == user_for_invalid_password }
+      specify { user_for_invalid_password.should be_false }
+    end
+  end
+
+
+  describe "when name is too long" do
+    before { long_name = "a" * 51
+      @user.name = long_name }
+    it { should_not be_valid }
+  end
+
+  describe "when email format is invalid" do
+    invalid_addresses =  %w[user@foo,com user_at_foo.org example.user@foo.]
+    invalid_addresses.each do |invalid_address|
+      before { @user.email = invalid_address }
+      it { should_not be_valid }
+    end
+  end
+
+  describe "when email format is valid" do
+    valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+    valid_addresses.each do |valid_address|
+      before { @user.email = valid_address }
+      it { should be_valid }
+    end
+  end
+
+  describe "when email address is already taken" do
+    before do
+    user_with_same_email = @user.dup
+    user_with_same_email.email = @user.email.upcase
+    user_with_same_email.save
+    end
+
+    it { should_not be_valid }
+  end
+
+
+
 
 
 end
+

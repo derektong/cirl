@@ -18,6 +18,9 @@ Cirl::Application.routes.draw do
     member do
       get 'download'
       get 'delete'
+    end
+
+    collection do
       get 'import'
     end
   end

@@ -1,18 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'pg'
+gem 'Ascii85'
+gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
 gem 'json'
 gem 'jquery-rails'
-gem 'remotipart'
-gem 'Ascii85'
-gem 'ruby-rc4'
 gem 'pdf-reader'
+gem 'pg'
+gem 'rails'
+gem 'remotipart'
 gem 'riddle'
+gem 'ruby-rc4'
 gem 'thinking-sphinx'
 
 # Gems used only for assets and not required
@@ -20,7 +18,6 @@ gem 'thinking-sphinx'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-#  gem 'twitter-bootstrap-rails', '~> 2.0.1.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
@@ -31,20 +28,13 @@ end
 
 group :development do
   gem 'rspec-rails'
-  #gem 'cucumber-rails'
 end
 
 group :test do
-  gem 'rspec'
   gem 'capybara'
-  gem 'webrat', '0.7.1'
   gem 'factory_girl_rails', '1.0'
   gem 'cucumber'
 end
-
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

@@ -1,3 +1,22 @@
+@import "bootstrap";
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
 $header-background: #333;
 $menu-background: #222;
 $background-color: #000;

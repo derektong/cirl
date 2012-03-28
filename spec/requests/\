@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "Static pages" do
 
+  let(:base_title) { "CIRL" } 
+
   describe "Home page" do
     it "should have the title 'CIRL'" do
       visit root_path
@@ -12,7 +14,7 @@ describe "Static pages" do
   describe "About" do
     it "should have the title 'about'" do
       visit '/about'
-      page.should have_selector('title', text: full_title('About') )
+      page.should have_selector('title', text: "#{base_title} | About" )
     end
   end
 
