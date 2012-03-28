@@ -1,18 +1,18 @@
 Cirl::Application.routes.draw do
   
-  #match '/cases/:id/delete' => 'cases#delete'
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
-  match '/signup', :to => 'users#new'
   match '/contact', :to => 'static_pages#contact'
   match '/about', :to => 'static_pages#about'
   match '/help', :to => 'static_pages#help'
   match '/admin', :to => 'static_pages#admin'
+  match '/signup', :to => 'users#new'
 
   resources :jurisdictions
   resources :child_topics
   resources :courts 
   resources :refugee_topics
+  resources :users
 
   resources :cases do
     member do

@@ -2,10 +2,10 @@
 <%# <%=image_tag("cirl.png", :alt => "CIRL", :class => "round") %>
 <nav class="round">
 <ul>
-<li><%= link_to "Home", root_path %></li>
-<li><%= link_to "Help", help_path %></li>
-<li><%= link_to "Sign in", '#' %></li>
+  <li><%= link_to "Register", signup_path %></li>
+  |
+  <li><%= link_to "Sign in", '#' %></li>
 </ul>
 </nav>
-<span>The Child in International Refugee Law</span>
+<span><%= link_to "The Child in International Refugee Law", root_path %></span>
 </header>

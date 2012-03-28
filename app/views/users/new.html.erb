@@ -1,18 +1,18 @@
-<%= javascript_include_tag "cases_new" %>
-<%= javascript_include_tag "cases" %>
 <%= provide :title, "Add new case" %>
-<%= render 'case_menu' %>
+<%= render 'shared/empty_menu' %>
 <section class="container">
-    <h3>Add new case</h3><br />
-    <%= form_for @case, :html => { :class => "well" } do |f| %>
+  <div class="main">
+    <h3>Sign up to CIRL</h3><br />
+    <%= form_for @user, :html => { :class => "well" } do |f| %>
     <%= render "shared/error_messages", :object => f.object %>
       <%= render 'fields', :f => f %>
     <br />
 
     <div class="actions">
-      <%= f.submit "Add", { :class => "btn" } %>
+      <%= f.submit "Sign up", { :class => "btn" } %>
     </div>
     <% end %>
+  </div>
 </section>
 
 

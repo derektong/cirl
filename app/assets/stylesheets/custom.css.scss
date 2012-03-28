@@ -45,11 +45,12 @@ header#main {
     margin-left: $margin-left;
   }
 
-  span {
-    margin-left: $margin-left;
-    font-size: 300%;
-    color: #fff; 
-    background: $header-background;
+  span a {
+      margin-left: $margin-left;
+      background: $header-background;
+      font-size: 300%;
+      color: #fff; 
+      text-decoration: none;
   }
 }
 
@@ -152,24 +153,28 @@ a {
 
 nav {
   float: right;
-  background-color: white;
+  margin-right: 30px;
+  background-color: $header-background;
   padding: 0 0.7em;
   white-space: nowrap;
 
   ul {
     margin: 0;
     padding: 0;
+    color: #fff;
 
     li {
       list-style-type: none;
       display: inline-block;
-      padding: 0.2em 1em;
+      padding: 0.2em 0.5em;
+      font-size: 120%;
 
       a {
+        color: #fff;
         padding: 0px;
 
         &:visited {
-          color: #000;
+          color: #fff;
         }
 
         &:hover {
