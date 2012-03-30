@@ -1,0 +1,20 @@
+<%= provide( :title, 'Manage Refugee Framework Topics') %>
+<%= javascript_include_tag "keywords" %>
+<%= render 'shared/admin_menu' %>
+<section class="container">
+<h3>Manage Keywords</h3><br />
+<div class="main">
+<table class="table">
+ <%= render @keywords %>
+</table>
+<%= form_for(@keyword, :html => { :class => "well" } ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= f.label :description, "Add new topic: " %>
+  <%= f.text_field :description %>
+  <%= f.submit "Add", :class => "btn" %>
+<% end %>
+</div>
+<div class="sidebar">
+Use this page to create, edit and delete the legal keywords in the database.
+</div>
+</section>

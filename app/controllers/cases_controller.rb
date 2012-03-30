@@ -40,9 +40,10 @@ class CasesController < ApplicationController
 
       @attributes[:child_topic_ids] = params[:case_child_topic_ids] if params[:case_child_topic_ids]
       @attributes[:refugee_topic_ids] = params[:case_refugee_topic_ids] if params[:case_refugee_topic_ids]
+      @attributes[:keyword_ids] = params[:case_keyword_ids] if params[:case_keyword_ids]
 
       @cases = Case.search params[:search],
-               :include => [:court, :child_topics, :refugee_topics],
+               :include => [:court, :child_topics, :refugee_topics, :keywords],
                :with => @attributes
 
       @attributes.empty? ? @advanced_used = "none" : @advanced_used = "block"
@@ -89,6 +90,7 @@ class CasesController < ApplicationController
       @case = Case.find(params[:id])
       params[:case][:child_topic_ids] ||= []
       params[:case][:refugee_topic_ids] ||= []
+      params[:case][:keyword_ids] ||= []
       params[:case][:pdf] ||= ""
 
       if @case.update_attributes(params[:case])
@@ -109,6 +111,7 @@ class CasesController < ApplicationController
     @courts = Court.all
     @jurisdictions = Jurisdiction.find(:all, :order => :name )
     @refugee_topics = RefugeeTopic.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => :description )
     @child_topics = ChildTopic.find(:all, :order => :description )
   end
 

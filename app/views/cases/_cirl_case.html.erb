@@ -16,15 +16,21 @@
 <tr>
   <td>
     <p>
-    <span class="case_other_attribute">Legal refugee_topics:</span>
+    <span class="case_other_attribute">Refugee Framework Topics:</span>
     <span class="case_refugee_topics">
       <%= @case.refugee_topics.map(&:description).join(', ') %>
     </span>
     </p>
     <p>
-    <span class="case_other_attribute">Legal child_topics:</span>
+    <span class="case_other_attribute">Children's Rights Framework Topics:</span>
     <span class="case_child_topics">
       <%= @case.child_topics.map(&:description).join(', ') %>
+    </span><br />
+    </p>
+    <p>
+    <span class="case_other_attribute">Keywords:</span>
+    <span class="case_keywords">
+      <%= @case.keywords.map(&:description).join(', ') %>
     </span><br />
     </p>
     <span class="case_other_attribute">Full text:</span>

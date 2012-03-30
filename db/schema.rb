@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328215323) do
+ActiveRecord::Schema.define(:version => 20120330223120) do
 
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(:version => 20120328215323) do
   create_table "cases_child_topics", :id => false, :force => true do |t|
     t.integer "case_id"
     t.integer "child_topic_id"
+  end
+
+  create_table "cases_keywords", :id => false, :force => true do |t|
+    t.integer "case_id"
+    t.integer "keyword_id"
   end
 
   create_table "cases_refugee_topics", :id => false, :force => true do |t|
@@ -51,6 +56,12 @@ ActiveRecord::Schema.define(:version => 20120328215323) do
 
   create_table "jurisdictions", :force => true do |t|
     t.string "name", :limit => 128, :null => false
+  end
+
+  create_table "keywords", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "refugee_topics", :force => true do |t|

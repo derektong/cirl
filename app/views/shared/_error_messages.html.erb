@@ -6,7 +6,7 @@
       <br />
       <ul>
         <%# refactor to make errors a bit prettier %>
-        <% case object.type.to_s %>
+        <% case object.class.to_s %>
         <%# Jurisdiction specific errors %>
           <% when "Jurisdiction" %>
                <% object.errors.full_messages.each do |msg| %>
@@ -15,7 +15,7 @@
 
           <% else 
                object.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
+                 <li><%= msg %></li>
             <% end %>
           <% end %>
       </ul>

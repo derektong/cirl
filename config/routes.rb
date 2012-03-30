@@ -9,9 +9,10 @@ Cirl::Application.routes.draw do
   match '/signup', :to => 'users#new'
 
   resources :jurisdictions
-  resources :child_topics
   resources :courts 
+  resources :child_topics
   resources :refugee_topics
+  resources :keywords
   resources :users
 
   resources :cases do

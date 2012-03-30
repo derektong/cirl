@@ -4,7 +4,7 @@ class Case < ActiveRecord::Base
 
   attr_accessible :claimant, :respondent, :decision_date, 
                   :country_origin, :court_id, :year, :month, :day, 
-                  :child_topic_ids, :refugee_topic_ids, :jurisdiction_id, :pdf, :fulltext
+                  :child_topic_ids, :refugee_topic_ids, :keyword_ids, :jurisdiction_id, :pdf, :fulltext
 
   # handle case name
   validates :claimant,  :presence => true,
@@ -33,6 +33,10 @@ class Case < ActiveRecord::Base
   validates :refugee_topic_ids, :presence => true
   has_and_belongs_to_many :refugee_topics
 
+  # handle keywords
+  validates :keywords, :presence => true
+  has_and_belongs_to_many :keywords
+
   # handle uploads
   validate :validate_pdf
 
@@ -42,6 +46,7 @@ class Case < ActiveRecord::Base
     indexes court(:name), :as => :court
     indexes child_topics.description, :as => :child_topics
     indexes refugee_topics.description, :as => :refugee_topics
+    indexes keywords.description, :as => :keywords
     indexes country_origin, :as => :country_origin_text
     indexes fulltext
     indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
@@ -51,6 +56,7 @@ class Case < ActiveRecord::Base
     has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
     has child_topics(:id), :as => :child_topic_ids
     has refugee_topics(:id), :as => :refugee_topic_ids
+    has keywords(:id), :as => :keyword_ids
     has court.jurisdiction(:id), :as => :jurisdiction_id
   end
 

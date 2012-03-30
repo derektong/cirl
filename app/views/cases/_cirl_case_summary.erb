@@ -28,6 +28,12 @@
       <%= @case.child_topics.map(&:description).join(', ') %>
     </span><br />
     </p>
+    <p>
+    <span class="case_other_attribute">Keywords:</span>
+    <span class="case_keywords">
+      <%= @case.keywords.map(&:description).join(', ') %>
+    </span><br />
+    </p>
 
   <%= link_to "Download", download_case_path(@case.id) %>
   <%# if current_user.admin? %>

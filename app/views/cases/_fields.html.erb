@@ -30,6 +30,9 @@
 <%= f.label :refugee_topic_ids, "Refugee framework:" %>
 <%= render 'refugee_topics', object: f.object %>
 
+<%= f.label :keyword_ids, "Keywords:" %>
+<%= render 'keywords', object: f.object %>
+
 <%= f.label :pdf %>
 <%= f.file_field :pdf %>
 

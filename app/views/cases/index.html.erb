@@ -57,6 +57,12 @@
                    options_from_collection_for_select(@refugee_topics, "id", "description", 
                                                       @attributes[:refugee_topic_ids]), 
                    multiple: true %><br /><br />
+
+    <i>Keywords</i><br />
+    <%= select_tag "case_keyword_ids", 
+                   options_from_collection_for_select(@keywords, "id", "description", 
+                                                      @attributes[:keyword_ids]), 
+                   multiple: true %><br /><br />
   </div>
 
     <%= submit_tag "Search", :name => nil, class: "search_button" %>
