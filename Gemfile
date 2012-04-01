@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'Ascii85'
 gem 'bootstrap-sass'
+gem 'bootstrap-will_paginate'
 gem 'bcrypt-ruby'
 gem 'json'
 gem 'jquery-rails'
@@ -12,6 +13,7 @@ gem 'remotipart'
 gem 'riddle'
 gem 'ruby-rc4'
 gem 'thinking-sphinx'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.

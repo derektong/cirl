@@ -4,14 +4,14 @@
       <% @i = 1 %>
       <% @child_topics.each do |child_topic| %>
         <td>
-        <label class="checkbox inline aligned">
+        <label class="checkbox inline">
           <%= check_box_tag "case[child_topic_ids][]", child_topic.id, 
               object.child_topics.include?(child_topic) %>
           <%= child_topic.description %>
+        </label>
         </td>
         <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
         <% @i += 1 %>
-        </label>
       <% end %>
     </tr>
   </table>

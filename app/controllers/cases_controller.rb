@@ -7,8 +7,11 @@ class CasesController < ApplicationController
   end
 
   def index
-    @advanced_used = "none"
     @attributes = Hash.new
+    @conditions = Hash.new
+    @per_page = 3
+    # work out whether to display advanced options or not
+    params[:advanced].nil? ? @advanced_used = "none" : @advanced_used = params[:advanced]
 
     # query whether searching for blanks should return all results
     # if( params[:search] != nil && params[:search].strip != "" )
@@ -18,6 +21,16 @@ class CasesController < ApplicationController
       @attributes[:country_origin] = @countries_origin.map { |c| c.to_crc32 } if @countries_origin
       @attributes[:court_id] = params[:case_court_id] if params[:case_court_id]
       @attributes[:jurisdiction_id] = params[:case_jurisdiction_id] if params[:case_jurisdiction_id]
+
+      @case_name = params[:case_name] unless params[:case_name].empty?
+      if( @case_name )
+        @conditions[:case_name] = @case_name.split(" ") 
+        # don't impose a condition based on a difference between 'v' and 'vs' between parties to a case
+        @conditions[:case_name].delete("v")
+        @conditions[:case_name].delete("vs")
+        @conditions[:case_name].delete("v.")
+        @conditions[:case_name].delete("vs.")
+      end
 
       begin
         @year_to = params[:case_year_to]
@@ -44,9 +57,12 @@ class CasesController < ApplicationController
 
       @cases = Case.search params[:search],
                :include => [:court, :child_topics, :refugee_topics, :keywords],
-               :with => @attributes
+               :with => @attributes,
+               :conditions => @conditions,
+               :page => params[:page], :per_page => @per_page
 
-      @attributes.empty? ? @advanced_used = "none" : @advanced_used = "block"
+      # if advanced options were used, always show the advanced options in the view even if user hid them
+      @advanced_used = "block" unless @attributes.empty?
     end
   end
 

@@ -11,7 +11,13 @@ class StaticPagesController < ApplicationController
   def contact
   end
 
-  def about
+  def about_cirl
+  end
+
+  def about_diana
+  end
+
+  def about_advisory
   end
 
   def help

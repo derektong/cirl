@@ -1,39 +1,76 @@
-<%= f.label :claimant, "Name of claimant: " %>
-<%= f.text_field :claimant, autofocus: "autofocus" %>
-<%= f.label :respondent, "Name of respondent: " %>
-<%= f.text_field :respondent %><br />
+<div class="control-group">
+  <%= f.label :claimant, "Name of claimant: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.text_field :claimant, autofocus: "autofocus" %>
+  </div>
+</div>
 
-<%= f.label :decision_date, "Date of decision: " -%>
-<%= f.select :day, 1..31, prompt: "day" %>
-<%= f.select :month, 1..12, prompt: "month" -%>
-<%= f.select :year, 1900..Time.now.year, prompt: "year" -%>
+<div class="control-group">
+  <%= f.label :respondent, "Name of respondent: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.text_field :respondent %><br />
+  </div>
+</div>
 
-<%= f.label :country_origin, "Claimant's country of origin: " %>
-<%= f.select :country_origin, get_countries,
-             prompt: "(Select a country)" %><br />
+<div class="control-group">
+  <%= f.label :decision_date, "Date of decision: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.select :day, 1..31, prompt: "day" %>
+    <%= f.select :month, 1..12, prompt: "month" %>
+    <%= f.select :year, 1900..Time.now.year, prompt: "year" %>
+  </div>
+</div>
 
-<%= f.label :jurisdiction_id, "Jurisdiction: " %>
-<%= collection_select(:case, :jurisdiction_id, @jurisdictions, 
-                      :id, :name, prompt: "(Select a jurisdiction)" ) %><br />
+<div class="control-group">
+  <%= f.label :country_origin, "Applicant's country of origin: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.select :country_origin, get_countries, prompt: "(Select a country)" %><br />
+  </div>
+</div>
 
-<%= f.label :court_id, "Court: " %>
-<%= collection_select(:case, :court_id, 
-                      @courts,
-                      :id, :name,
-                      { prompt: "(Select a court)" }, 
-                      { disabled: f.object.id.nil? && params[:case] && params[:case][:jurisdiction_id].nil?})%>
-                      <br />
+<div class="control-group">
+  <%= f.label :jurisdiction_id, "Jurisdiction decided in:", class: "control-label" %>
+  <div class="controls">
+    <%= collection_select(:case, :jurisdiction_id, @jurisdictions, 
+                          :id, :name, prompt: "(Select a jurisdiction)" ) %><br />
+  </div>
+</div>
 
-<%= f.label :child_topic_ids, "Children's rights framework:" %>
-<%= render 'child_topics', object: f.object %>
+<div class="control-group">
+  <%= f.label :court_id, "Court: ", class: "control-label" %>
+  <div class="controls">
+    <%= collection_select(:case, :court_id, @courts, :id, :name, { prompt: "(Select a court)" }, 
+        { disabled: f.object.id.nil? && params[:case] && params[:case][:jurisdiction_id].nil?})%>
+        <br />
+  </div>
+</div>
 
-<%= f.label :refugee_topic_ids, "Refugee framework:" %>
-<%= render 'refugee_topics', object: f.object %>
+<div class="control-group">
+  <%= f.label :child_topic_ids, "Children's rights framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'child_topics', object: f.object %>
+  </div>
+</div>
 
-<%= f.label :keyword_ids, "Keywords:" %>
-<%= render 'keywords', object: f.object %>
+<div class="control-group">
+  <%= f.label :refugee_topic_ids, "Refugee framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'refugee_topics', object: f.object %>
+  </div>
+</div>
 
-<%= f.label :pdf %>
-<%= f.file_field :pdf %>
+<div class="control-group">
+  <%= f.label :keyword_ids, "Keywords:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'keywords', object: f.object %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :pdf, class: "control-label"  %>
+  <div class="controls">
+    <%= f.file_field :pdf %>
+  </div>
+</div>
 
 

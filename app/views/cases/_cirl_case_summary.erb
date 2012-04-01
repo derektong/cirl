@@ -1,3 +1,4 @@
+<table class="table table-bordered">
 <tr>
   <th class="table">
     <span class="case_name">
@@ -9,7 +10,6 @@
     </span>
     <span class="case_court">
       <%= @case.court != nil ? @case.court.name : "Unknown court" %>
-        <%#= Court.exists?(@case.court_id) ? Court.find(@case.court_id).name : %>
       &nbsp;|&nbsp; 
     </span>
   </th>
@@ -44,3 +44,4 @@
   <%# end %>
   </td>
 </tr>
+</table>
