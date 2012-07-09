@@ -4,9 +4,15 @@
     <%# <%=image_tag("cirl.png", :alt => "CIRL", :class => "round") %>
     <nav>
     <ul>
-      <li><%= link_to "Register", signup_path %></li>
-      |
-      <li><%= link_to "Sign in", '#' %></li>
+      <% if signed_in? %>
+        <li><%= link_to "My Account", current_user %></li> 
+        |
+        <li><%= link_to "Sign out", signout_path, method: "delete" %>
+      <% else %>
+        <li><%= link_to "Register", signup_path %></li>
+        |
+        <li><%= link_to "Sign in", signin_path %></li>
+      <% end %>
     </ul>
     </nav>
     <span><%= link_to "The Child in International Refugee Law", root_path %></span>
@@ -29,7 +35,7 @@
         </li>
 
         <li <%= raw "class=\"active\"" if check_tab == "literature" %>>
-          <%= link_to "LITERATURE", about_path %>
+          <%= link_to "LITERATURE", root_path %>
         </li>
 
         <li id="about" class="dropdown<%= " active" if check_tab == "about" -%>">
@@ -43,20 +49,23 @@
           </ul>
         </li>
 
-        <li id="admin" class="dropdown<%= " active" if check_tab == "admin" -%>">
-        <%= link_to "#", { class: "dropdown-toggle", :'data-toggle' => "dropdown" } do %>
-          ADMIN <b class="caret"></b>
+        <% if signed_in? %>
+          <li id="admin" class="dropdown<%= " active" if check_tab == "admin" -%>">
+          <%= link_to "#", { class: "dropdown-toggle", :'data-toggle' => "dropdown" } do %>
+            ADMIN <b class="caret"></b>
+          <% end %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Add new case", new_case_path %></li>
+              <li><%= link_to "Import cases", import_cases_path %></li>
+              <li><%= link_to "Manage courts", courts_path %></li>
+              <li><%= link_to "Manage jurisdictions", jurisdictions_path %></li>
+              <li><%= link_to "Manage refugee framework topics", refugee_topics_path %></li>
+              <li><%= link_to "Manage children's framework topics", child_topics_path%></li>
+              <li><%= link_to "Manage keywords", keywords_path %></li>
+              <li><%= link_to "Manage users", users_path %></li>
+            </ul>
+          </li>
         <% end %>
-          <ul class="dropdown-menu">
-            <li><%= link_to "Add new case", new_case_path %></li>
-            <li><%= link_to "Import cases", import_cases_path %></li>
-            <li><%= link_to "Manage courts", courts_path %></li>
-            <li><%= link_to "Manage jurisdictions", jurisdictions_path %></li>
-            <li><%= link_to "Manage refugee framework topics", refugee_topics_path %></li>
-            <li><%= link_to "Manage children's framework topics", child_topics_path %></li>
-            <li><%= link_to "Manage keywords", keywords_path %></li>
-          </ul>
-        </li>
 
       </ul>
     </div>

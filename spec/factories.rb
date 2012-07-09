@@ -1,4 +1,9 @@
-Factory.define :user do |user|
-  user.name "User Name"
-  user.email "User Email"
+FactoryGirl.define do
+  factory :user do
+    name  "Derek Tong"
+    email "derek.tong@example.com"
+    password "foobar"
+    password_confirmation "foobar"
+
+  end
 end

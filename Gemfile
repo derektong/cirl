@@ -34,7 +34,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'factory_girl_rails', '1.0'
+  gem 'factory_girl_rails', '1.4.0'
   gem 'cucumber'
 end
 

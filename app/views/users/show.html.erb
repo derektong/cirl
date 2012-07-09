@@ -1,0 +1,13 @@
+<%= provide :title, @user.name %>
+<%= render 'shared/empty_menu' %>
+<section class="container">
+  <div class="main">
+    <h3>Hello</h3><br />
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  </div>
+</section>
+
+

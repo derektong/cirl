@@ -9,6 +9,9 @@ Cirl::Application.routes.draw do
   match '/help', :to => 'static_pages#help'
   match '/admin', :to => 'static_pages#admin'
   match '/signup', :to => 'users#new'
+  match '/signin', :to =>'sessions#new'
+  match '/signout', :to => 'sessions#destroy', via: :delete
+
 
   resources :jurisdictions
   resources :courts 
@@ -16,6 +19,8 @@ Cirl::Application.routes.draw do
   resources :refugee_topics
   resources :keywords
   resources :users
+
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :cases do
     member do

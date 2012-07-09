@@ -9,11 +9,5 @@ describe "Static pages" do
     end
   end
 
-  describe "About" do
-    it "should have the title 'about'" do
-      visit '/about'
-      page.should have_selector('title', text: full_title('About') )
-    end
-  end
 
 end
