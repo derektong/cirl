@@ -1,21 +1,9 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <header id="main">
-    <%# <%=image_tag("cirl.png", :alt => "CIRL", :class => "round") %>
-    <nav>
-    <ul>
-      <% if signed_in? %>
-        <li><%= link_to "My Account", current_user %></li> 
-        |
-        <li><%= link_to "Sign out", signout_path, method: "delete" %>
-      <% else %>
-        <li><%= link_to "Register", signup_path %></li>
-        |
-        <li><%= link_to "Sign in", signin_path %></li>
-      <% end %>
-    </ul>
-    </nav>
-    <span><%= link_to "The Child in International Refugee Law", root_path %></span>
+    <%# <%=image_tag("childref.png", :alt => "ChildRef" ) %>
+    <span class="big"><%= link_to "ChildRef", root_path %></span>
+    <p>online resource centre for children seeking international protection</p>
     </header>
     <div class="container">
       <ul class="nav">
@@ -25,17 +13,26 @@
 
         <li id="case_law_db" class="dropdown<%= " active" if check_tab == "case_law_db" -%>">
           <%= link_to "#", { class: "dropdown-toggle", :'data-toggle' => "dropdown" } do %>
-            CASE LAW DATABASE <b class="caret"></b>
+            CASE DATABASE <b class="caret"></b>
           <% end %>
           <ul class="dropdown-menu">
-            <li><%= link_to "Introduction to the case law database", cases_path %></li>
             <li><%= link_to "Basic Search", cases_path %></li>
             <li><%= link_to "Advanced Search", cases_path %></li>
           </ul>
         </li>
 
-        <li <%= raw "class=\"active\"" if check_tab == "literature" %>>
-          <%= link_to "LITERATURE", root_path %>
+        <li id="resources" class="dropdown<%= " active" if check_tab == "resources" -%>">
+          <%= link_to "#", { class: "dropdown-toggle", :'data-toggle' => "dropdown" } do %>
+            LEGAL RESOURCES<b class="caret"></b>
+          <% end %>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Basic Search", "#" %></li>
+            <li><%= link_to "Advanced Search", "#" %></li>
+          </ul>
+        </li>
+
+        <li <%= raw "class=\"active\"" if check_tab == "legal_briefs" %>>
+          <%= link_to "LEGAL BRIEFS", root_path %>
         </li>
 
         <li id="about" class="dropdown<%= " active" if check_tab == "about" -%>">
@@ -43,9 +40,11 @@
             ABOUT <b class="caret"></b>
           <% end %>
           <ul class="dropdown-menu">
-            <li><%= link_to "The Child in International Refugee Law", about_cirl_path %></li>
-            <li><%= link_to "The Advisory Committee", about_advisory_path %></li>
-            <li><%= link_to "The Princess Diana Fund", about_diana_path %></li>
+            <li><%= link_to "Overview", about_cirl_path %></li>
+            <li><%= link_to "Advisory Committee", about_advisory_path %></li>
+            <li><%= link_to "Coram Children's Legal Centre", about_coram_path %></li>
+            <li><%= link_to "The Diana, Princess of Wales Memorial Fund", about_diana_path %></li>
+            <li><%= link_to "Contact us", contact_path %></li>
           </ul>
         </li>
 
@@ -67,6 +66,17 @@
           </li>
         <% end %>
 
+      </ul>
+      <ul class="nav pull-right">
+      <% if signed_in? %>
+        <li><%= link_to "MY ACCOUNT", current_user %></li> 
+        |
+        <li><%= link_to "SIGN OUT", signout_path, method: "delete" %>
+      <% else %>
+        <li><%= link_to "REGISTER", signup_path %></li>
+        |
+        <li><%= link_to "SIGN IN", signin_path %></li>
+      <% end %>
       </ul>
     </div>
   </div>

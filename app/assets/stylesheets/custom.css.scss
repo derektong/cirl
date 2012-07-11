@@ -22,7 +22,7 @@ $header-background: #333;
 $menu-background: #222;
 $background-color: #000;
 $main-height: 1000px;
-$margin-left: 80px;
+$margin-left: 0px;
 $error-color: red;
 $link-color: #bbb;
 
@@ -36,7 +36,7 @@ section.container {
 }
 
 header#main {
-  height: 50px;
+  height: 70px;
   padding-top: 30px;
   padding-bottom: 0px;
   padding-left: 45px;
@@ -51,13 +51,20 @@ header#main {
     margin-left: $margin-left;
   }
 
-  span a {
+  p {
+    margin-top: 5px;
+    color: #fff;
+    font-size: 110%;
+  }
+
+  span.big a {
       margin-left: $margin-left;
       background: $header-background;
       font-size: 300%;
       color: #fff; 
       text-decoration: none;
   }
+
 }
 
 // For menubar
@@ -189,6 +196,12 @@ div.leftmenu {
       color: $link-color;
     }
   }
+}
+
+div.wide {
+  float: left;
+  width: 70%;
+  margin-right: 20px;
 }
 
 div.main {
