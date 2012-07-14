@@ -193,6 +193,8 @@ div.leftmenu {
 div.basic {
   margin-top: 20px;
   margin-right: 20px;
+  height: 99%;
+  overflow: auto;
 }
 
 div.wide {
@@ -252,6 +254,10 @@ span.inplace_error {
 div.inplace_buttons {
   padding-top: 10px;
   float: right;
+}
+
+a.white {
+  color: white;
 }
 
 

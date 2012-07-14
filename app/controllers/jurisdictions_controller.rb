@@ -20,8 +20,8 @@ class JurisdictionsController < ApplicationController
   def destroy
     @del_jurisdiction = Jurisdiction.find(params[:id])
     begin
+      flash[:success] = "Jurisdiction: \""+@del_jurisdiction.name + "\" removed"
       @del_jurisdiction.destroy
-      flash[:success] = "Jurisdiction: \"" + @jurisdiction.name + "\" removed"
       redirect_to jurisdictions_path
     rescue ActiveRecord::DeleteRestrictionError
       @del_jurisdiction.errors.add(:base, 

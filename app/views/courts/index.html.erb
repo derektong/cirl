@@ -11,13 +11,15 @@
 
 <div class="span4 basic" >
   <h3>Add a new Court</h3><br />
-<%= form_for(@court, :html => { :class => "well"} ) do |f| %>
-  <%= render "shared/error_messages", :object => f.object %>
-  <%= render "fields", :f => f %>
- <div class="actions">
-    <%= f.submit "Add", class: "btn btn-large btn-primary" %>
-  </div>
-<% end %>
+  <%= form_for(@court, :html => { :class => "well"} ) do |f| %>
+    <%= render "shared/error_messages", :object => f.object %>
+    <%= render "fields", :f => f %>
+   <div class="actions">
+      <%= f.submit "Add", class: "btn btn-large btn-primary" %>
+    </div>
+  <% end %>
+  <%= link_to "Restore Defaults", restore_courts_path,
+              confirm: "Are you sure? This will remove all Courts in the database and restore the default list" %>
 </div>
 
 </section>

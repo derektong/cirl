@@ -15,7 +15,12 @@ Cirl::Application.routes.draw do
 
 
   resources :jurisdictions
-  resources :courts 
+  resources :courts do
+    collection do
+      get 'restore'
+    end
+  end
+
   resources :child_topics
   resources :refugee_topics
   resources :keywords

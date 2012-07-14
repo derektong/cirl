@@ -1,6 +1,6 @@
 <div class="field">
   <%= f.label :name, "Name: " %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, autofocus: "autofocus" %>
   <%= f.label :jurisdiction_id, "Jurisdiction: " %>
   <%= collection_select(:court, :jurisdiction_id, @jurisdictions, :id, :name) %>
 </div>

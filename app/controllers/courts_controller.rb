@@ -1,6 +1,7 @@
 class CourtsController < ApplicationController
+  include CourtsHelper
 
-  before_filter :init, :only => [:index, :create, :update, :edit]
+  before_filter :init, :only => [:index, :create, :update, :edit, :restore]
 
   def index
     @court = Court.new
@@ -34,8 +35,6 @@ class CourtsController < ApplicationController
     end
   end
 
-
-
   def update
     @court = Court.find(params[:id])
     if @court.update_attributes(params[:court])
@@ -44,6 +43,12 @@ class CourtsController < ApplicationController
     else
       render 'index'
     end
+  end
+
+  def restore
+    restore_courts
+    @court = Court.new
+    redirect_to courts_path
   end
 
   protected
