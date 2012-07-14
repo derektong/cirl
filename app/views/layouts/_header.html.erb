@@ -70,11 +70,9 @@
       <ul class="nav pull-right">
       <% if signed_in? %>
         <li><%= link_to "MY ACCOUNT", current_user %></li> 
-        |
         <li><%= link_to "SIGN OUT", signout_path, method: "delete" %>
       <% else %>
         <li><%= link_to "REGISTER", signup_path %></li>
-        |
         <li><%= link_to "SIGN IN", signin_path %></li>
       <% end %>
       </ul>

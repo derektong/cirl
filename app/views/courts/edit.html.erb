@@ -2,20 +2,17 @@
 <section class="row">
 <%= render 'shared/admin_menu' %>
 <div class="span5 basic">
- <% flash.each do |key, value| %>
-   <div class="alert alert-<%= key %>"><%= value %></div>
- <% end %>
-<h3>Courts</h3><br />
+<h3>Manage Courts</h3><br />
 <%= render 'list' %>
 </div>
 
 <div class="span4 basic" >
-  <h3>Add a new Court</h3><br />
+  <h3>Edit "<%= @court.name %>" </h3><br />
 <%= form_for(@court, :html => { :class => "well"} ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
   <%= render "fields", :f => f %>
  <div class="actions">
-    <%= f.submit "Add", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
   </div>
 <% end %>
 </div>

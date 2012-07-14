@@ -1,8 +1,11 @@
 <%= provide(:title, "Manage Jurisdictions") %>
+<section class="row">
 <%= render 'shared/admin_menu' %>
-<section class="container">
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
 <h3>Manage Jurisdictions</h3><br />
-<div class="main">
 
 <% if @del_jurisdiction != nil then %>
   <%= render "shared/error_messages", :object => @del_jurisdiction %>
@@ -13,13 +16,12 @@
 </table>
 </div>
 
-<div class="sidebar">
-
+<div class="span4 basic">
+  <h3>Add a new jurisdiction</h3><br />
 <%= form_for(@jurisdiction, :html => { :class => "well" } ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
-    <%= f.label :name, "Add new jurisdiction: " %>
     <%= f.select :name, get_countries, :prompt => "(Select a jurisdiction)" %>
-    <%= f.submit "Add jurisdiction" %>
+    <%= f.submit "Add jurisdiction", class: "btn btn-primary btn-large" %>
 <% end %>
 
 </div>

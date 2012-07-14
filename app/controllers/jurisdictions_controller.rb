@@ -9,6 +9,7 @@ class JurisdictionsController < ApplicationController
     @jurisdictions = Jurisdiction.find(:all, :order => :name)
     @jurisdiction = Jurisdiction.new(params[:jurisdiction])
     if @jurisdiction.save
+      flash[:success] = "Jurisdiction: \"" + @jurisdiction.name + "\" added"
       redirect_to jurisdictions_path
     else
       render 'index'
@@ -20,7 +21,7 @@ class JurisdictionsController < ApplicationController
     @del_jurisdiction = Jurisdiction.find(params[:id])
     begin
       @del_jurisdiction.destroy
-      flash[:success] = "Legal jurisdiction removed."
+      flash[:success] = "Jurisdiction: \"" + @jurisdiction.name + "\" removed"
       redirect_to jurisdictions_path
     rescue ActiveRecord::DeleteRestrictionError
       @del_jurisdiction.errors.add(:base, 

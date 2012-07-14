@@ -1,8 +1,8 @@
 <% if object != nil %>
   <% if object.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(object.errors.count, "error") %>
-        prohibited this action from being taken:</h2>
+      <div class="alert alert-error">
+      There is <%= pluralize(object.errors.count, "error") %>
       <br />
       <ul>
         <%# refactor to make errors a bit prettier %>
@@ -19,6 +19,7 @@
             <% end %>
           <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
 <% end %>

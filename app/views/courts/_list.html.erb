@@ -1,0 +1,12 @@
+<table class="table">
+<% @jurisdictions.each do |jurisdiction|%>
+  <tr><th><%= jurisdiction.name %></th></tr>
+  <% if jurisdiction.courts.empty? %>  
+    <tr><td><span class="tip">No courts in this jurisdiction</span></td></tr>
+  <% else %>
+    <% jurisdiction.courts.each do |court| %>
+      <%= render court %>
+    <% end %>
+  <% end %>
+<% end %>
+</table>

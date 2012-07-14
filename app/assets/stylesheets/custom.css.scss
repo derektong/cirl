@@ -1,23 +1,4 @@
 @import "bootstrap";
-
-/* universal */
-
-html {
-  overflow-y: scroll;
-}
-
-body {
-  padding-top: 120px;
-}
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
-
 $header-background: #333;
 $menu-background: #222;
 $background-color: #000;
@@ -26,29 +7,43 @@ $margin-left: 0px;
 $error-color: red;
 $link-color: #bbb;
 
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+  height: $main-height;
+}
+
 body {
-  background-color: $background-color;
+  padding-top: 140px;
+  height: $main-height;
   font-size: 8pt;
 }
 
-section.container {
-  padding-top: 15px;
+section {
+  height: $main-height;
+}
+
+textarea {
+  resize: vertical;
+}
+
+div.home {
+  padding-top: 30px;
+  padding-left: 30px;
+  min-height: 300px;
 }
 
 header#main {
-  height: 70px;
   padding-top: 30px;
-  padding-bottom: 0px;
+  padding-bottom: 15px;
   padding-left: 45px;
   background: $header-background;
 
   img {
     padding: 1em; 
     background: #fff;
-  }
-
-  div {
-    margin-left: $margin-left;
   }
 
   p {
@@ -173,17 +168,14 @@ nav {
 }
 
 section {
-  width: 1200px;
   background: #fff;
 }
 
 /* Left Menu */
 
 div.leftmenu {
-  float: left;
-  width: 180px;
-  height: 980px;
   background: $background-color;
+  height: 99%;
   margin: 0;
   padding-right: 20px;
   padding-top: 20px;
@@ -198,36 +190,21 @@ div.leftmenu {
   }
 }
 
+div.basic {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
 div.wide {
   float: left;
   width: 70%;
   margin-right: 20px;
 }
 
-div.main {
-  float: left;
-  width: 30%;
-  margin-right: 20px;
-}
-
-/* Right Sidebar */
-
 div.searchresults {
   float: left;
   width: 60%;
 }
-
-div.sidebar {
-  float: left;
-  width: 30%;
-  // padding: 1em;
-  // background: #999;
-
-  ul li {
-    list-style-type: none;
-  }
-}
-
 
 /* Forms */
 
@@ -235,59 +212,33 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
-
 /* Error messages */
 
-.field_with_errors {
-  margin-top: 10px;
-  padding: 5px 5px 5px 5px;
-  background-color: $error-color;
-  display: table;
-
-  label {
-    color: #fff;
-  }
-}
-
 #error_explanation {
-  width: 400px;
-  border: 2px solid $error-color;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-
-  h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 5px;
-    font-size: 12px;
-    margin: -7px;
-    background-color: #c00;
-    color: #fff;
-  }
-
-  p {
-    color: #333;
-    margin-bottom: 0;
-    padding: 5px 5px 5px 5px;
-  }
-
-  ul li {
-    font-size: 12 px;
-    list-style: square;
+  color: #f00;
+  ul {
   }
 }
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
 
 .tip {
   color: #888;
   font-style: italic;
   padding-left: 5px;
 
-  a {
+  &:visited {
     color: #888;
   }
 
+  &:hover {
+    text-decoration: none;
+    color: #888;
+  }
 }
 
 /* Error handling */

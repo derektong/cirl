@@ -1,6 +1,6 @@
 class CourtsController < ApplicationController
 
-  before_filter :init, :only => [:index, :create, :update]
+  before_filter :init, :only => [:index, :create, :update, :edit]
 
   def index
     @court = Court.new
@@ -9,15 +9,21 @@ class CourtsController < ApplicationController
   def create
     @court = Court.new(params[:court])
     if @court.save
+      flash[:success] = "Court: \"" + @court.name + "\" added"
       redirect_to courts_path
     else
       render 'index'
     end
   end
 
+  def edit
+    @court = Court.find(params[:id])
+  end
+
   def destroy
-    Court.find(params[:id]).destroy
-    flash[:success] = "Legal court removed."
+    @court = Court.find(params[:id])
+    flash[:success] = "Court: \"" + @court.name + "\" deleted"
+    @court.destroy
     redirect_to courts_path
   end
 
@@ -31,12 +37,10 @@ class CourtsController < ApplicationController
 
 
   def update
-    @edited_court = Court.find(params[:id])
-    @court = Court.new
-    if @edited_court.update_attributes(:name => params[:update_value], 
-                                       :jurisdiction_id => params[:jurisdiction_id] )
-      #redirect_to courts_path
-      render 'index'
+    @court = Court.find(params[:id])
+    if @court.update_attributes(params[:court])
+      flash[:success] = "Court: \"" + @court.name + "\" updated"
+      redirect_to courts_path
     else
       render 'index'
     end

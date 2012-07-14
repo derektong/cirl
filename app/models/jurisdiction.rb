@@ -4,7 +4,7 @@ class Jurisdiction < ActiveRecord::Base
                     :length => { :maximum => 50 },
                     :uniqueness => { :case_sensitive => false }
 
-  has_many :courts, :dependent => :restrict
+  has_many :courts, :dependent => :restrict, :order => "name"
 
   private
 

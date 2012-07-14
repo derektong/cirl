@@ -1,0 +1,7 @@
+<div class="field">
+  <%= f.label :name, "Name: " %>
+  <%= f.text_field :name %>
+  <%= f.label :jurisdiction_id, "Jurisdiction: " %>
+  <%= collection_select(:court, :jurisdiction_id, @jurisdictions, :id, :name) %>
+</div>
+

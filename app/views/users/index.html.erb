@@ -1,13 +1,13 @@
 <%= provide( :title, 'Manage Users') %>
+<section class="row">
 <%= render 'shared/admin_menu' %>
-<section class="container">
+<div class="span4 basic">
 <h3>Manage Users</h3><br />
-<div class="main">
 <table class="table">
  <%= render @users %>
 </table>
 </div>
-<div class="sidebar">
+<div class="span4 basic">
 Use this page to edit and delete users in the database.
 </div>
 </section>

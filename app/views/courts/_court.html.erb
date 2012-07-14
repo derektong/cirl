@@ -2,7 +2,9 @@
   <td>
     <% court.name %>
     <%= raw "<span class=\"court_edit\" id=\"#{court.id} #{court.jurisdiction_id}\">#{court.name}" %></span>
-    <span class="tip">(click to edit)</span>
+    <%= link_to "edit", edit_court_path(court.id), class: "tip"  %>
+    <span class="tip"> | </span>
+    <%= link_to "delete", court, method: :delete, data: { confirm: "You sure" }, class: "tip"  %>
   </td>
 </tr>
 

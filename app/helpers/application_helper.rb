@@ -1,6 +1,6 @@
 module ApplicationHelper
   def title(page_title)
-    base_title = "CIRL"
+    base_title = "ChildRef"
     if page_title.empty?
       base_title
     else
@@ -106,6 +106,7 @@ module ApplicationHelper
       "Eritrea",
       "Estonia",
       "Ethiopia",
+      "European Union",
       "Falkland Islands (Malvinas)",
       "Faroe Islands",
       "Fiji",

@@ -1,8 +1,8 @@
 <%= provide :title, "Sign in" %>
+<section class="row">
 <%= render 'shared/empty_menu' %>
-<section class="container">
-  <div class="main">
-    <h3>Sign in to the CIRL website</h3><br />
+  <div class="span9 main">
+    <h3>Sign in to the ChildRef website</h3><br />
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
