@@ -36,9 +36,10 @@ class CourtsController < ApplicationController
   end
 
   def update
-    @court = Court.find(params[:id])
-    if @court.update_attributes(params[:court])
-      flash[:success] = "Court: \"" + @court.name + "\" updated"
+    @edited_court = Court.find(params[:id])
+    @court = Court.new
+    if @edited_court.update_attributes(params[:court])
+      flash[:success] = "Court: \"" + @edited_court.name + "\" updated"
       redirect_to courts_path
     else
       render 'index'

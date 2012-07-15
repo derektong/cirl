@@ -1,20 +1,32 @@
-<%= provide( :title, 'Manage Refugee Framework Topics') %>
-<%= javascript_include_tag "refugee_topics" %>
+<%= provide( :title, 'Manage Refugee Definition Topics') %>
+<section class="row">
 <%= render 'shared/admin_menu' %>
-<section class="container">
-<h3>Manage Refugee Framework Topics</h3><br />
-<div class="main">
-<table class="table">
- <%= render @refugee_topics %>
-</table>
+<%= render 'list' %>
+<div class="span4 basic">
+  <h3>Add a new refugee topic</h3><br />
 <%= form_for(@refugee_topic, :html => { :class => "well" } ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
-  <%= f.label :description, "Add new topic: " %>
+  <%= f.label :description, "Description: " %>
   <%= f.text_field :description %>
-  <%= f.submit "Add", :class => "btn" %>
+  <%= f.submit "Add", :class => "btn btn-primary" %>
 <% end %>
-</div>
-<div class="sidebar">
-Use this page to create, edit and delete the legal refugee_topics in the database.
+
+<h3>Add a new Link</h3>
+<%= form_for(@refugee_link, :html => { :class => "well" } ) do |f| %>
+  <%= f.label :description, "Refugee Concept: " %>
+  <%= collection_select(:refugee_topic, :id, @refugee_topics, :id, :description ) %>
+  <%= f.label :description, "Keyword: " %>
+  <%= collection_select(:keyword, :id, @keywords, :id, :description ) %>
+  <%= f.label :description, "Required? " -%>
+  <%= check_box(:required, :required ) %>
+  <br /><br />
+
+  <%= f.submit "Add", :class => "btn btn-primary" %> 
+<% end %>
+
+
+<%= link_to "Restore Default Refugee Definition Topics", 
+            restore_refugee_topics_path,
+            confirm: "Are you sure? This will remove all refugee_topics in the database and restore the default list" %>
 </div>
 </section>

@@ -1,7 +1,6 @@
 <tr>
   <td>
-    <%= raw "<span class=\"keyword_edit\" id=\"#{keyword.id}\">#{keyword.description} " %>
-    </span>
+    <%= keyword.description %>
     <%= link_to "edit", edit_keyword_path(keyword.id), class: "tip" %>
     <span class="tip"> | </span>
     <%= link_to "delete", keyword, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>

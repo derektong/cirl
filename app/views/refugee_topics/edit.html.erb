@@ -1,0 +1,20 @@
+<%= provide :title, "Manage Refugee Topics" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<%= render 'list' %>
+
+<div class="span4 basic" >
+  <h3>Edit "<%= @refugee_topic.description %>" </h3><br />
+<%= form_for(@refugee_topic, :html => { :class => "well"} ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.label :description, "Description: " %>
+    <%= f.text_field :description, autofocus: "autofocus" %>
+    <div class="actions">
+    <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    <%= link_to "Cancel", refugee_topics_path, class: "btn btn-primary white" %>
+  </div>
+<% end %>
+</div>
+
+</section>
+

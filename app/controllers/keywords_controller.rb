@@ -30,7 +30,8 @@ class KeywordsController < ApplicationController
   def update
     @edited_keyword = Keyword.find(params[:id])
     @keyword = Keyword.new
-    if @edited_keyword.update_attributes(:description => params[:update_value])
+    if @edited_keyword.update_attributes(params[:keyword])
+      flash[:success] = "Keyword: \"" + @edited_keyword.description + "\" updated"
       redirect_to keywords_path
     else
       render 'index'

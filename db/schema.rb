@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709191019) do
+ActiveRecord::Schema.define(:version => 20120715163658) do
 
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
@@ -63,6 +63,18 @@ ActiveRecord::Schema.define(:version => 20120709191019) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "refugee_links", :force => true do |t|
+    t.integer  "refugee_topic_id"
+    t.integer  "keyword_id"
+    t.boolean  "required"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "refugee_links", ["keyword_id"], :name => "index_refugee_links_on_keyword_id"
+  add_index "refugee_links", ["refugee_topic_id", "keyword_id"], :name => "index_refugee_links_on_refugee_topic_id_and_keyword_id", :unique => true
+  add_index "refugee_links", ["refugee_topic_id"], :name => "index_refugee_links_on_refugee_topic_id"
 
   create_table "refugee_topics", :force => true do |t|
     t.string   "description"
