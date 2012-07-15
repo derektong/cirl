@@ -23,7 +23,14 @@ Cirl::Application.routes.draw do
 
   resources :child_topics
   resources :refugee_topics
-  resources :keywords
+  resources :keywords do
+    collection do
+      get 'restore'
+    end
+  end
+
+
+
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]

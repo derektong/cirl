@@ -1,7 +1,7 @@
 class Keyword < ActiveRecord::Base
   attr_accessible :description
 
-  description_regex = /\A[\w\-\s]+\Z/
+  description_regex = /\A[\w,\-\s]+\Z/
 
   validates :description, :presence => true,
                           :length => { :maximum => 50 },

@@ -1,0 +1,9 @@
+<div class="span5 basic">
+<% flash.each do |key, value| %>
+ <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+<h3>Manage Keywords</h3><br />
+<table class="table">
+ <%= render @keywords %>
+</table>
+</div>

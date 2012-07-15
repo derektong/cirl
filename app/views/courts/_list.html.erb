@@ -1,3 +1,8 @@
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+   <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
+<h3>Courts</h3><br />
 <table class="table">
 <% @jurisdictions.each do |jurisdiction|%>
   <tr><th><%= jurisdiction.name %></th></tr>
@@ -10,3 +15,4 @@
   <% end %>
 <% end %>
 </table>
+</div>

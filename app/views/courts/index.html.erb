@@ -1,11 +1,6 @@
 <%= provide :title, "Manage Courts" %>
 <section class="row">
 <%= render 'shared/admin_menu' %>
-<div class="span5 basic">
- <% flash.each do |key, value| %>
-   <div class="alert alert-<%= key %>"><%= value %></div>
- <% end %>
-<h3>Courts</h3><br />
 <%= render 'list' %>
 </div>
 
