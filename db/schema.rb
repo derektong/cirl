@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715163658) do
+ActiveRecord::Schema.define(:version => 20120715215520) do
 
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
@@ -34,10 +34,27 @@ ActiveRecord::Schema.define(:version => 20120715163658) do
     t.integer "keyword_id"
   end
 
+  create_table "cases_process_topics", :id => false, :force => true do |t|
+    t.integer "case_id"
+    t.integer "process_topic_id"
+  end
+
   create_table "cases_refugee_topics", :id => false, :force => true do |t|
     t.integer "case_id"
     t.integer "refugee_topic_id"
   end
+
+  create_table "child_links", :force => true do |t|
+    t.integer  "child_topic_id"
+    t.integer  "keyword_id"
+    t.boolean  "required"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "child_links", ["child_topic_id", "keyword_id"], :name => "index_child_links_on_child_topic_id_and_keyword_id", :unique => true
+  add_index "child_links", ["child_topic_id"], :name => "index_child_links_on_child_topic_id"
+  add_index "child_links", ["keyword_id"], :name => "index_child_links_on_keyword_id"
 
   create_table "child_topics", :force => true do |t|
     t.string   "description"
@@ -59,6 +76,24 @@ ActiveRecord::Schema.define(:version => 20120715163658) do
   end
 
   create_table "keywords", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "process_links", :force => true do |t|
+    t.integer  "process_topic_id"
+    t.integer  "keyword_id"
+    t.boolean  "required"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "process_links", ["keyword_id"], :name => "index_process_links_on_keyword_id"
+  add_index "process_links", ["process_topic_id", "keyword_id"], :name => "index_process_links_on_process_topic_id_and_keyword_id", :unique => true
+  add_index "process_links", ["process_topic_id"], :name => "index_process_links_on_process_topic_id"
+
+  create_table "process_topics", :force => true do |t|
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false

@@ -1,4 +1,4 @@
-class ChildTopic < ActiveRecord::Base
+class ProcessTopic < ActiveRecord::Base
   attr_accessible :description, :keyword_ids
 
   description_regex = /\A[\w\-\s]+\Z/
@@ -9,18 +9,18 @@ class ChildTopic < ActiveRecord::Base
                           :format => { :with => description_regex }
 
   has_and_belongs_to_many :cases
-  has_many :child_links, dependent: :destroy
-  has_many :keywords, through: :child_links
+  has_many :process_links, dependent: :destroy
+  has_many :keywords, through: :process_links
 
   def linked?(keyword)
-    child_links.find_by_keyword_id(keyword.id)
+    process_links.find_by_keyword_id(keyword.id)
   end
 
   def link!(keyword, required)
-    child_links.create!(keyword_id: keyword.id, required: required)
+    process_links.create!(keyword_id: keyword.id, required: required)
   end
 
   def unlink!(keyword)
-    child_links.find_by_keyword_id(keyword.id).destroy
+    process_links.find_by_keyword_id(keyword.id).destroy
   end
 end

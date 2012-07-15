@@ -26,13 +26,21 @@ Cirl::Application.routes.draw do
       get 'restore'
     end
   end
+  resources :child_links, only: [:create, :destroy]
 
   resources :refugee_topics do
     collection do
       get 'restore'
     end
   end
+  resources :refugee_links, only: [:create, :destroy]
 
+  resources :process_topics do
+    collection do
+      get 'restore'
+    end
+  end
+  resources :process_links, only: [:create, :destroy]
 
   resources :keywords do
     collection do
@@ -46,7 +54,6 @@ Cirl::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :refugee_links, only: [:create, :destroy]
 
   resources :cases do
     member do

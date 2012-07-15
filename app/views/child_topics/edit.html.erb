@@ -1,0 +1,20 @@
+<%= provide :title, "Manage Child Topics" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<%= render 'list' %>
+
+<div class="span4 basic" >
+  <h3>Edit "<%= @child_topic.description %>" </h3><br />
+<%= form_for(@child_topic, :html => { :class => "well"} ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.label :description, "Description: " %>
+    <%= f.text_field :description, autofocus: "autofocus" %>
+    <div class="actions">
+    <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    <%= link_to "Cancel", child_topics_path, class: "btn btn-primary white" %>
+  </div>
+<% end %>
+</div>
+
+</section>
+

@@ -1,10 +1,10 @@
-<%= provide( :title, 'Manage Child Definition Topics') %>
+<%= provide( :title, 'Manage Process Definition Topics') %>
 <section class="row">
 <%= render 'shared/admin_menu' %>
 <%= render 'list' %>
 <div class="span4 basic">
-  <h3>Add a new child topic</h3><br />
-<%= form_for(@child_topic, :html => { :class => "well" } ) do |f| %>
+  <h3>Add a new process topic</h3><br />
+<%= form_for(@process_topic, :html => { :class => "well" } ) do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
   <%= f.label :description, "Description: " %>
   <%= f.text_field :description %>
@@ -12,9 +12,9 @@
 <% end %>
 
 <h3>Add a new Link</h3>
-<%= form_for(@child_link, :html => { :class => "well" } ) do |f| %>
-  <%= f.label :description, "Child Concept: " %>
-  <%= collection_select(:child_topic, :id, @child_topics, :id, :description ) %>
+<%= form_for(@process_link, :html => { :class => "well" } ) do |f| %>
+  <%= f.label :description, "Process Concept: " %>
+  <%= collection_select(:process_topic, :id, @process_topics, :id, :description ) %>
   <%= f.label :description, "Keyword: " %>
   <%= collection_select(:keyword, :id, @keywords, :id, :description ) %>
   <%= f.label :description, "Required? " -%>
@@ -25,8 +25,8 @@
 <% end %>
 
 
-<%= link_to "Restore Default Child Definition Topics", 
-            restore_child_topics_path,
-            confirm: "Are you sure? This will remove all child_topics in the database and restore the default list" %>
+<%= link_to "Restore Default Process Definition Topics", 
+            restore_process_topics_path,
+            confirm: "Are you sure? This will remove all process_topics in the database and restore the default list" %>
 </div>
 </section>

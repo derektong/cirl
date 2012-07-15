@@ -1,41 +1,63 @@
 class ChildTopicsController < ApplicationController
+  #include ChildTopicsHelper
+
+  before_filter :init, :only => [:index, :create, :edit, :update, :restore, 
+                                 :create_link]
 
   def index
-    @child_topics = ChildTopic.find(:all, :order => 'description')
     @child_topic = ChildTopic.new
+    @child_link = ChildLink.new
+    @keywords = Keyword.find(:all, :order => :description )
+  end
+
+  def edit
+    @child_topic = ChildTopic.find(params[:id])
   end
 
   def create
-    @child_topics = ChildTopic.find(:all, :order => 'description')
     @child_topic = ChildTopic.new(params[:child_topic])
-
-    if @child_topic.save  
-      redirect_to(child_topics_path) 
-    else
-      render 'index'
-    end
-  end
-
-  def destroy
-    ChildTopic.find(params[:id]).destroy
-    flash[:success] = "Legal child_topic removed."
-    respond_to do |format|
-      format.html { redirect_to child_topics_path }
-      format.js { render :js => "window.location = '" + child_topics_path + "'" }
-    end
-  end
-
-  def update
-    @child_topics = ChildTopic.all.sort_by {|a| a[:description].downcase}
-    @edited_child_topic = ChildTopic.find(params[:id])
-    @child_topic = ChildTopic.new
-    if @edited_child_topic.update_attributes(:description => params[:update_value])
+    @child_link = ChildLink.new
+    @keywords = Keyword.find(:all, :order => :description )
+    if @child_topic.save
       redirect_to child_topics_path
     else
       render 'index'
     end
   end
 
+  def destroy
+    @child_topic = ChildTopic.find(params[:id])
+    flash[:success] = "Child topic: \"" + @child_topic.description + "\" deleted"
+    @child_topic.destroy
+    redirect_to child_topics_path
+  end
 
+  def update
+    @edited_child_topic = ChildTopic.find(params[:id])
+    @child_topic = ChildTopic.new
+    @child_link = ChildLink.new
+    @keywords = Keyword.find(:all, :order => :description )
+    if @edited_child_topic.update_attributes(params[:child_topic])
+      flash[:success] = "ChildTopic: \"" + @edited_child_topic.description + "\" updated"
+      redirect_to child_topics_path
+    else
+      render 'index'
+    end
+  end
+
+  def restore
+    #restore_child_topics
+    @child_topic = ChildTopic.new
+    @child_link = ChildLink.new
+    @keywords = Keyword.find(:all, :order => :description )
+    redirect_to child_topics_path
+  end
+
+  protected
+
+  def init
+    @child_topics = ChildTopic.find(:all, :order => :description, 
+                                    :include => :child_links )
+  end
 
 end

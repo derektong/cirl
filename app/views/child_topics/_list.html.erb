@@ -1,0 +1,37 @@
+<div class="span5 basic">
+<% flash.each do |key, value| %>
+ <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+<h3>Manage Child Definition Topics</h3><br />
+<table class="table">
+  <% @child_topics.each do |child_topic| %>
+    <tr><th><%= child_topic.description %>
+      <%= link_to "edit", edit_child_topic_path(child_topic.id), class: "tip" %>
+      <span class="tip"> | </span>
+      <%= link_to "delete", child_topic, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>
+    </th></tr>
+    <% if child_topic.child_links.empty? %>
+      <tr><td><span class="tip">No linked keywords for this topic</span></td></tr>
+    <% else %>
+      <% child_topic.child_links.each do |link| %>
+      <tr>
+        <td>
+          <%= link.keyword.description %>
+          <% if link.required then %>
+            (Required)
+          <% end %>
+          <%= link_to "unlink", child_link_path(link.id), method: :delete, data: { confirm: "You sure?" }, class: "tip"  %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>
+</div>
+
+
+
+
+
+
+
