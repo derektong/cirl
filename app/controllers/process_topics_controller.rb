@@ -1,5 +1,5 @@
 class ProcessTopicsController < ApplicationController
-  #include ProcessTopicsHelper
+  include ProcessTopicsHelper
 
   before_filter :init, :only => [:index, :create, :edit, :update, :restore, 
                                  :create_link]
@@ -46,7 +46,7 @@ class ProcessTopicsController < ApplicationController
   end
 
   def restore
-    #restore_process_topics
+    restore_process_topics
     @process_topic = ProcessTopic.new
     @process_link = ProcessLink.new
     @keywords = Keyword.find(:all, :order => :description )

@@ -1,5 +1,5 @@
 class ChildTopicsController < ApplicationController
-  #include ChildTopicsHelper
+  include ChildTopicsHelper
 
   before_filter :init, :only => [:index, :create, :edit, :update, :restore, 
                                  :create_link]
@@ -46,7 +46,7 @@ class ChildTopicsController < ApplicationController
   end
 
   def restore
-    #restore_child_topics
+    restore_child_topics
     @child_topic = ChildTopic.new
     @child_link = ChildLink.new
     @keywords = Keyword.find(:all, :order => :description )

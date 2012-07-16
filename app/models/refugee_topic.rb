@@ -1,7 +1,7 @@
 class RefugeeTopic < ActiveRecord::Base
   attr_accessible :description, :keyword_ids
 
-  description_regex = /\A[\w\-\s]+\Z/
+  description_regex = /\A[\w\-\s\(\)\.,]+\Z/
 
   validates :description, :presence => true,
                           :length => { :maximum => 100 },
