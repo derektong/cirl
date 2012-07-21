@@ -7,7 +7,7 @@ class RefugeeTopicsController < ApplicationController
   def index
     @refugee_topic = RefugeeTopic.new
     @refugee_link = RefugeeLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
   end
 
   def edit
@@ -17,7 +17,7 @@ class RefugeeTopicsController < ApplicationController
   def create
     @refugee_topic = RefugeeTopic.new(params[:refugee_topic])
     @refugee_link = RefugeeLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     if @refugee_topic.save
       redirect_to refugee_topics_path
     else
@@ -36,7 +36,7 @@ class RefugeeTopicsController < ApplicationController
     @edited_refugee_topic = RefugeeTopic.find(params[:id])
     @refugee_topic = RefugeeTopic.new
     @refugee_link = RefugeeLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     if @edited_refugee_topic.update_attributes(params[:refugee_topic])
       flash[:success] = "RefugeeTopic: \"" + @edited_refugee_topic.description + "\" updated"
       redirect_to refugee_topics_path
@@ -49,14 +49,14 @@ class RefugeeTopicsController < ApplicationController
     restore_refugee_topics
     @refugee_topic = RefugeeTopic.new
     @refugee_link = RefugeeLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     redirect_to refugee_topics_path
   end
 
   protected
 
   def init
-    @refugee_topics = RefugeeTopic.find(:all, :order => :description, 
+    @refugee_topics = RefugeeTopic.find(:all, :order => "LOWER(description)", 
                                         :include => :refugee_links )
   end
 

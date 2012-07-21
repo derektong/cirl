@@ -1,8 +1,20 @@
 <tr>
   <td>
-    <%= keyword.description %>
+    <b><%= keyword.description %></b>
     <%= link_to "edit", edit_keyword_path(keyword.id), class: "tip" %>
     <span class="tip"> | </span>
     <%= link_to "delete", keyword, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>
 </td>
 </tr>
+<% if !keyword.aliases.empty? %>
+  <% keyword.aliases.each do |a| %>
+    <tr>
+      <td>
+        <%= a.description %>
+        <%= link_to "unlink", keyword_alias_path(keyword, a), method: :delete, data: { confirm: "You sure?" }, class: "tip"  %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+
+

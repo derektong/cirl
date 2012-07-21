@@ -5,11 +5,11 @@
 <h3>Manage Process Definition Topics</h3><br />
 <table class="table">
   <% @process_topics.each do |process_topic| %>
-    <tr><th><%= process_topic.description %>
+    <tr><td><b><%= process_topic.description %></b>
       <%= link_to "edit", edit_process_topic_path(process_topic.id), class: "tip" %>
       <span class="tip"> | </span>
       <%= link_to "delete", process_topic, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>
-    </th></tr>
+    </td></tr>
     <% if process_topic.process_links.empty? %>
       <tr><td><span class="tip">No linked keywords for this topic</span></td></tr>
     <% else %>

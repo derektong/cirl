@@ -5,11 +5,11 @@
 <h3>Manage Refugee Definition Topics</h3><br />
 <table class="table">
   <% @refugee_topics.each do |refugee_topic| %>
-    <tr><th><%= refugee_topic.description %>
+    <tr><td><b><%= refugee_topic.description %></b>
       <%= link_to "edit", edit_refugee_topic_path(refugee_topic.id), class: "tip" %>
       <span class="tip"> | </span>
       <%= link_to "delete", refugee_topic, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>
-    </th></tr>
+    </td></tr>
     <% if refugee_topic.refugee_links.empty? %>
       <tr><td><span class="tip">No linked keywords for this topic</span></td></tr>
     <% else %>

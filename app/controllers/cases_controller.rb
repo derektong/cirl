@@ -125,10 +125,10 @@ class CasesController < ApplicationController
 
   def init
     @courts = Court.all
-    @jurisdictions = Jurisdiction.find(:all, :order => :name )
-    @refugee_topics = RefugeeTopic.find(:all, :order => :description )
-    @keywords = Keyword.find(:all, :order => :description )
-    @child_topics = ChildTopic.find(:all, :order => :description )
+    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)" )
+    @refugee_topics = RefugeeTopic.find(:all, :order => "LOWER(description)" )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
+    @child_topics = ChildTopic.find(:all, :order => "LOWER(description)" )
   end
 
 

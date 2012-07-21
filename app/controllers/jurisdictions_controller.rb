@@ -1,12 +1,12 @@
 class JurisdictionsController < ApplicationController
 
   def index
-    @jurisdictions = Jurisdiction.find(:all, :order => :name)
+    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)")
     @jurisdiction = Jurisdiction.new
   end
 
   def create
-    @jurisdictions = Jurisdiction.find(:all, :order => :name)
+    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)")
     @jurisdiction = Jurisdiction.new(params[:jurisdiction])
     if @jurisdiction.save
       flash[:success] = "Jurisdiction: \"" + @jurisdiction.name + "\" added"
@@ -33,7 +33,7 @@ class JurisdictionsController < ApplicationController
   end
 
   def get_jurisdictions
-    @jurisdictions = Jurisdiction.find(:all, :order => :name)
+    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)")
     respond_to do |format|
       format.json {render :json => @jurisdictions }
     end

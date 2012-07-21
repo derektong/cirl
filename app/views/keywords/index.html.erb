@@ -1,7 +1,7 @@
 <%= provide( :title, 'Manage Keywords') %>
 <section class="row">
 <%= render 'shared/admin_menu' %>
-<%= render 'list' %>
+<%= render 'keywords/list' %>
 <div class="span4 basic">
   <h3>Add a new keyword</h3><br />
 <%= form_for(@keyword, :html => { :class => "well" } ) do |f| %>
@@ -10,7 +10,19 @@
   <%= f.text_field :description %>
   <%= f.submit "Add", :class => "btn btn-primary" %>
 <% end %>
+
+<%= form_tag( keyword_aliases_path(@keyword, @alias), method: :post, class: "well" ) do %>
+  <label>Keyword</label>
+  <%= select_tag :id, 
+      options_from_collection_for_select(@keywords, "id", "description" ) %>
+  <label>Alias</label>
+  <%= text_field_tag :description, params[:description] %>
+  <%= submit_tag "Add", class: "btn btn-primary" %>
+<% end %>
+
+
+
 <%= link_to "Restore Default Keywords", restore_keywords_path,
-            confirm: "Are you sure? This will remove all Keywords in the database and restore the default list" %>
+            confirm: "Are you sure? This will remove all Keywords in the database and restore the default list", class: "btn btn-danger white" %>
 </div>
 </section>

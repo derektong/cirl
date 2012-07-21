@@ -55,8 +55,8 @@ class CourtsController < ApplicationController
   protected
 
   def init
-    @courts = Court.find(:all, :order => :name, :include => :jurisdiction )
-    @jurisdictions = Jurisdiction.find(:all, :order => :name, :include => :courts )
+    @courts = Court.find(:all, :order => "LOWER(name)", :include => :jurisdiction )
+    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)", :include => :courts )
   end
 
 end

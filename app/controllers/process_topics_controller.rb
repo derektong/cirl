@@ -7,7 +7,7 @@ class ProcessTopicsController < ApplicationController
   def index
     @process_topic = ProcessTopic.new
     @process_link = ProcessLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
   end
 
   def edit
@@ -17,7 +17,7 @@ class ProcessTopicsController < ApplicationController
   def create
     @process_topic = ProcessTopic.new(params[:process_topic])
     @process_link = ProcessLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     if @process_topic.save
       redirect_to process_topics_path
     else
@@ -36,7 +36,7 @@ class ProcessTopicsController < ApplicationController
     @edited_process_topic = ProcessTopic.find(params[:id])
     @process_topic = ProcessTopic.new
     @process_link = ProcessLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     if @edited_process_topic.update_attributes(params[:process_topic])
       flash[:success] = "ProcessTopic: \"" + @edited_process_topic.description + "\" updated"
       redirect_to process_topics_path
@@ -49,14 +49,14 @@ class ProcessTopicsController < ApplicationController
     restore_process_topics
     @process_topic = ProcessTopic.new
     @process_link = ProcessLink.new
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     redirect_to process_topics_path
   end
 
   protected
 
   def init
-    @process_topics = ProcessTopic.find(:all, :order => :description, 
+    @process_topics = ProcessTopic.find(:all, :order => "LOWER(description)", 
                                         :include => :process_links )
   end
 

@@ -4,7 +4,8 @@ class KeywordsController < ApplicationController
   before_filter :init, :only => [:index, :create, :edit, :update, :restore]
 
   def index
-    @keyword = Keyword.new
+    @keyword = Keyword.all.first
+    @alias = Alias.new
   end
 
   def edit
@@ -47,7 +48,7 @@ class KeywordsController < ApplicationController
   protected
 
   def init
-    @keywords = Keyword.find(:all, :order => :description )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
   end
 
 end

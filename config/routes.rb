@@ -43,12 +43,11 @@ Cirl::Application.routes.draw do
   resources :process_links, only: [:create, :destroy]
 
   resources :keywords do
+    resources :aliases
     collection do
       get 'restore'
     end
   end
-
-
 
   resources :users
 

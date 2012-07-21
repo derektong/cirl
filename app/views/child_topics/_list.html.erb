@@ -5,11 +5,11 @@
 <h3>Manage Child Definition Topics</h3><br />
 <table class="table">
   <% @child_topics.each do |child_topic| %>
-    <tr><th><%= child_topic.description %>
+    <tr><td><b><%= child_topic.description %></b>
       <%= link_to "edit", edit_child_topic_path(child_topic.id), class: "tip" %>
       <span class="tip"> | </span>
       <%= link_to "delete", child_topic, method: :delete, data: { confirm: "You sure?" }, class: "tip" %>
-    </th></tr>
+    </td></tr>
     <% if child_topic.child_links.empty? %>
       <tr><td><span class="tip">No linked keywords for this topic</span></td></tr>
     <% else %>
