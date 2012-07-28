@@ -179,6 +179,7 @@ div.leftmenu {
   margin: 0;
   padding-right: 20px;
   padding-top: 20px;
+  color: #ddd;
   
   ul {
     text-align: right;
@@ -258,6 +259,10 @@ div.inplace_buttons {
 
 a.white {
   color: white;
+}
+
+span.keywordRecommended {
+  color: red;
 }
 
 

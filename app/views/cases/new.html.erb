@@ -1,7 +1,11 @@
 <%= javascript_include_tag "cases_new" %>
 <%= provide :title, "Add new case" %>
-<%= render 'case_menu' %>
-<section class="container">
+<section class="row">
+<%= render 'shared/admin_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
     <h3>Add new case</h3><br />
     <%= form_for @case, :html => { :class => "well form-horizontal" } do |f| %>
     <%= render "shared/error_messages", :object => f.object %>
@@ -16,6 +20,7 @@
       </div>
     </div>
     <% end %>
+  </div>
 </section>
 
 

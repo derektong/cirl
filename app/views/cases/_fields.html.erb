@@ -40,8 +40,15 @@
   <%= f.label :court_id, "Court: ", class: "control-label" %>
   <div class="controls">
     <%= collection_select(:case, :court_id, @courts, :id, :name, { prompt: "(Select a court)" }, 
-        { disabled: f.object.id.nil? && params[:case] && params[:case][:jurisdiction_id].nil?})%>
+        { disabled: f.object.id.nil? })%>
         <br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :process_topic_ids, "Process/Procedure framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'process_topics', object: f.object %>
   </div>
 </div>
 

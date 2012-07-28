@@ -1,5 +1,5 @@
 module KeywordsHelper
-  
+
   def restore_keywords
     Keyword.destroy_all
     default_keywords.each do |v|

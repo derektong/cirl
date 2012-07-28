@@ -1,9 +1,13 @@
 <%= provide :title, "The Advisory Committee" %>
+<section class="row">
 <%= render 'shared/empty_menu' %>
-<section class="container">
-<h3>The Advisory Committee</h3><br />
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
 
-<div class="wide">
+
+<h3>The Advisory Committee</h3><br />
   <h3>Co-Directors</h3>
   <br />
   <p>Jason Pobjoy, University of Cambridge</p>
@@ -20,9 +24,6 @@
   <p>Professor Guglielmo Verdirame, Kings College; 20 Essex Street Chambers</p>
   <p>Rodger Haines QC  President, Human Rights Review Tribunal</p>
   <p>Professor Carolyn Hamilton, Coram Children’s Legal Centre</p>
-
-
-
 </div>
 
 </section>

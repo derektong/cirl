@@ -1,9 +1,14 @@
 <%= javascript_include_tag "cases_index" %>
 <%= javascript_include_tag "cases" %>
 <%= provide :title, "Search cases" %>
-<div class="row">
+
+<section class="row">
 <%= render 'case_menu' %>
-<div class="span9 main">
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
 <h3>Search cases</h3><br />
 <%= form_tag cases_path, :method => :get, class: "well" do %>
   <b>Full text search</b><br />
@@ -100,4 +105,4 @@
       <%= will_paginate %>
   <% end %>
 </div>
-</div>
+</section>

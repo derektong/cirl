@@ -10,7 +10,7 @@
           <%= refugee_topic.description %>
         </label>
         </td>
-        <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
+        <%= if( @i % 2 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
         <% @i += 1 %>
       <% end %>
     </tr>

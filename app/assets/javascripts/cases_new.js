@@ -39,6 +39,81 @@ $(document).ready(function(){
         }
       });
     };
-  }
+  });
+
+  $(":checkbox").change(function(){
+    if( $(this).attr('name') == 'case[keyword_ids][]' )
+      return;
+
+    var processVals = [-1];
+    var childVals = [-1];
+    var refugeeVals = [-1];
+
+    $(':checked').each(function() {
+      var name = $(this).attr('name');
+ 
+      switch (name) {
+        case 'case[process_topic_ids][]':
+          processVals.push($(this).val());
+        break;
+
+        case 'case[child_topic_ids][]':
+          childVals.push($(this).val());
+        break;
+
+        case 'case[refugee_topic_ids][]':
+          refugeeVals.push($(this).val());
+        break;
+      }
+    });
+
+    $.ajax({
+      dataType: "json",
+      cache: false,
+      url: '/cases/for_keywords/' + processVals + '/' + childVals + '/' + refugeeVals,
+      timeout: 20000,
+      error: function(XMLHttpRequest, errorTextStatus, error){
+          alert("Failed to submit : "+ errorTextStatus+" ;"+error);
+      },
+      success: function(data){                    
+        $('.keyword_label').each(function() {
+          $(this).removeClass( "keywordRecommended" );
+        });
+
+        $('input[type=checkbox]').each( function() {
+          if( $(this).attr('id') == "case_keyword_ids_" ) {
+            $(this).removeAttr("disabled");
+            $(this).attr("checked", false);
+          }
+        });
+
+        // if all options unselected, no need to run through iteration
+        if( data.length === 0 )
+          return;
+
+        var keyword_id = "";
+        $.each(data, function(i, j){
+          //alert( JSON.stringify( j.keyword_id) );
+          //alert( JSON.stringify( j.required ) );
+
+          keyword_id = "keyword_" + j.keyword_id
+          $('#' + keyword_id).addClass( "keywordRecommended" );
+
+          if( j.required == true ) {
+            $('input[type=checkbox]').each( function() {
+              if( $(this).val() == j.keyword_id ) {
+                $(this).attr("checked", true);
+                $(this).attr("disabled", true);
+              }
+            });
+          }
+
+        });            
+
+      }
+    });
+  });
+
+
 });
 

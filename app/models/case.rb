@@ -4,7 +4,9 @@ class Case < ActiveRecord::Base
 
   attr_accessible :claimant, :respondent, :decision_date, 
                   :country_origin, :court_id, :year, :month, :day, 
-                  :child_topic_ids, :refugee_topic_ids, :keyword_ids, :jurisdiction_id, :pdf, :fulltext
+                  :child_topic_ids, :refugee_topic_ids, 
+                  :process_topic_ids, :keyword_ids, :jurisdiction_id, :pdf, 
+                  :fulltext
 
   # handle case name
   validates :claimant,  :presence => true,

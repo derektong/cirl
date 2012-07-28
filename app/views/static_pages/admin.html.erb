@@ -1,6 +1,13 @@
-<%= provide( :title, 'Administration') %>
+<%= provide :title, "Admin Functions" %>
+<section class="row">
 <%= render 'shared/admin_menu' %>
-<section class="container">
-    <h3>Admin tools</h3><br />
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <h3>Admin Page</h3><br />
+  <p>This is the admin page</p>
+  </div>
 </section>
-</div>
+
+

@@ -1,6 +1,10 @@
 <%= provide :title, "Coram" %>
+<section class="row">
 <%= render 'shared/empty_menu' %>
-<section class="container">
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
 <h3>Coram</h3><br />
 
 <div class="wide">

@@ -2,11 +2,13 @@ Cirl::Application.routes.draw do
   
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
+  match '/cases/for_keywords/:process_ids/:child_ids/:refugee_ids' => 'cases#for_keywords'
   match '/contact', :to => 'static_pages#contact'
   match '/about/cirl', :to => 'static_pages#about_cirl'
   match '/about/advisory', :to => 'static_pages#about_advisory'
   match '/about/diana', :to => 'static_pages#about_diana'
   match '/about/coram', :to => 'static_pages#about_coram'
+  match '/admin', :to => 'static_pages#admin'
   match '/help', :to => 'static_pages#help'
   match '/admin', :to => 'static_pages#admin'
   match '/signup', :to => 'users#new'

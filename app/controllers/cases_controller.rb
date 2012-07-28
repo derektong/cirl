@@ -1,4 +1,5 @@
 class CasesController < ApplicationController
+  include KeywordsHelper
 
   before_filter :init, :only => [:index, :create, :new, :edit, :update]
 
@@ -118,6 +119,37 @@ class CasesController < ApplicationController
     end
   end
 
+  def for_keywords
+    @keywords = [];
+
+    @process_ids = params[:process_ids].split(',')
+    @process_ids.shift
+    @processes = ProcessTopic.find(@process_ids, :include => :process_links )
+    @processes.each do |process|
+      @keywords += process.process_links
+    end
+
+    @child_ids = params[:child_ids].split(',')
+    @child_ids.shift
+    @child_topics = ChildTopic.find(@child_ids, :include => :child_links )
+    @child_topics.each do |child|
+      @keywords += child.child_links
+    end
+
+    @refugee_ids = params[:refugee_ids].split(',')
+    @refugee_ids.shift
+    @refugees = RefugeeTopic.find(@refugee_ids, :include => :refugee_links )
+    @refugees.each do |refugee|
+      @keywords += refugee.refugee_links
+    end
+
+    #@keywords.uniq // will not work now that whole object included
+
+    respond_to do |format|
+      format.json {render :json => @keywords.to_json }
+    end
+  end
+
   def import
   end
 
@@ -129,6 +161,7 @@ class CasesController < ApplicationController
     @refugee_topics = RefugeeTopic.find(:all, :order => "LOWER(description)" )
     @keywords = Keyword.find(:all, :order => "LOWER(description)" )
     @child_topics = ChildTopic.find(:all, :order => "LOWER(description)" )
+    @process_topics = ProcessTopic.find(:all, :order => "LOWER(description)" )
   end
 
 

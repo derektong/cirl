@@ -7,7 +7,7 @@
         <label class="checkbox inline aligned">
           <%= check_box_tag "case[keyword_ids][]", keyword.id, 
               object.keywords.include?(keyword) %>
-          <%= keyword.description %>
+          <span class="keyword_label" id="keyword_<%= keyword.id %>"><%= keyword.description %></span>
         </td>
         <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
         <% @i += 1 %>
