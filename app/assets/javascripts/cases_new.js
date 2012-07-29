@@ -2,7 +2,6 @@ $(document).ready(function(){
 
   // enabled "required" checkboxes so they are included in the submit
   $('form.change_case').submit(function() {
-    alert("beforesubmit");
     $('input[type=checkbox]').each( function() {
       if( $(this).attr('id') == "case_keyword_ids_" ) 
         $(this).removeAttr("disabled");
@@ -92,7 +91,6 @@ $(document).ready(function(){
         $('input[type=checkbox]').each( function() {
           if( $(this).attr('id') == "case_keyword_ids_" ) {
             if( $(this).is(':disabled') ) {
-              alert( $(this).val() );
               $(this).removeAttr("disabled");
               $(this).removeAttr("checked");
             }

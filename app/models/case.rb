@@ -68,7 +68,8 @@ class Case < ActiveRecord::Base
   end
 
   def rename_pdf
-    #need to rename file after id is assigned ("id.pdf")
+    #for new cases need to rename file after id is assigned ("id.pdf")
+
     directory = "public/pdfs"
     path = File.join(directory, self.pdf.original_filename)
     File.rename( path, directory + "/" + self.id.to_s + ".pdf" )
@@ -96,7 +97,11 @@ class Case < ActiveRecord::Base
 
     begin
       directory = "public/pdfs"
-      path = File.join(directory, self.pdf.original_filename)
+      if self.id.nil?
+        path = File.join(directory, self.pdf.original_filename)
+      else
+        path = File.join(directory, self.id.to_s + ".pdf" )
+      end
       File.open(path, "wb") do |io|
         io.write(self.pdf.read) 
       end

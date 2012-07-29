@@ -7,54 +7,40 @@
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
 
-<tr>
-  <th>
-    <span class="case_name">
-      <%= "#{@case.claimant} (#{@case.country_origin}) v #{@case.respondent}" %>
-    </span>
-    <span class="case_decision_date">
-      <%= "#{@case.decision_date.strftime("%d %b %Y")}" %>
-    </span>
-    <span class="case_court">
-      <%= @case.court != nil ? @case.court.name : "Unknown court" %>
-        <%#= Court.exists?(@case.court_id) ? Court.find(@case.court_id).name : %>
-      &nbsp;|&nbsp; 
-    </span>
-  </th>
-</tr>
-<tr>
-  <td>
-    <p>
-    <span class="case_other_attribute">Refugee Framework Topics:</span>
-    <span class="case_refugee_topics">
-      <%= @case.refugee_topics.map(&:description).join(', ') %>
-    </span>
-    </p>
-    <p>
-    <span class="case_other_attribute">Children's Rights Framework Topics:</span>
-    <span class="case_child_topics">
-      <%= @case.child_topics.map(&:description).join(', ') %>
-    </span><br />
-    </p>
-    <p>
-    <span class="case_other_attribute">Keywords:</span>
-    <span class="case_keywords">
-      <%= @case.keywords.map(&:description).join(', ') %>
-    </span><br />
-    </p>
-    <span class="case_other_attribute">Full text:</span>
-    <span class="case_fulltext">
+  <h2>
+    <%= "#{@case.claimant} (#{@case.country_origin}) v #{@case.respondent}" %>
+  </h2>
+  <br .>
+  <p>
+  <b>Decided:</b> <%= "#{@case.decision_date.strftime("%d %b %Y")}" %>
+  </p>
+  <p>
+  <b>Court:</b> <%= @case.court != nil ? @case.court.name : "Unknown court" %>
+  </p>
+  <p>
+  <b>Refugee Framework Topics: </b>
+     <%= @case.refugee_topics.map(&:description).join(', ') %>
+  </p>
+  <p>
+  <b>Children's Rights Framework Topics:</b>
+    <%= @case.child_topics.map(&:description).join(', ') %>
+  </p>
+  <p>
+  <b>Keywords:</b>
+    <%= @case.keywords.map(&:description).join(', ') %>
+  </p>
+  <p>
+  <b>Full text:</b><br />
+    <div class=fulltext>
       <%= @case.fulltext %>
-    </span><br />
-    </p>
+    </div>
+  </p>
 
-  <%= link_to "Download", download_case_path(@case.id) %>
+  <%= link_to "Download", "pdfs/" + @case.id.to_s + ".pdf", class: "btn btn-primary"  %>
   <%# if current_user.admin? %>
-  | <%= link_to "Edit", edit_case_path(@case.id) %>
-  | <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
-        :title => "Delete this case?" %>
+  <%= link_to "Edit", edit_case_path(@case.id), class: "btn btn-primary" %>
+  <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
+      :title => "Delete this case?", class: "btn btn-danger white" %>
   <%# end %>
-  </td>
-</tr>
 </div>
 </section>
