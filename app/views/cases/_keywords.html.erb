@@ -3,11 +3,25 @@
     <tr class="checkboxes">
       <% @i = 1 %>
       <% @keywords.each do |keyword| %>
+        <% @keyword_description = keyword.description %>
+        <% if !keyword.aliases.empty? %>
+          <% keyword.aliases.each do |a| %>
+            <% @keyword_description += "/" + a.description %>
+          <% end %>
+        <% end %>
         <td>
         <label class="checkbox inline aligned">
           <%= check_box_tag "case[keyword_ids][]", keyword.id, 
-              object.keywords.include?(keyword) %>
-          <span class="keyword_label" id="keyword_<%= keyword.id %>"><%= keyword.description %></span>
+              ( object.keywords.include?(keyword) ||
+                @required.include?(keyword.id) ), 
+              :disabled => ( @required.include? keyword.id ) %>
+              <span class="keyword_label
+                <% if @recommended.include? keyword.id %> 
+                  <%= "keywordRecommended" -%>
+                <% end %>
+                " id="keyword_<%= keyword.id %>">
+                <%= @keyword_description -%>
+              </span>
         </td>
         <%= if( @i % 3 == 0 ) then raw "</tr><tr class=\"checkboxes\">" end %>
         <% @i += 1 %>

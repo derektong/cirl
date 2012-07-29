@@ -7,9 +7,9 @@
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
     <h3>Add new case</h3><br />
-    <%= form_for @case, :html => { :class => "well form-horizontal" } do |f| %>
+    <%= form_for @case, :html => { :class => "well form-horizontal change_case" } do |f| %>
     <%= render "shared/error_messages", :object => f.object %>
-      <%= render 'fields', :f => f %>
+    <%= render 'fields', :f => f %>
 
     <div class="control-group">
       <label class="control-label">

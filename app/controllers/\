@@ -6,8 +6,6 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
-    @recommended = []
-    @required = []
   end
 
   def index
@@ -29,11 +27,9 @@ class CasesController < ApplicationController
     @selected_process_topics = ProcessTopic.find( @case.process_topic_ids )
     @selected_child_topics = ChildTopic.find( @case.child_topic_ids )
     @selected_refugee_topics = RefugeeTopic.find( @case.refugee_topic_ids )
-    keyword_links = get_links( @selected_process_topics,
-                               @selected_child_topics, 
-                               @selected_refugee_topics )
-    @recommended = keyword_links[0]
-    @required = keyword_links[1]
+    @keyword_links = get_links( @selected_process_topics,
+                                @sekected_child_topics, 
+                                @selected_keyword_topics )
   end
 
   def create

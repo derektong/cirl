@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+  // enabled "required" checkboxes so they are included in the submit
+  $('form.change_case').submit(function() {
+    alert("beforesubmit");
+    $('input[type=checkbox]').each( function() {
+      if( $(this).attr('id') == "case_keyword_ids_" ) 
+        $(this).removeAttr("disabled");
+    });
+  });
+
   $("select#case_jurisdiction_id").change(function(){
     var id_value_string = $(this).val();
 
@@ -82,8 +91,11 @@ $(document).ready(function(){
 
         $('input[type=checkbox]').each( function() {
           if( $(this).attr('id') == "case_keyword_ids_" ) {
-            $(this).removeAttr("disabled");
-            $(this).attr("checked", false);
+            if( $(this).is(':disabled') ) {
+              alert( $(this).val() );
+              $(this).removeAttr("disabled");
+              $(this).removeAttr("checked");
+            }
           }
         });
 
@@ -102,7 +114,7 @@ $(document).ready(function(){
           if( j.required == true ) {
             $('input[type=checkbox]').each( function() {
               if( $(this).val() == j.keyword_id ) {
-                $(this).attr("checked", true);
+                $(this).attr("checked", "checked");
                 $(this).attr("disabled", true);
               }
             });

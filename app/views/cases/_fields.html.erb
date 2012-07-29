@@ -40,7 +40,7 @@
   <%= f.label :court_id, "Court: ", class: "control-label" %>
   <div class="controls">
     <%= collection_select(:case, :court_id, @courts, :id, :name, { prompt: "(Select a court)" }, 
-        { disabled: f.object.id.nil? })%>
+        { disabled: f.object.court.nil? })%>
         <br />
   </div>
 </div>

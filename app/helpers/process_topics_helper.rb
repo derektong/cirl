@@ -54,7 +54,6 @@ module ProcessTopicsHelper
         { "Evidential standards" => false },
         { "Benefit of the doubt" => false },
         { "Age-assessment" => false },
-        { "Age determination" => false },
         { "Linguistic analysis" => false },
         { "Testimony" => false },
         { "Corroboration" => false } ],
@@ -71,11 +70,9 @@ module ProcessTopicsHelper
         { "Unaccompanied minors" => false } ],
       "Age-assessment" => [
         { "Age-assessment" => true },
-        { "Age determination" => true },
         { "Credibility" => false } ],
       "Detention" => [
-        { "Detention" => true },
-        { "Deprivation of liberty" => true } ]
+        { "Detention" => true } ]
     }
   end
 end

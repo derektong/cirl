@@ -2,7 +2,7 @@
   <% if object.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-error">
-      There is <%= pluralize(object.errors.count, "error") %>
+      <%= pluralize(object.errors.count, "error") %>
       <br />
       <ul>
         <%# refactor to make errors a bit prettier %>

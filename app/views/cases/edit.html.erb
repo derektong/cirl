@@ -1,21 +1,27 @@
+<%= javascript_include_tag "cases_new" %>
 <%= provide :title, "Edit a case" %>
-<%= render 'case_menu' %>
-<section class="container">
-  <div class="main">
+<section class="row">
+<%= render 'shared/admin_menu' %>
+  <div class="basic span9">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+   
+    <h3>Edit a case</h3><br />
+    <%= form_for @case, :html => { :class => "well form-horizontal change_case" } do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
 
-  <h3>Edit a case</h3><br />
-  <%= form_for @case, :html => { :class => "well" } do |f| %>
-    <%= render 'shared/error_messages', :object => f.object %>
-
-    <%= render 'fields', :f => f %> <br />
-    <div class="actions">
-      <%= f.submit "Save changes", { :class => "btn" } %>
-      <%= f.submit "Cancel", { :class => "btn" } %>
-    </div>
-  <% end %>
+      <%= render 'fields', :f => f %> <br />
+      <div class="actions">
+        <%= f.submit "Save changes", { :class => "btn" } %>
+        <%= f.submit "Cancel", { :class => "btn" } %>
+      </div>
+    <% end %>
 
   </div>
 </section>
+
+
 
 
 

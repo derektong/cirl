@@ -244,25 +244,12 @@ div.field, div.actions {
   }
 }
 
-/* Error handling */
-
-span.inplace_error {
-  padding: 0px;
-  color: $error_color;
-  display: none;
-}
-
-div.inplace_buttons {
-  padding-top: 10px;
-  float: right;
-}
-
 a.white {
   color: white;
 }
 
 span.keywordRecommended {
-  color: red;
+  color: green;
 }
 
 

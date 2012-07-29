@@ -35,7 +35,7 @@
     </span><br />
     </p>
 
-  <%= link_to "Download", download_case_path(@case.id) %>
+  <%= link_to "Download", 'pdfs/' + @case.id.to_s + '.pdf' %>
   <%# if current_user.admin? %>
   | <%= link_to "View", case_path(@case.id) %>
   | <%= link_to "Edit", edit_case_path(@case.id) %>

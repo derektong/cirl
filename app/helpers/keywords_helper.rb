@@ -2,11 +2,20 @@ module KeywordsHelper
 
   def restore_keywords
     Keyword.destroy_all
+    aliases = default_aliases
     default_keywords.each do |v|
       keyword = Keyword.new( description: v )
       if !keyword.save
         flash[:error] = "Error during restore process"
         return
+      end
+      if aliases[ v ] != nil
+        aliases[ v ].each do |a|
+          new_alias = keyword.aliases.new( description: a )
+          if !new_alias.save
+            flash[:error] = "Error adding alias: " + a
+          end
+        end
       end
     end
     flash[:success] = "Keywords successfully restored"
@@ -22,7 +31,6 @@ module KeywordsHelper
       "Adoption",
       "Age as a change of circumstance",
       "Age as immutable characteristic",
-      "Age determination",
       "Age of criminal responsibility",
       "Age-assessment",
       "Alienage",
@@ -33,12 +41,10 @@ module KeywordsHelper
       "Black children",
       "Bullying",
       "Burden or proof",
-      "Causation",
       "Cessation",
       "Change of circumstance",
       "Change of country conditions",
       "Child abduction",
-      "Child as particular social group",
       "Child labour",
       "Child pornography",
       "Child prostitution",
@@ -58,9 +64,10 @@ module KeywordsHelper
       "Cruel, inhuman or degrading treatment ",
       "Culture, right to",
       "Customary international law",
+      "Death penalty",
       "Definition of child",
+      "Denial of custody",
       "Deportation of parent",
-      "Deprivation of liberty",
       "Derivative protection",
       "Designated representatives",
       "Detention",
@@ -72,28 +79,20 @@ module KeywordsHelper
       "Drug abuse",
       "Economic, social and cultural rights",
       "Education",
-      "Equality",
       "Ethnicity",
       "Evidential standards",
       "Exclusion",
       "Exclusion of parent",
-      "Exploitation",
       "Failure of state protection",
-      "Family as particular social group",
       "Family environment, children deprived of",
-      "Family life",
       "Family reunification",
-      "Family unity",
       "Family, risk because of",
       "Female genital cutting",
-      "For reasons of",
       "Forced marriage",
       "Former gang members",
       "Forward-looking risk",
       "Freedom of association",
-      "Freedom of conscience",
       "Freedom of expression",
-      "Freedom of religion",
       "Freedom of thought",
       "Gang recruitment",
       "Gay and lesbian",
@@ -103,12 +102,10 @@ module KeywordsHelper
       "Guardianship",
       "Harmful traditional practices",
       "Health",
-      "Hei Haizi",
       "Humanitarian protection",
       "Identity",
       "Identity documents",
       "Illegal entry",
-      "Illegitimate children",
       "Imprisonment",
       "Imputed parental fear",
       "Imputed political opinion",
@@ -117,10 +114,9 @@ module KeywordsHelper
       "Indirect persecution",
       "Indiscriminate harm",
       "Individual assessment",
+      "Infant mortality",
       "Infanticide",
-      "Internal relocation",
       "Juvenile justice",
-      "Kidnapping",
       "Legal assistance",
       "Leisure, play and culture",
       "Linguistic analysis",
@@ -134,22 +130,17 @@ module KeywordsHelper
       "Multiple nationality",
       "Nationality",
       "Nexus",
-      "Non-discrimination",
       "Non-refoulement",
       "Non-separation",
       "Non-state agents",
       "Objective assessment of risk",
-      "One-child policy",
       "Orphans",
-      "Parental abuse",
       "Parental guidance",
       "Parental responsibility",
       "Participation",
-      "Particular social group",
       "Past persecution",
       "Persecution",
       "Political opinion",
-      "Potential key words ",
       "Privacy",
       "Procedural concessions",
       "Prosecution v persecution",
@@ -163,7 +154,6 @@ module KeywordsHelper
       "Religion",
       "Right to life",
       "Ritual sacrifice",
-      "Safe third country",
       "Serious harm",
       "Serious non-political crimes",
       "Sexual abuse",
@@ -171,7 +161,6 @@ module KeywordsHelper
       "Shared duty of fact-finding",
       "Similarly situated persons",
       "Social security",
-      "Socio-economic deprivation",
       "Standard of proof",
       "State of reference",
       "Statelessness",
@@ -190,5 +179,50 @@ module KeywordsHelper
       "Young males"
     ]
   end
+
+  def default_aliases
+    return { 
+      "Age-assessment" => [
+        "Age determination" ],
+      "Detention" => [
+        "Deprivation of liberty" ],
+      "Choice of asylum country" => [
+        "Safe third country" ],
+      "Domestic child abuse" => [
+        "Parental abuse" ],
+      "Economic, social and cultural rights" => [
+        "Socio-economic deprivation" ],
+      "Regionalised failure to protect" => [
+        "Internal relocation" ],
+      "Nexus" => [
+        "For reasons of", 
+        "Causation" ],
+      "Membership of a particular social group" => [
+        "Particular social group" ],
+      "Children, risk because of being" => [
+        "Child as particular social group" ],
+      "Family, risk because of" => [
+        "Family as particular social group" ],
+      "Black children" => [
+        "Hei Haizi",
+        "Illegitimate children",
+        "One-child policy" ],
+      "Discrimination" => [
+        "Equality",
+        "Non-discrimination" ],
+      "Non-separation" => [
+        "Family unity" ],
+      "Child abduction" => [
+        "Kidnapping" ],
+      "Freedom of thought" => [
+        "Freedom of conscience",
+        "Freedom of religion" ],
+      "Privacy" => [
+        "Family life" ],
+      "Sexual exploitation" => [
+        "Exploitation" ]
+    }
+  end
+
 end
 

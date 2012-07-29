@@ -45,6 +45,7 @@ class Case < ActiveRecord::Base
 
   # handle uploads
   validate :validate_pdf
+  before_destroy :remove_pdf
 
   # sphinx index
   define_index do
@@ -66,7 +67,19 @@ class Case < ActiveRecord::Base
     has court.jurisdiction(:id), :as => :jurisdiction_id
   end
 
+  def rename_pdf
+    #need to rename file after id is assigned ("id.pdf")
+    directory = "public/pdfs"
+    path = File.join(directory, self.pdf.original_filename)
+    File.rename( path, directory + "/" + self.id.to_s + ".pdf" )
+  end
+
   private
+
+  # delete pdf before deleting case
+  def remove_pdf
+    File.delete "public/pdfs/" + self.id.to_s + ".pdf" 
+  end
 
   # upload pdf
   def validate_pdf
@@ -91,7 +104,7 @@ class Case < ActiveRecord::Base
       # need to open file again for reading after writing
       File.open(path, "rb") do |io|
         reader = PDF::Reader.new(io)
-         #self.fulltext = reader.pages.map { |page| page.text }.join(' ') 
+        self.fulltext = reader.pages.map { |page| page.text }.join(' ') 
         reader.pages.each do |page|
           self.fulltext += page.text 
         end

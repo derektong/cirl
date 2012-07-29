@@ -48,7 +48,7 @@ class KeywordsController < ApplicationController
   protected
 
   def init
-    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
+    @keywords = Keyword.find(:all, :order => "LOWER(description)", include: :aliases )
   end
 
 end
