@@ -2,7 +2,7 @@ class CasesController < ApplicationController
   include KeywordsHelper
   include CasesHelper
 
-  before_filter :init, :only => [:new, :edit]
+  before_filter :init, :only => [:new, :edit, :create]
 
   def new
     @case = Case.new
@@ -47,6 +47,8 @@ class CasesController < ApplicationController
         @courts = Court.find_all_by_jurisdiction_id(params[:case][:jurisdiction_id])
         @selected_court = params[:case][:court_id]
       end
+      @recommended = []
+      @required = []
       render 'cases/new'
     end
   end

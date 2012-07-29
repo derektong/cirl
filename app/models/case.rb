@@ -69,17 +69,20 @@ class Case < ActiveRecord::Base
 
   def rename_pdf
     #for new cases need to rename file after id is assigned ("id.pdf")
-
-    directory = "public/pdfs"
-    path = File.join(directory, self.pdf.original_filename)
-    File.rename( path, directory + "/" + self.id.to_s + ".pdf" )
+    
+    directory = "public/pdfs/"
+    File.rename( directory + "temp.pdf" , directory + self.id.to_s + ".pdf" )
   end
 
   private
 
   # delete pdf before deleting case
   def remove_pdf
-    File.delete "public/pdfs/" + self.id.to_s + ".pdf" 
+    begin
+      File.delete "public/pdfs/" + self.id.to_s + ".pdf" 
+    rescue Errno::ENOENT
+      # if file is not there, just ignore
+    end
   end
 
   # upload pdf
@@ -97,8 +100,12 @@ class Case < ActiveRecord::Base
 
     begin
       directory = "public/pdfs"
+      # if new_record? - but this method has been deprecated?
       if self.id.nil?
-        path = File.join(directory, self.pdf.original_filename)
+        # this does not work if multiple people are uploading files all at 
+        # the same time (v unlikely given only admin function) but
+        # no point refactoring as will be rewritten using Amazon s3
+        path = File.join(directory, "temp.pdf")
       else
         path = File.join(directory, self.id.to_s + ".pdf" )
       end
