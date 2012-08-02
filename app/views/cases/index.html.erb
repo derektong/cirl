@@ -8,8 +8,13 @@
   <% end %>
 
 <h3>Viewing all cases</h3><br />
+
+<%= will_paginate %>
+
     <% @cases.each do |cirl_case| %>
       <%= render "cirl_case_summary", :cirl_case => cirl_case %>
     <% end %>
+
+<%= will_paginate %>
 </div>
 </section>

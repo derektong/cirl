@@ -1,5 +1,7 @@
 class CourtsController < ApplicationController
   include CourtsHelper
+  before_filter :signed_in_user
+  before_filter :managing_admin_user
 
   before_filter :init, :only => [:index, :create, :update, :edit, :restore]
 

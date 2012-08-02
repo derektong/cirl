@@ -2,6 +2,8 @@ class KeywordsController < ApplicationController
   include KeywordsHelper
 
   before_filter :init, :only => [:index, :create, :edit, :update, :restore]
+  before_filter :signed_in_user
+  before_filter :managing_admin_user
 
   def index
     @keyword = Keyword.all.first

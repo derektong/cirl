@@ -1,4 +1,6 @@
 class ChildLinksController < ApplicationController
+  before_filter :signed_in_user
+  before_filter :managing_admin_user
 
   def create
     @linked_topic = ChildTopic.find(params[:child_topic][:id])

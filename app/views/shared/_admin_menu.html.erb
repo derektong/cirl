@@ -1,20 +1,24 @@
-<div class="span3 leftmenu">
-<ul>
-  <li><%= link_to "View all cases", cases_path %></li>
-  <li><%= link_to "Add new case", new_case_path %></li>
-  <br />
-  <b>Manage Courts/Jurisdictions</b>
-  <li><%= link_to "Courts", courts_path %></li>
-  <li><%= link_to "Jurisdictions", jurisdictions_path %></li>
-  <br />
-  <b>Manage Concepts</b>
-  <li><%= link_to "Process and Procedure", process_topics_path %></li>
-  <li><%= link_to "Refugee Framework", refugee_topics_path %></li>
-  <li><%= link_to "Children's Rights Framework", child_topics_path %></li>
-  <li><%= link_to "Keywords", keywords_path %></li>
-  <br />
-  <b>Other</b>
-  <li><%= link_to "Manage users", users_path %></li>
-  <li><%= link_to "Import cases", import_cases_path %></li>
-</ul>
-</div>
+<% if signed_in? && current_user.admin? %>
+  <div class="span3 leftmenu">
+  <ul>
+    <li><%= link_to "View all cases", cases_path %></li>
+    <li><%= link_to "Add new case", new_case_path %></li>
+    <br />
+    <% if current_user.managing_admin? %>
+      <b>Manage Courts/Jurisdictions</b>
+      <li><%= link_to "Courts", courts_path %></li>
+      <li><%= link_to "Jurisdictions", jurisdictions_path %></li>
+      <br />
+      <b>Manage Concepts</b>
+      <li><%= link_to "Process and Procedure", process_topics_path %></li>
+      <li><%= link_to "Refugee Framework", refugee_topics_path %></li>
+      <li><%= link_to "Children's Rights Framework", child_topics_path %></li>
+      <li><%= link_to "Keywords", keywords_path %></li>
+      <br />
+      <b>Other</b>
+      <li><%= link_to "Manage users", users_path %></li>
+      <li><%= link_to "Import cases", import_cases_path %></li>
+    <% end %>
+  </ul>
+  </div>
+<% end %>

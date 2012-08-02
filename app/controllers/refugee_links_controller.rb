@@ -1,4 +1,6 @@
 class RefugeeLinksController < ApplicationController
+  before_filter :signed_in_user
+  before_filter :managing_admin_user
 
   def create
     @linked_topic = RefugeeTopic.find(params[:refugee_topic][:id])

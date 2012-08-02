@@ -1,7 +1,30 @@
 <tr>
   <td>
-    <%= raw "<span class=\"user_edit\" id=\"#{user.id}\">#{user.name} " %>
+    <%= raw "<span class=\"user_edit\" id=\"#{user.id}\">" %>
+      <% if current_user.managing_admin? && %>
+        <%= link_to user.name, user_path(user.id) %>
+      <% else %>
+        <%= user.name %>
+      <% end %>
+      <% if user.managing_admin? %>
+        <%= "(Managing Administrator)" %>
+      <% elsif user.admin? %>
+        <%= "(Administrator)" %>
+      <% end %>
+      <% if current_user.managing_admin? && !current_user?(user) %>
+        <% if user.admin? %>
+          <%= link_to "unmake_admin", toggle_admin_user_path(user.id),
+              class: "tip"%>
+        <% else %>
+          <%= link_to "make_admin", toggle_admin_user_path(user.id),
+              class: "tip"%>
+        <% end %>
+      <% end %>
     </span>
-    <span class="tip">(click to edit)</span>
+    <% if current_user.managing_admin? && !current_user?(user) %>
+      <%= link_to "delete", user, method: :delete,
+          data: { confirm: "You sure?" },
+          class: "tip" %>
+    <% end %>
 </td>
 </tr>

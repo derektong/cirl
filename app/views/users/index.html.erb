@@ -1,7 +1,11 @@
 <%= provide( :title, 'Manage Users') %>
 <section class="row">
 <%= render 'shared/admin_menu' %>
-<div class="span4 basic">
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
 <h3>Manage Users</h3><br />
 <table class="table">
  <%= render @users %>

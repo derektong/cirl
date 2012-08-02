@@ -48,7 +48,7 @@
           </ul>
         </li>
 
-        <% if signed_in? %>
+        <% if signed_in? && current_user.admin? %>
         <li><%= link_to "ADMIN", admin_path %></li> 
         <% end %>
 

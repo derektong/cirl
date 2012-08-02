@@ -6,14 +6,15 @@
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
 
-    <h3>Sign up to CIRL</h3><br />
+    <h3>Edit your profile</h3><br />
     <%= form_for @user, :html => { :class => "well" } do |f| %>
     <%= render "shared/error_messages", :object => f.object %>
       <%= render 'fields', :f => f %>
     <br />
 
     <div class="actions">
-      <%= f.submit "Sign up", { :class => "btn btn-primary" } %>
+      <%= f.submit "Save changes", { :class => "btn btn-primary" } %>
+      <%= f.submit "Cancel", { :class => "btn btn-primary" } %>
     </div>
     <% end %>
   </div>

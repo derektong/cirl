@@ -1,4 +1,6 @@
 class JurisdictionsController < ApplicationController
+  before_filter :signed_in_user
+  before_filter :managing_admin_user
 
   def index
     @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)")

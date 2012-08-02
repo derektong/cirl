@@ -1,8 +1,5 @@
 Cirl::Application.routes.draw do
   
-  match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
-  match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
-  match '/cases/for_keywords/:process_ids/:child_ids/:refugee_ids' => 'cases#for_keywords'
   match '/contact', :to => 'static_pages#contact'
   match '/about/cirl', :to => 'static_pages#about_cirl'
   match '/about/advisory', :to => 'static_pages#about_advisory'
@@ -15,8 +12,10 @@ Cirl::Application.routes.draw do
   match '/signin', :to =>'sessions#new'
   match '/signout', :to => 'sessions#destroy', via: :delete
 
-
+  match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
   resources :jurisdictions
+
+  match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   resources :courts do
     collection do
       get 'restore'
@@ -51,11 +50,15 @@ Cirl::Application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    member do
+      get 'toggle_admin'
+    end
+  end
 
   resources :sessions, only: [:new, :create, :destroy]
 
-
+  match '/cases/for_keywords/:process_ids/:child_ids/:refugee_ids' => 'cases#for_keywords'
   resources :cases do
     member do
       get 'download'

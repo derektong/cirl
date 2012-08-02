@@ -2,7 +2,11 @@ class CasesController < ApplicationController
   include KeywordsHelper
   include CasesHelper
 
-  before_filter :init, :only => [:new, :edit, :create]
+  before_filter :init, only: [:new, :edit, :create]
+  before_filter :signed_in_user, only: [:new, :index, :create, :edit, :destroy,
+                                        :update]
+  before_filter :admin_user, only: [:new, :index, :create, :edit, 
+                                    :destroy, :update]
 
   def new
     @case = Case.new
@@ -11,11 +15,16 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.all
+    @cases = Case.paginate(page: params[:page], per_page: 5)
   end
 
   def show
-    @case = Case.find(params[:id])
+    begin
+      @case = Case.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      #what to do when case is not found
+      redirect_to root_path
+    end
   end
   
   def edit

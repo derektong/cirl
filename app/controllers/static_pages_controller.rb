@@ -1,4 +1,8 @@
 class StaticPagesController < ApplicationController
+  before_filter :signed_in_user, only: [:admin]
+  before_filter :managing_admin_user, only: [:admin]
+
+
   def home
     @image_files = %w( .jpg .gif .png )
     @files ||= Dir.entries(

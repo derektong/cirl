@@ -14,6 +14,22 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  def managing_admin?
+    return self.user_type === 2
+  end
+
+  def admin?
+    return self.user_type > 0
+  end
+
+  def toggle_admin
+    if self.user_type == 0
+      return self.update_attribute(:user_type, 1 )
+    else
+      return self.update_attribute(:user_type, 0 )
+    end
+  end
+
   private
 
     def create_remember_token

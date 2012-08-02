@@ -1,11 +1,15 @@
 <%= provide :title, @user.name %>
 <section class="row">
 <%= render 'shared/empty_menu' %>
-  <div class="main span9">
-    <h3>Hello</h3><br />
+  <div class="basic span9">
+    <h3>Welcome <%= @user.name %></h3><br />
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
+
+  <p>
+  <%= link_to "Edit my profile", edit_user_path(@user.id) %>
+  </p>
 
   </div>
 </section>
