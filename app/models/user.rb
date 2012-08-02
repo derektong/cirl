@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  has_and_belongs_to_many :cases
+
   def managing_admin?
     return self.user_type === 2
   end
@@ -30,10 +32,27 @@ class User < ActiveRecord::Base
     end
   end
 
-  private
-
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
+  def save_case( new_case )
+    if self.cases.exists?( new_case.id )
+      return false
+    else
+      self.cases << new_case
+      return true
     end
+  end
+
+  def unsave_case( old_case )
+    if self.cases.delete( old_case )
+      return true
+    else
+      return false
+    end
+  end
+
+  private
+  
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 
 end

@@ -2,13 +2,22 @@
 <section class="row">
 <%= render 'shared/empty_menu' %>
   <div class="basic span9">
-    <h3>Welcome <%= @user.name %></h3><br />
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
+    <h2>Welcome <%= @user.name %></h2><br />
 
   <p>
   <%= link_to "Edit my profile", edit_user_path(@user.id) %>
+  </p>
+
+  <p>
+  <h3>My Cases</h3>
+  <% @user.cases.each do |c| %>
+    <%= link_to c.claimant + " v " + c.respondent, case_path(c.id)  %>
+    <%= link_to "remove", unsave_case_path(c.id), class: "tip" %>
+    <br />
+  <% end %>
   </p>
 
   </div>

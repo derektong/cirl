@@ -36,11 +36,17 @@
     </div>
   </p>
 
-  <%= link_to "Download", "pdfs/" + @case.id.to_s + ".pdf", class: "btn btn-primary"  %>
-  <%# if current_user.admin? %>
-  <%= link_to "Edit", edit_case_path(@case.id), class: "btn btn-primary" %>
-  <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
-      :title => "Delete this case?", class: "btn btn-danger white" %>
-  <%# end %>
+  <%= link_to "Download", "/pdfs/" + @case.id.to_s + ".pdf", 
+      class: "btn btn-primary white"  %>
+  <% if signed_in? && !current_user.cases.exists?(@case.id)%>
+    <%= link_to "Save", save_case_path(@case.id), class: "btn btn-primary white"  %>
+  <% end %>
+  <% if signed_in? && current_user.admin? %>
+    <%= link_to "Edit", edit_case_path(@case.id), class: "btn btn-primary white" %>
+  <% end %>
+  <% if signed_in? && current_user.managing_admin? %>
+    <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
+        :title => "Delete this case?", class: "btn btn-danger white" %>
+  <% end %>
 </div>
 </section>

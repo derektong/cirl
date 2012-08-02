@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120729151539) do
+ActiveRecord::Schema.define(:version => 20120802221926) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(:version => 20120729151539) do
   create_table "cases_refugee_topics", :id => false, :force => true do |t|
     t.integer "case_id"
     t.integer "refugee_topic_id"
+  end
+
+  create_table "cases_users", :id => false, :force => true do |t|
+    t.integer "case_id"
+    t.integer "user_id"
   end
 
   create_table "child_links", :force => true do |t|

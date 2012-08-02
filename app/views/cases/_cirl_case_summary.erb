@@ -41,13 +41,18 @@
     </span><br />
     </p>
 
-  <%= link_to "Download", 'pdfs/' + @case.id.to_s + '.pdf' %>
-  <%# if current_user.admin? %>
+  <%= link_to "Download", '/pdfs/' + @case.id.to_s + '.pdf' %>
   | <%= link_to "View", case_path(@case.id) %>
+  <% if signed_in? && !current_user.cases.exists?(@case.id)%>
+  | <%= link_to "Save", save_case_path(@case.id) %>
+  <% end %>
+  <% if signed_in? && current_user.admin? %>
   | <%= link_to "Edit", edit_case_path(@case.id) %>
+  <% end %>
+  <% if signed_in? && current_user.managing_admin? %>
   | <%= link_to "Delete", @case, :method => :delete, :confirm => "You sure?", 
         :title => "Delete this case?" %>
-  <%# end %>
+  <% end %>
   </td>
 </tr>
 </table>

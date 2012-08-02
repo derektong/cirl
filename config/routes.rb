@@ -63,6 +63,8 @@ Cirl::Application.routes.draw do
     member do
       get 'download'
       get 'delete'
+      get 'save'
+      get 'unsave'
     end
 
     collection do

@@ -4,9 +4,9 @@ class CasesController < ApplicationController
 
   before_filter :init, only: [:new, :edit, :create]
   before_filter :signed_in_user, only: [:new, :index, :create, :edit, :destroy,
-                                        :update]
+                                        :update, :save, :for_keywords]
   before_filter :admin_user, only: [:new, :index, :create, :edit, 
-                                    :destroy, :update]
+                                    :destroy, :update, :for_keywords]
 
   def new
     @case = Case.new
@@ -85,6 +85,26 @@ class CasesController < ApplicationController
         render 'edit'
       end
     end
+  end
+
+  def save
+    @case = Case.find(params[:id])
+    if current_user.save_case(@case)
+      flash[:success] = "Case: " + @case.claimant + " saved"
+    else
+      flash[:error] = "Cannot save case"
+    end
+    redirect_to :back
+  end
+
+  def unsave
+    @case = Case.find(params[:id])
+    if current_user.unsave_case(@case)
+      flash[:success] = "Case: " + @case.claimant + " removed"
+    else
+      flash[:error] = "Cannot remove case"
+    end
+    redirect_to :back
   end
 
   def for_keywords

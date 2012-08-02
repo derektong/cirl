@@ -65,7 +65,9 @@ class UsersController < ApplicationController
   end
 
   def signed_in_or_managing_admin_user
-    redirect_to(root_path) unless (current_user.managing_admin? || correct_user)
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless (current_user.managing_admin? || 
+                                   current_user?(@user) )
   end
 
 end

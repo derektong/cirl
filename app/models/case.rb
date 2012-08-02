@@ -43,6 +43,9 @@ class Case < ActiveRecord::Base
   validates :keywords, :presence => true
   has_and_belongs_to_many :keywords
 
+  # handle keywords
+  has_and_belongs_to_many :isers
+
   # handle uploads
   validate :validate_pdf
   before_destroy :remove_pdf
