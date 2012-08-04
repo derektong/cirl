@@ -146,6 +146,7 @@ class CasesController < ApplicationController
   def init
     @courts = Court.all
     @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)" )
+    @country_origins = CountryOrigin.find(:all, :order => "LOWER(name)" )
     @refugee_topics = RefugeeTopic.find(:all, :order => "LOWER(description)" )
     @child_topics = ChildTopic.find(:all, :order => "LOWER(description)" )
     @process_topics = ProcessTopic.find(:all, :order => "LOWER(description)" )

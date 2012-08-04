@@ -24,7 +24,8 @@
 <div class="control-group">
   <%= f.label :country_origin, "Applicant's country of origin: ", class: "control-label" %>
   <div class="controls">
-    <%= f.select :country_origin, get_countries, prompt: "(Select a country)" %><br />
+    <%= collection_select(:case, :country_origin_id, @country_origins, 
+                          :id, :name, prompt: "(Select a country)" ) %><br />
   </div>
 </div>
 

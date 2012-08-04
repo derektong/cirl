@@ -33,15 +33,6 @@ class JurisdictionsController < ApplicationController
       render 'index', :del_jurisdiction => @del_jurisdiction
     end
   end
-
-  def get_jurisdictions
-    @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)")
-    respond_to do |format|
-      format.json {render :json => @jurisdictions }
-    end
-  end
-
-
 end
 
 

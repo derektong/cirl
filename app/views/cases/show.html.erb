@@ -1,7 +1,7 @@
 
 <%= provide(:title, "View case") %>
 <section class="row">
-<%= render 'case_menu' %>
+<%= render 'shared/case_search_menu' %>
   <div class="basic span9">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>

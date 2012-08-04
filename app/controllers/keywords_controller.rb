@@ -1,5 +1,7 @@
 class KeywordsController < ApplicationController
   include KeywordsHelper
+  include RefugeeTopicsHelper
+  include ChildTopicsHelper
 
   before_filter :init, :only => [:index, :create, :edit, :update, :restore]
   before_filter :signed_in_user
@@ -43,6 +45,8 @@ class KeywordsController < ApplicationController
 
   def restore
     restore_keywords
+    restore_refugee_topics
+    restore_child_topics
     @keyword = Keyword.new
     redirect_to keywords_path
   end

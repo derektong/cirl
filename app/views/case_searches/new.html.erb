@@ -1,0 +1,103 @@
+<%= javascript_include_tag "cases_index" %>
+<%= javascript_include_tag "cases" %>
+<%= provide :title, "Search cases" %>
+
+<section class="row">
+<%= render 'shared/case_search_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<h3>Search cases</h3><br />
+<%= form_for @case_search, :html => { class: "well" } do |f| %>
+  <%= f.label :free_text, "Full text search: " %>
+  <%= f.text_field :free_text, class: "search popper", autofocus: "autofocus",
+      title: "Type the text you are searching for. E.g. 'num num'"  %>
+  <br />
+  <br />
+
+  <div class="slider" style="display: <%=@advanced_used%>;">
+
+  <b>Advanced options</b><br /><br />
+  <%= f.label :case_name, "Case name: " %>
+  <%= f.text_field :case_name, class: "search popper", 
+      title: "Enter the name or part of the name of the case to search for" %>
+
+  <i>Date Range</i><br />
+
+  <%= f.select :day_from, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_from, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_from, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+  <br /><i>to</i><br />
+  <%= f.select :day_to, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_to, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_to, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+
+  <br /><br />
+
+  <i>Applicant's country of origin</i><br />
+  <%= select_tag "case_country_origin", 
+                 options_for_select(get_countries, @countries_origin), 
+                 multiple: true -%>
+                 <span id="country_origin_popper" class="popper"
+                  title="Select one or more countries to search">&nbsp;</span><br /><br />
+
+  <i>Jurisdiction decided in</i><br />
+  <%= select_tag "case_jurisdiction_id", 
+                 options_from_collection_for_select(@jurisdictions, "id", "name", 
+                                                    @attributes[:jurisdiction_id]), 
+                 multiple: true -%>
+                 <span id="jurisdiction_popper" class="popper"
+                  title="Select one or more jurisdictions to search">&nbsp;</span><br /><br />
+
+  <i>Courts</i><br />
+  <%= select_tag "case_court_id", 
+                 options_from_collection_for_select(@courts, "id", "name", @attributes[:court_id]), 
+                 multiple: true -%>
+                 <span id="court_popper" class="popper"
+                  title="Select one or more court to search">&nbsp;</span><br /><br />
+
+  <i>Children's rights framework</i><br />
+  <%= select_tag "case_child_topic_ids", 
+                 options_from_collection_for_select(@child_topics,"id", "description", 
+                                                    @attributes[:child_topic_ids]),
+                 multiple: true -%>
+                 <span id="child_topic_popper" class="popper"
+                  title="Select one or more children's rights framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Refugee framework</i><br />
+  <%= select_tag "case_refugee_topic_ids", 
+                 options_from_collection_for_select(@refugee_topics, "id", "description", 
+                                                    @attributes[:refugee_topic_ids]), 
+                 multiple: true -%>
+                 <span id="refugee_topic_popper" class="popper"
+                  title="Select one or more refugee framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Keywords</i><br />
+  <%= select_tag "case_keyword_ids", 
+                 options_from_collection_for_select(@keywords, "id", "description", 
+                                                    @attributes[:keyword_ids]), 
+                 multiple: true -%>
+                 <span id="keyword_popper" class="popper"
+                  title="Select one or more keywords to search">&nbsp;</span><br /><br />
+</div>
+
+  <%= hidden_field_tag 'advanced', @advanced_used %>
+  <%= submit_tag "Search", name: nil, class: "btn" %>
+  <b><a href="#" class="show_hide"><%= @advanced_used == "block" ? "Hide" : "Show" %> advanced options</a></b><br /><br />
+
+<% end %>
+</div>
+
+<div class="searchresults">
+  <% if @cases != nil then %>
+    <h3>Search results (<%= pluralize( @cases.total_entries, "case" )%> found) </h3><br />
+      <%# cannot have partial called 'case' to avoid confusion with case statements %>
+      <% @cases.each do |cirl_case| %>
+        <%= render "cirl_case_summary", :cirl_case => cirl_case %>
+      <% end %>
+      <%= will_paginate %>
+  <% end %>
+</div>
+</section>

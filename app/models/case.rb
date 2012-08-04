@@ -3,7 +3,7 @@ class Case < ActiveRecord::Base
   attr_accessor :year, :month, :day, :jurisdiction_id, :pdf
 
   attr_accessible :claimant, :respondent, :decision_date, 
-                  :country_origin, :court_id, :year, :month, :day, 
+                  :country_origin_id, :court_id, :year, :month, :day, 
                   :child_topic_ids, :refugee_topic_ids, 
                   :process_topic_ids, :keyword_ids, :jurisdiction_id, :pdf, 
                   :fulltext
@@ -20,8 +20,11 @@ class Case < ActiveRecord::Base
   validates :day, :presence => true
   validate  :validate_decision_date
 
-  validates :country_origin, :presence => true
   validates :jurisdiction_id, :presence => true
+
+  # handle country origin
+  validates :country_origin_id, :presence => true
+  belongs_to :country_origin
 
   # handle courts
   validates :court_id, :presence => true
@@ -44,7 +47,7 @@ class Case < ActiveRecord::Base
   has_and_belongs_to_many :keywords
 
   # handle keywords
-  has_and_belongs_to_many :isers
+  has_and_belongs_to_many :users
 
   # handle uploads
   validate :validate_pdf
@@ -54,15 +57,15 @@ class Case < ActiveRecord::Base
   define_index do
     indexes [claimant, respondent], :as => :case_name
     indexes court(:name), :as => :court
+    indexes country_origin(:name), :as => :country_origin
     indexes child_topics.description, :as => :child_topics
     indexes refugee_topics.description, :as => :refugee_topics
     indexes keywords.description, :as => :keywords
-    indexes country_origin, :as => :country_origin_text
     indexes fulltext
     indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
 
     has court_id 
-    has "CRC32(country_origin)", :as => :country_origin, :type => :integer
+    has country_origin_id
     has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
     has child_topics(:id), :as => :child_topic_ids
     has refugee_topics(:id), :as => :refugee_topic_ids

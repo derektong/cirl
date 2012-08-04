@@ -1,0 +1,27 @@
+<%= provide(:title, "Manage Countries of Origin") %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
+<h3>Manage Countries of Origin</h3><br />
+
+<table class="table">
+  <%= render @country_origins %>
+</table>
+</div>
+
+<div class="span4 basic">
+  <h3>Add a new country of origin</h3><br />
+<%= form_for(@country_origin, :html => { :class => "well" } ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.select :name, get_countries, :prompt => "(Select a country)" %>
+    <%= f.submit "Add Country of origin", class: "btn btn-primary btn-large" %>
+<% end %>
+
+<%= link_to "Restore Default Countries of Origin", restore_country_origins_path,
+            confirm: "Are you sure? The default position is to have all countries as potential countries of origin", class: "btn btn-danger white" %>
+
+</div>
+</section>
