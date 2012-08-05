@@ -3,7 +3,7 @@ class CaseSearch < ActiveRecord::Base
   attr_accessor :year_to, :month_to, :day_to, :year_from, :month_from, :day_from
 
   attr_accessible :free_text, :name, :date_from, :date_to, :day_from, :month_from, 
-                  :year_from, :day_to, :month_to, :year_to
+                  :year_from, :day_to, :month_to, :year_to, :case_name
 
   # handle case name
   validates :free_text, :length => { :maximum => 100 }
@@ -11,9 +11,9 @@ class CaseSearch < ActiveRecord::Base
   # handle dates
   #validate  :validate_dates
 
-  has_and_belongs_to_many :country_origin
-  has_and_belongs_to_many :jurisdiction
-  has_and_belongs_to_many :court
+  has_and_belongs_to_many :country_origins
+  has_and_belongs_to_many :jurisdictions
+  has_and_belongs_to_many :courts
   has_and_belongs_to_many :child_topics
   has_and_belongs_to_many :refugee_topics
   has_and_belongs_to_many :process_topics

@@ -1,0 +1,23 @@
+<%= provide :title, "View all cases" %>
+
+<section class="row">
+<%= render 'shared/case_search_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<% if !@cases.empty? then %>
+  <%= will_paginate @cases %>
+
+    <h3>Search results (<%= pluralize( @cases.total_entries, "case" )%> found) </h3><br />
+    <% @cases.each do |cirl_case| %>
+      <%= render "cases/cirl_case_summary", :cirl_case => cirl_case %>
+    <% end %>
+
+  <%= will_paginate @cases %>
+<% else %>
+  <h3>No cases found</h3>
+<% end %>
+</div>
+</section>

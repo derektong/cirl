@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802221926) do
+ActiveRecord::Schema.define(:version => 20120804095829) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -20,15 +20,25 @@ ActiveRecord::Schema.define(:version => 20120802221926) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "case_searches", :force => true do |t|
+    t.string   "name"
+    t.string   "free_text"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.string   "case_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "cases", :force => true do |t|
     t.date     "decision_date"
-    t.string   "country_origin"
     t.integer  "court_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "respondent"
     t.string   "claimant"
     t.text     "fulltext"
+    t.integer  "country_origin_id"
   end
 
   create_table "cases_child_topics", :id => false, :force => true do |t|
@@ -75,6 +85,12 @@ ActiveRecord::Schema.define(:version => 20120802221926) do
   end
 
   add_index "child_topics", ["description"], :name => "index_subjects_on_description", :unique => true
+
+  create_table "country_origins", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "courts", :force => true do |t|
     t.string   "name"

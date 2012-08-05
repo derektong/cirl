@@ -1,5 +1,6 @@
 <div class="leftmenu span3">
 <ul>
-  <li><%= link_to "Search cases", cases_path %></li>
+  <li><%= link_to "Basic Search", new_case_search_path %></li>
+  <li><%= link_to "Advanced Search", new_case_search_path(advanced: "advanced") %></li>
 </ul>
 </div>

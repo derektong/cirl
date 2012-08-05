@@ -12,8 +12,13 @@ Cirl::Application.routes.draw do
   match '/signin', :to =>'sessions#new'
   match '/signout', :to => 'sessions#destroy', via: :delete
 
-  match '/jurisdictions/get_jurisdictions/:id' => 'jurisdictions#get_jurisdictions'
   resources :jurisdictions
+
+  resources :country_origins do
+    collection do
+      get 'restore'
+    end
+  end
 
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
   resources :courts do
@@ -71,6 +76,13 @@ Cirl::Application.routes.draw do
       get 'import'
     end
   end
+
+  resources :case_searches do
+    collection do
+      get 'results'
+    end
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

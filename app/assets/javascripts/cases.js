@@ -10,13 +10,14 @@ $(document).ready(function(){
       $("#advanced").val( "block" );
     }
     else {
-      $("select#case_court_id").multiselect('uncheckAll');
-      $("select#case_court_id").multiselect('disable');
-      $("select#case_jurisdiction_id").multiselect('uncheckAll');
-      $("select#case_country_origin").multiselect('uncheckAll');
-      $("select#case_child_topic_ids").multiselect('uncheckAll');
-      $("select#case_refugee_topic_ids").multiselect('uncheckAll');
-      $("select#case_keyword_ids").multiselect('uncheckAll');
+      $("select#case_search_courts").multiselect('uncheckAll');
+      $("select#case_search_courts").multiselect('disable');
+      $("select#case_search_jurisdictions").multiselect('uncheckAll');
+      $("select#case_search_country_origins").multiselect('uncheckAll');
+      $("select#case_search_process_topics").multiselect('uncheckAll');
+      $("select#case_search_child_topics").multiselect('uncheckAll');
+      $("select#case_search_refugee_topics").multiselect('uncheckAll');
+      $("select#case_search_keywords").multiselect('uncheckAll');
       $("select#case_day_from").val("");
       $("select#case_month_from").val("");
       $("select#case_year_from").val("");
@@ -30,7 +31,7 @@ $(document).ready(function(){
 
   // multiselect options
 
-  $("select#case_court_id").multiselect({
+  $("select#case_search_courts").multiselect({
     multiple: multipleselect,
     header: headerselect,
     noneSelectedText: "Select courts",
@@ -43,7 +44,20 @@ $(document).ready(function(){
     },
   });
 
-  $("select#case_child_topic_ids").multiselect({
+  $("select#case_search_process_topics").multiselect({
+    multiple: true,
+    header: true,
+    noneSelectedText: "Select topics",
+    selectedList: 10,
+    open: function() {
+      $("#process_topic_popper").tooltip('show');
+    },
+    close: function() {
+      $("#process_topic_popper").tooltip('hide');
+    },
+  });
+
+  $("select#case_search_child_topics").multiselect({
     multiple: true,
     header: true,
     noneSelectedText: "Select topics",
@@ -56,7 +70,7 @@ $(document).ready(function(){
     },
   });
 
-  $("select#case_refugee_topic_ids").multiselect({
+  $("select#case_search_refugee_topics").multiselect({
     multiple: true,
     header: true,
     noneSelectedText: "Select topics",
@@ -69,7 +83,7 @@ $(document).ready(function(){
     },
   });
 
-  $("select#case_keyword_ids").multiselect({
+  $("select#case_search_keywords").multiselect({
     multiple: true,
     header: true,
     noneSelectedText: "Select keywords",
@@ -82,7 +96,7 @@ $(document).ready(function(){
     },
   });
 
-  $("select#case_country_origin").multiselect({
+  $("select#case_search_country_origins").multiselect({
     multiple: multipleselect,
     header: headerselect,
     noneSelectedText: "Select countries of origin",
@@ -96,10 +110,10 @@ $(document).ready(function(){
   });
 
   // start with the courts dropdown disabled
-  $("select#case_court_id").multiselect('disable');
+  $("select#case_search_courts").multiselect('disable');
 
   // jurisdiction dropdown needs to trigger court dropdown
-  $("select#case_jurisdiction_id").multiselect({
+  $("select#case_search_jurisdictions").multiselect({
     multiple: multipleselect,
     header: headerselect,
     noneSelectedText: "Select a jurisdiction",
@@ -110,18 +124,18 @@ $(document).ready(function(){
     },
 
     close: function() {
-    // $("select#case_jurisdiction_id").change(function(){
+    // $("select#case_search_jurisdiction").change(function(){
         var id_value_string = $(this).val();
         $("#jurisdiction_popper").tooltip('hide');
 
         // need to check null and blank in case jqueryui does not work
         if (id_value_string == null || id_value_string == "") {
             // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
-            $("select#case_court_id").attr('disabled', true);
-            $("select#case_court_id").multiselect('disable');
-            $("select#case_court_id option").remove();
+            $("select#case_search_courts").attr('disabled', true);
+            $("select#case_search_courts").multiselect('disable');
+            $("select#case_search_courts option").remove();
             var row = "<option value=\"\">(Select a court)</option>";
-            $(row).appendTo("select#case_court_id");
+            $(row).appendTo("select#case_search_courts");
         }
         else {
             // Send the request and update sub category dropdown
@@ -135,8 +149,8 @@ $(document).ready(function(){
                 },
                 success: function(data){                    
                     // Clear all options from sub category select
-                    $("select#case_court_id option").remove();
-                    $("select#case_court_id optgroup").remove();
+                    $("select#case_search_courts option").remove();
+                    $("select#case_search_courts optgroup").remove();
 
                     var row = "";
                     var current_jurisdiction = "";
@@ -158,7 +172,7 @@ $(document).ready(function(){
                             current_jurisdiction = j.jurisdiction.name;
                             row = "<optgroup id=\"" + j.jurisdiction.id +
                                   "\" label=\"" + current_jurisdiction + "\">";
-                            $("select#case_court_id").append(row);    
+                            $("select#case_search_courts").append(row);    
                           }
 
 
@@ -167,15 +181,15 @@ $(document).ready(function(){
                       if( $.isArray(id_value_string) )  
                         $("optgroup#" + j.jurisdiction.id).append(row); 
                       else 
-                        $(row).appendTo("select#case_court_id");    
+                        $(row).appendTo("select#case_search_courts");    
 
                     });            
                     
                     // refresh
-                    $("select#case_court_id").multiselect('refresh');
-                    $("select#case_court_id").multiselect('enable');
-                    $("select#case_court_id").multiselect('uncheckAll');
-                    $("select#case_court_id").attr('disabled', false);
+                    $("select#case_search_courts").multiselect('refresh');
+                    $("select#case_search_courts").multiselect('enable');
+                    $("select#case_search_courts").multiselect('uncheckAll');
+                    $("select#case_search_courts").attr('disabled', false);
                  }
             });
         };
@@ -184,10 +198,10 @@ $(document).ready(function(){
   });
 
   // disable or enable court box 
-  if( $("select#case_jurisdiction_id").val() == null || $("select#case_jurisdiction_id").val() == "" ) 
-    $("select#case_court_id").multiselect('disable');
+  if( $("select#case_search_jurisdictions").val() == null || $("select#case_search_jurisdictions").val() == "" ) 
+    $("select#case_search_courts").multiselect('disable');
   else
-    $("select#case_court_id").multiselect('enable');
+    $("select#case_search_courts").multiselect('enable');
 
   // enable popups
   $(".popper").tooltip({
