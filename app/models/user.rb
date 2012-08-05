@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   has_and_belongs_to_many :cases
+  has_and_belongs_to_many :case_searches
 
   def managing_admin?
     return self.user_type === 2
@@ -43,6 +44,23 @@ class User < ActiveRecord::Base
 
   def unsave_case( old_case )
     if self.cases.delete( old_case )
+      return true
+    else
+      return false
+    end
+  end
+
+  def save_case_search( new_case_search )
+    if self.case_searches.exists?( new_case_search.id )
+      return false
+    else
+      self.case_searches << new_case_search
+      return true
+    end
+  end
+
+  def unsave_case_search( old_case_search )
+    if self.case_searches.delete( old_case_search )
       return true
     else
       return false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804095829) do
+ActiveRecord::Schema.define(:version => 20120805150900) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -28,6 +28,46 @@ ActiveRecord::Schema.define(:version => 20120804095829) do
     t.string   "case_name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "case_searches_child_topics", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "child_topic_id"
+  end
+
+  create_table "case_searches_country_origins", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "country_origin_id"
+  end
+
+  create_table "case_searches_courts", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "court_id"
+  end
+
+  create_table "case_searches_jurisdictions", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "jurisdiction_id"
+  end
+
+  create_table "case_searches_keywords", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "keyword_id"
+  end
+
+  create_table "case_searches_process_topics", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "process_topic_id"
+  end
+
+  create_table "case_searches_refugee_topics", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "refugee_topic_id"
+  end
+
+  create_table "case_searches_users", :id => false, :force => true do |t|
+    t.integer "case_search_id"
+    t.integer "user_id"
   end
 
   create_table "cases", :force => true do |t|

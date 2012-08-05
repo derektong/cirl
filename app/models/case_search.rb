@@ -3,7 +3,9 @@ class CaseSearch < ActiveRecord::Base
   attr_accessor :year_to, :month_to, :day_to, :year_from, :month_from, :day_from
 
   attr_accessible :free_text, :name, :date_from, :date_to, :day_from, :month_from, 
-                  :year_from, :day_to, :month_to, :year_to, :case_name
+                  :year_from, :day_to, :month_to, :year_to, :case_name, :country_origin_ids, 
+                  :jurisdiction_ids, :court_ids, :process_topic_ids, :child_topic_ids, 
+                  :refugee_topic_ids, :keyword_ids
 
   # handle case name
   validates :free_text, :length => { :maximum => 100 }
@@ -18,6 +20,8 @@ class CaseSearch < ActiveRecord::Base
   has_and_belongs_to_many :refugee_topics
   has_and_belongs_to_many :process_topics
   has_and_belongs_to_many :keywords
+
+  has_and_belongs_to_many :users
 
   private
 

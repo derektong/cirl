@@ -1,5 +1,4 @@
-<%= javascript_include_tag "cases_index" %>
-<%= javascript_include_tag "cases" %>
+<%= javascript_include_tag "case_searches" %>
 <%= provide :title, "Search cases" %>
 
 <section class="row">
@@ -37,7 +36,7 @@
   <br /><br />
 
   <i>Applicant's country of origin</i><br />
-  <%= f.select :country_origins, 
+  <%= f.select :country_origin_ids, 
                  options_from_collection_for_select(@country_origins, "id", "name", 
                                                     @attributes[:country_origin_id]), 
                                                     {},
@@ -46,7 +45,7 @@
                   title="Select one or more countries to search">&nbsp;</span><br /><br />
 
   <i>Jurisdiction decided in</i><br />
-  <%= f.select :jurisdictions, 
+  <%= f.select :jurisdiction_ids, 
                options_from_collection_for_select(@jurisdictions, "id", "name", 
                                                   @attributes[:jurisdiction_id]), 
                                                   {},
@@ -55,7 +54,7 @@
                 title="Select one or more jurisdictions to search">&nbsp;</span><br /><br />
 
   <i>Courts</i><br />
-  <%= f.select :courts, 
+  <%= f.select :court_ids, 
                options_from_collection_for_select(@courts, "id", "name", @attributes[:court_id]),
                {},
                multiple: true -%>
@@ -63,7 +62,7 @@
                 title="Select one or more court to search">&nbsp;</span><br /><br />
 
   <i>Process/Procedure framework</i><br />
-  <%= f.select :process_topics, 
+  <%= f.select :process_topic_ids, 
                options_from_collection_for_select(@process_topics,"id", "description", 
                                                   @attributes[:process_topic_ids]),
                {},
@@ -73,7 +72,7 @@
 
 
   <i>Children's rights framework</i><br />
-  <%= f.select :child_topics, 
+  <%= f.select :child_topic_ids, 
                options_from_collection_for_select(@child_topics,"id", "description", 
                                                   @attributes[:child_topic_ids]),
                {},
@@ -82,7 +81,7 @@
                 title="Select one or more children's rights framework topics to search">&nbsp;</span><br /><br />
 
   <i>Refugee framework</i><br />
-  <%= f.select :refugee_topics, 
+  <%= f.select :refugee_topic_ids, 
                options_from_collection_for_select(@refugee_topics, "id", "description", 
                                                   @attributes[:refugee_topic_ids]), 
                {},
@@ -91,7 +90,7 @@
                 title="Select one or more refugee framework topics to search">&nbsp;</span><br /><br />
 
   <i>Keywords</i><br />
-  <%= f.select :keywords, 
+  <%= f.select :keyword_ids, 
                options_from_collection_for_select(@keywords, "id", "description", 
                                                   @attributes[:keyword_ids]), 
                {},
@@ -101,20 +100,10 @@
 </div>
 
   <%= hidden_field_tag 'advanced', @advanced_used %>
-  <%= submit_tag "Search", name: nil, class: "btn" %>
+  <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
   <b><a href="#" class="show_hide"><%= @advanced_used == "block" ? "Hide" : "Show" %> advanced options</a></b><br /><br />
 
 <% end %>
-</div>
 
-<div class="searchresults">
-  <% if @cases != nil then %>
-    <h3>Search results (<%= pluralize( @cases.total_entries, "case" )%> found) </h3><br />
-      <%# cannot have partial called 'case' to avoid confusion with case statements %>
-      <% @cases.each do |cirl_case| %>
-        <%= render "cirl_case_summary", :cirl_case => cirl_case %>
-      <% end %>
-      <%= will_paginate %>
-  <% end %>
 </div>
 </section>

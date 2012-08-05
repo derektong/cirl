@@ -20,6 +20,15 @@
   <% end %>
   </p>
 
+  <p>
+  <h3>My Case Searches</h3>
+  <% @user.case_searches.each do |c| %>
+    <%= link_to "search", case_search_path(c.id)  %>
+    <br />
+  <% end %>
+  </p>
+
+
   </div>
 </section>
 
