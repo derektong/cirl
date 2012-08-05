@@ -91,8 +91,7 @@
 
   <i>Keywords</i><br />
   <%= f.select :keyword_ids, 
-               options_from_collection_for_select(@keywords, "id", "description", 
-                                                  @attributes[:keyword_ids]), 
+               options_for_select(@keywords_with_aliases, @attributes[:keyword_ids]), 
                {},
                multiple: true -%>
                <span id="keyword_popper" class="popper"

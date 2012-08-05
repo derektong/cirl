@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
       return false
     else
       self.case_searches << new_case_search
+      recent_searches = self.case_searches.find_all_by_name( nil, :order => "created_at" )
+      if recent_searches.size > 3
+        self.case_searches.delete( recent_searches.first )
+      end
       return true
     end
   end

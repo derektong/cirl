@@ -16,4 +16,13 @@ class Keyword < ActiveRecord::Base
   has_many :process_topics, :through => :process_links
   has_many :child_links, :dependent => :destroy
   has_many :child_topics, :through => :child_links
+
+  def keywords_with_aliases
+    keywords_with_aliases = []
+    keywords_with_aliases << [self.description, self.id]
+    self.aliases.each do |a|
+      keywords_with_aliases << [a.description, self.id]
+    end
+    return keywords_with_aliases
+  end
 end

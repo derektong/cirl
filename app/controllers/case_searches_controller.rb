@@ -1,9 +1,10 @@
 class CaseSearchesController < ApplicationController
 
-  before_filter :init, :only => [:index, :create, :new, :edit, :update]
+  before_filter :init, :only => [:new, :edit]
 
-  def new
+  def new 
     @case_search = CaseSearch.new
+    
     @attributes = Hash.new
     @conditions = Hash.new
     # work out whether to display advanced options or not
@@ -21,6 +22,8 @@ class CaseSearchesController < ApplicationController
     search[:refugee_topic_ids].shift
     search[:process_topic_ids].shift
     search[:keyword_ids].shift
+    # get rid of aliases
+    search[:keyword_ids].uniq!
 
     @case_search = CaseSearch.new( search )
 
@@ -63,16 +66,14 @@ class CaseSearchesController < ApplicationController
     @attributes = Hash.new
     @conditions = Hash.new
     @per_page = 3
-    # query whether searching for blanks should return all results
-    # if( params[:search] != nil && params[:search].strip != "" )
 
-    @attributes[:country_origin] = @search.country_origins if !@search.country_origins.empty?
-    @attributes[:court] = @search.courts if !@search.courts.empty?
-    @attributes[:jurisdiction] = @search.jurisdictions if !@search.jurisdictions.empty?
-    @attributes[:process_topics] = @search.process_topics if !@search.process_topics.empty?
-    @attributes[:child_topics] = @search.child_topics if !@search.child_topics.empty?
-    @attributes[:refugee_topics] = @search.refugee_topics if !@search.refugee_topics.empty?
-    @attributes[:keywords] = @search.keywords if !@search.keywords.empty?
+    @attributes[:country_origin_id] = @search.country_origin_ids if !@search.country_origins.empty?
+    @attributes[:court_id] = @search.court_ids if !@search.courts.empty?
+    @attributes[:jurisdiction_id] = @search.jurisdiction_ids if !@search.jurisdictions.empty?
+    @attributes[:process_topics_ids] = @search.process_topic_ids if !@search.process_topics.empty?
+    @attributes[:child_topics_ids] = @search.child_topic_ids if !@search.child_topics.empty?
+    @attributes[:refugee_topics_ids] = @search.refugee_topic_ids if !@search.refugee_topics.empty?
+    @attributes[:keyword_ids] = @search.keyword_ids if !@search.keywords.empty?
 
     @case_name = @search.case_name unless @search.case_name.empty?
     if( @case_name )
@@ -110,9 +111,6 @@ class CaseSearchesController < ApplicationController
              :conditions => @conditions,
              :page => params[:page], :per_page => @per_page
 
-  end
-
-  def index
   end
 
   def edit
@@ -156,9 +154,14 @@ class CaseSearchesController < ApplicationController
     @country_origins = CountryOrigin.find(:all, :order => "LOWER(name)" )
     @jurisdictions = Jurisdiction.find(:all, :order => "LOWER(name)" )
     @refugee_topics = RefugeeTopic.find(:all, :order => "LOWER(description)" )
-    @keywords = Keyword.find(:all, :order => "LOWER(description)", :include => :aliases )
     @child_topics = ChildTopic.find(:all, :order => "LOWER(description)" )
     @process_topics = ProcessTopic.find(:all, :order => "LOWER(description)" )
+    @keywords = Keyword.all
+    @keywords_with_aliases = []
+    @keywords.each do |k|
+      @keywords_with_aliases += k.keywords_with_aliases
+    end
+    @keywords_with_aliases.sort_by!{|k|k[0]}
   end
 
 

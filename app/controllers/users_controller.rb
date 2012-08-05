@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @recent_case_searches = @user.case_searches.find_all_by_name( nil, :order => "created_at DESC" )
   end
 
   def edit
