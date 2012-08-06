@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_filter :check_status, :only => [:new, :create]
 
   def new
   end
@@ -19,4 +20,11 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  private
+
+  def check_status
+    if signed_in?
+      redirect_to user_path(current_user.id)
+    end
+  end
 end

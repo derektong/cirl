@@ -1,0 +1,9 @@
+<div class="leftmenu span3">
+<ul>
+  <li><%= link_to "My Profile", user_path(current_user.id) %></li>
+  <li><%= link_to "My Saved Cases", cases_user_path(current_user.id) %></li>
+  <li><%= link_to "My Saved Case Searches", case_searches_user_path(current_user.id) %></li>
+  <li><%= link_to "My Saved Legal Resources", '#' %></li>
+  <li><%= link_to "My Saved Legal Briefs", '#' %></li>
+</ul>
+</div>

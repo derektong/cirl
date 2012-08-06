@@ -1,6 +1,6 @@
 <%= provide :title, @user.name %>
 <section class="row">
-<%= render 'shared/empty_menu' %>
+<%= render 'user_menu' %>
   <div class="basic span9">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
@@ -8,34 +8,10 @@
     <h2>Welcome <%= @user.name %></h2><br />
 
   <p>
-  <%= @user.email %><br />
-  <%= link_to "Edit my profile", edit_user_path(@user.id) %>
+  <%= @user.email %>
+  <%= link_to "Edit my profile", edit_user_path(@user.id), class: "tip" %>
   </p>
-
-  <p>
-  <h3>My Saved Cases</h3>
-  <% @user.cases.each do |c| %>
-    <%= link_to c.claimant + " v " + c.respondent, case_path(c.id)  %>
-    <%= link_to "remove", unsave_case_path(c.id), class: "tip" %>
-    <br />
-  <% end %>
-  </p>
-
-  <p>
-  <h3>My Recent Case Searches</h3>
-  <% @recent_case_searches.each do |c| %>
-    <% country_origin = "with the following countries of origin: " + c.country_origins.map(&:name).join(', ') if !c.country_origins.nil? %>
-    <% description = "Search run at " + c.created_at.to_s + " for \"" + c.free_text + "\"" %>
-    <%= link_to description, case_search_path(c.id)  %>
-    <br />
-  <% end %>
-  <h3>My Saved Case Searches</h3>
-  <% @user.case_searches.each do |c| %>
-    <%= link_to "search " + c.free_text, case_search_path(c.id)  %>
-    <br />
-  <% end %>
-  </p>
-
+  <br />
 
   </div>
 </section>

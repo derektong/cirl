@@ -1,0 +1,81 @@
+  <div class="slider" style="display: <%=@advanced_used%>;">
+
+  <b>Advanced options</b><br /><br />
+  <%= f.label :case_name, "Case name: " %>
+  <%= f.text_field :case_name, class: "search popper", 
+      title: "Enter the name or part of the name of the case to search for" %>
+
+  <i>Date Range</i><br />
+
+  <%= f.select :day_from, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_from, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_from, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+  <br /><i>to</i><br />
+  <%= f.select :day_to, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_to, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_to, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+
+  <br /><br />
+
+  <i>Applicant's country of origin</i><br />
+  <%= f.select :country_origin_ids, 
+                 options_from_collection_for_select(@country_origins, "id", "name", 
+                                                    @attributes[:country_origin_id]), 
+                                                    {},
+                                                    multiple: true -%>
+                 <span id="country_origin_popper" class="popper"
+                  title="Select one or more countries to search">&nbsp;</span><br /><br />
+
+  <i>Jurisdiction decided in</i><br />
+  <%= f.select :jurisdiction_ids, 
+               options_from_collection_for_select(@jurisdictions, "id", "name", 
+                                                  @attributes[:jurisdiction_id]), 
+                                                  {},
+                                                  multiple: true -%>
+               <span id="jurisdiction_popper" class="popper"
+                title="Select one or more jurisdictions to search">&nbsp;</span><br /><br />
+
+  <i>Courts</i><br />
+  <%= f.select :court_ids, 
+               options_from_collection_for_select(@courts, "id", "name", @attributes[:court_id]),
+               {},
+               multiple: true -%>
+               <span id="court_popper" class="popper"
+                title="Select one or more court to search">&nbsp;</span><br /><br />
+
+  <i>Process/Procedure framework</i><br />
+  <%= f.select :process_topic_ids, 
+               options_from_collection_for_select(@process_topics,"id", "description", 
+                                                  @attributes[:process_topic_ids]),
+               {},
+               multiple: true -%>
+               <span id="process_topic_popper" class="popper"
+                title="Select one or more process/procedure framework topics to search">&nbsp;</span><br /><br />
+
+
+  <i>Children's rights framework</i><br />
+  <%= f.select :child_topic_ids, 
+               options_from_collection_for_select(@child_topics,"id", "description", 
+                                                  @attributes[:child_topic_ids]),
+               {},
+               multiple: true -%>
+               <span id="child_topic_popper" class="popper"
+                title="Select one or more children's rights framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Refugee framework</i><br />
+  <%= f.select :refugee_topic_ids, 
+               options_from_collection_for_select(@refugee_topics, "id", "description", 
+                                                  @attributes[:refugee_topic_ids]), 
+               {},
+               multiple: true -%>
+               <span id="refugee_topic_popper" class="popper"
+                title="Select one or more refugee framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Keywords</i><br />
+  <%= f.select :keyword_ids, 
+               options_for_select(@keywords_with_aliases, @attributes[:keyword_ids]), 
+               {},
+               multiple: true -%>
+               <span id="keyword_popper" class="popper"
+                title="Select one or more keywords to search">&nbsp;</span><br /><br />
+</div>

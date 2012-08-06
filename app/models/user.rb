@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   has_and_belongs_to_many :cases
-  has_and_belongs_to_many :case_searches
+  has_many :case_searches
 
   def managing_admin?
     return self.user_type === 2

@@ -1,0 +1,30 @@
+<%= provide :title, @user.name %>
+<section class="row">
+<%= render 'user_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <h3>My Saved Cases</h3><br />
+  <table class="table">
+  <% if @user.cases.empty? %>
+    <tr>
+      <td>
+      <%= "No saved cases" %>
+      </td>
+    </tr>
+  <% end %>
+  <% @user.cases.each do |c| %>
+    <tr>
+      <td>
+        <%= link_to c.claimant + " v " + c.respondent, case_path(c.id)  %>
+        <%= link_to "remove", unsave_case_path(c.id), class: "tip" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
+  </div>
+</section>
+
+

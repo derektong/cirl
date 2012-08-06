@@ -6,7 +6,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def cases
+    @user = User.find(params[:id])
+  end
+
+  def case_searches
+    @user = User.find(params[:id])
     @recent_case_searches = @user.case_searches.find_all_by_name( nil, :order => "created_at DESC" )
+    @saved_searches = @user.case_searches.find(:all, :conditions => "name IS NOT NULL" )
   end
 
   def edit

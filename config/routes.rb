@@ -58,6 +58,8 @@ Cirl::Application.routes.draw do
   resources :users do
     member do
       get 'toggle_admin'
+      get 'cases'
+      get 'case_searches'
     end
   end
 
@@ -80,6 +82,10 @@ Cirl::Application.routes.draw do
   resources :case_searches do
     collection do
       get 'results'
+    end
+
+    member do
+      get 'save'
     end
   end
 
