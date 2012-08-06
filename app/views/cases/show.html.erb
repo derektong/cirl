@@ -8,11 +8,14 @@
   <% end %>
 
   <h2>
-    <%= "#{@case.claimant} (#{@case.country_origin}) v #{@case.respondent}" %>
+    <%= "#{@case.claimant} v #{@case.respondent}" %>
   </h2>
   <br .>
   <p>
   <b>Decided:</b> <%= "#{@case.decision_date.strftime("%d %b %Y")}" %>
+  </p>
+  <p>
+  <b>Asbtract:</b> <%= @case.abstract != nil ? @case.abstract : "No abstract" %>
   </p>
   <p>
   <b>Court:</b> <%= @case.court != nil ? @case.court.name : "Unknown court" %>

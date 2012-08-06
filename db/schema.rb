@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120805200345) do
+ActiveRecord::Schema.define(:version => 20120806204741) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20120805200345) do
     t.string   "claimant"
     t.text     "fulltext"
     t.integer  "country_origin_id"
+    t.string   "abstract"
   end
 
   create_table "cases_child_topics", :id => false, :force => true do |t|

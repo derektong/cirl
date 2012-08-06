@@ -6,13 +6,17 @@ class Case < ActiveRecord::Base
                   :country_origin_id, :court_id, :year, :month, :day, 
                   :child_topic_ids, :refugee_topic_ids, 
                   :process_topic_ids, :keyword_ids, :jurisdiction_id, :pdf, 
-                  :fulltext
+                  :fulltext, :abstract
 
   # handle case name
   validates :claimant,  :presence => true,
                         :length => { :maximum => 100 }
   validates :respondent,  :presence => true,
                           :length => { :maximum => 100 }
+
+  # handle abstract
+  validates :abstract,  :presence => true,
+                        :length => { :maximum => 1000 }
 
   # handle dates
   validates :year, :presence => true
@@ -62,6 +66,7 @@ class Case < ActiveRecord::Base
     indexes refugee_topics.description, :as => :refugee_topics
     indexes keywords.description, :as => :keywords
     indexes fulltext
+    indexes abstract
     indexes "TO_CHAR(decision_date, 'YYYY')", :type => :string, :as => :year
 
     has court_id 

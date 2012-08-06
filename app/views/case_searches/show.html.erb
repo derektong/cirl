@@ -10,8 +10,11 @@
 <% if !@cases.empty? then %>
   <%= will_paginate @cases %>
 
+  <span class="per_page">Show <%= select_tag :per_page, options_for_select([10,20,50], @per_page), 
+      :onchange => "if(this.value){window.location='?per_page='+this.value;}" %> 
+      results per page</span>
     <h3>Search results (<%= pluralize( @cases.total_entries, "case" )%> found) </h3><br />
-    <% @cases.each do |cirl_case| %>
+    <% @cases.each do |cirl_case| %> 
       <%= render "cases/cirl_case_summary", :cirl_case => cirl_case %>
     <% end %>
 

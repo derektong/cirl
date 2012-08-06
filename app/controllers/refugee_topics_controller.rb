@@ -45,14 +45,6 @@ class RefugeeTopicsController < ApplicationController
     end
   end
 
-  def restore
-    restore_refugee_topics
-    @refugee_topic = RefugeeTopic.new
-    @refugee_link = RefugeeLink.new
-    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
-    redirect_to refugee_topics_path
-  end
-
   protected
 
   def init

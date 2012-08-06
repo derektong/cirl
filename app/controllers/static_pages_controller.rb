@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
-  before_filter :signed_in_user, only: [:admin]
+  before_filter :signed_in_user, only: [:admin, :reset_database]
   before_filter :admin_user, only: [:admin]
+  before_filter :managing_admin_user, only: [:reset_database]
 
 
   def home
@@ -28,6 +29,9 @@ class StaticPagesController < ApplicationController
   end
 
   def admin
+  end
+
+  def reset_database
   end
 
 end

@@ -47,6 +47,7 @@ class KeywordsController < ApplicationController
     restore_keywords
     restore_refugee_topics
     restore_child_topics
+    restore_process_topics
     @keyword = Keyword.new
     redirect_to keywords_path
   end

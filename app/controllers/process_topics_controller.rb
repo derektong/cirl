@@ -45,14 +45,6 @@ class ProcessTopicsController < ApplicationController
     end
   end
 
-  def restore
-    restore_process_topics
-    @process_topic = ProcessTopic.new
-    @process_link = ProcessLink.new
-    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
-    redirect_to process_topics_path
-  end
-
   protected
 
   def init

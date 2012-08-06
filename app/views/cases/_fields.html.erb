@@ -13,6 +13,13 @@
 </div>
 
 <div class="control-group">
+  <%= f.label :abstract, "Abstract: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.text_area :abstract, :rows => 3, :resize => "none" %><br />
+  </div>
+</div>
+
+<div class="control-group">
   <%= f.label :decision_date, "Date of decision: ", class: "control-label" %>
   <div class="controls">
     <%= f.select :day, 1..31, prompt: "day" %>

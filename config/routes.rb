@@ -6,52 +6,57 @@ Cirl::Application.routes.draw do
   match '/about/diana', :to => 'static_pages#about_diana'
   match '/about/coram', :to => 'static_pages#about_coram'
   match '/admin', :to => 'static_pages#admin'
+  match '/admin/reset_database', :to => 'static_pages#reset_database'
   match '/help', :to => 'static_pages#help'
   match '/admin', :to => 'static_pages#admin'
   match '/signup', :to => 'users#new'
   match '/signin', :to =>'sessions#new'
   match '/signout', :to => 'sessions#destroy', via: :delete
-
-  resources :jurisdictions
-
-  resources :country_origins do
-    collection do
-      get 'restore'
-    end
-  end
-
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
-  resources :courts do
-    collection do
-      get 'restore'
-    end
-  end
 
-  resources :child_topics do
-    collection do
-      get 'restore'
-    end
-  end
-  resources :child_links, only: [:create, :destroy]
+  scope "/admin" do
+    resources :quotes
 
-  resources :refugee_topics do
-    collection do
-      get 'restore'
-    end
-  end
-  resources :refugee_links, only: [:create, :destroy]
+    resources :jurisdictions
 
-  resources :process_topics do
-    collection do
-      get 'restore'
+    resources :country_origins do
+      collection do
+        get 'restore'
+      end
     end
-  end
-  resources :process_links, only: [:create, :destroy]
 
-  resources :keywords do
-    resources :aliases
-    collection do
-      get 'restore'
+    resources :courts do
+      collection do
+        get 'restore'
+      end
+    end
+
+    resources :child_topics do
+      collection do
+        get 'restore'
+      end
+    end
+    resources :child_links, only: [:create, :destroy]
+
+    resources :refugee_topics do
+      collection do
+        get 'restore'
+      end
+    end
+    resources :refugee_links, only: [:create, :destroy]
+
+    resources :process_topics do
+      collection do
+        get 'restore'
+      end
+    end
+    resources :process_links, only: [:create, :destroy]
+
+    resources :keywords do
+      resources :aliases
+      collection do
+        get 'restore'
+      end
     end
   end
 

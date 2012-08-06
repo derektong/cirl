@@ -2,7 +2,6 @@ class CaseSearchesController < ApplicationController
   before_filter :correct_user,   only: [:show]
   before_filter :signed_in_or_managing_admin_user, only: [:show]
   before_filter :init, :only => [:new, :create, :edit, :update]
-  before_filter :set_attributes, :only => [:show, :create, :edit, :update]
 
   def new 
     @case_search = CaseSearch.new
@@ -28,6 +27,7 @@ class CaseSearchesController < ApplicationController
     search[:keyword_ids].uniq!
 
     @case_search = CaseSearch.new( search )
+    set_attributes 
 
     if @case_search.free_text.strip.empty? && 
        @case_search.case_name.strip.empty? &&
@@ -63,8 +63,10 @@ class CaseSearchesController < ApplicationController
 
   def show
     @conditions = Hash.new
-    @per_page = 3
+    @per_page = params[:per_page] || Post.per_page || 10
 
+    @case_search = CaseSearch.find(params[:id])
+    set_attributes
     @case_name = @case_search.case_name unless @case_search.case_name.empty?
     if( @case_name )
       @conditions[:case_name] = @case_name.split(" ") 
@@ -104,6 +106,8 @@ class CaseSearchesController < ApplicationController
   end
 
   def edit
+    @case_search = CaseSearch.find(params[:id])
+    set_attributes
     @case_search.day_to = @case_search.date_to.day if @case_search.date_to != nil
     @case_search.month_to = @case_search.date_to.month if @case_search.date_to != nil
     @case_search.year_to = @case_search.date_to.year if @case_search.date_to != nil
@@ -123,6 +127,7 @@ class CaseSearchesController < ApplicationController
     if params[:commit].eql?('Cancel')
       redirect_to case_searches_user_path(current_user.id)
     else
+
       # there appears to be a rails bug where the first element returned is always 
       # ''. so each array is never empty
       search[:country_origin_ids].shift
@@ -136,6 +141,7 @@ class CaseSearchesController < ApplicationController
       search[:keyword_ids].uniq!
 
       @case_search = CaseSearch.find(params[:id])
+      set_attributes
       if search[:name].strip.empty?
         flash[:error] = "You must enter a name"
         redirect_to :back
@@ -191,7 +197,6 @@ class CaseSearchesController < ApplicationController
   end
 
   def set_attributes
-    @case_search = CaseSearch.find(params[:id])
 
     @attributes = Hash.new
     @attributes[:country_origin_id] = @case_search.country_origin_ids if 

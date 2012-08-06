@@ -17,6 +17,12 @@
 <tr>
   <td>
     <p>
+    <span class="case_other_attribute">Abstract:</span>
+    <span class="case_abstract">
+      <%= @case.abstract != nil ? @case.abstract : "No abstract" %>
+    </span>
+    </p>
+    <p>
     <span class="case_other_attribute">Country of origin:</span>
     <span class="case_country_origin">
       <%= @case.country_origin != nil ? @case.country_origin.name : "Unknown country of origin" %>

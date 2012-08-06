@@ -45,14 +45,6 @@ class ChildTopicsController < ApplicationController
     end
   end
 
-  def restore
-    restore_child_topics
-    @child_topic = ChildTopic.new
-    @child_link = ChildLink.new
-    @keywords = Keyword.find(:all, :order => "LOWER(description)" )
-    redirect_to child_topics_path
-  end
-
   protected
 
   def init

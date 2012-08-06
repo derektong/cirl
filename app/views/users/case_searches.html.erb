@@ -18,10 +18,8 @@
   <% @recent_case_searches.each do |c| %>
     <tr>
       <td>
-      <% c.free_text.empty? ? free_text = "" : free_text = ", for \"" + c.free_text + "\" " %>
-      <% c.country_origins.empty? ? country_origin = "" : country_origin = ", with the following countries of origin: " + c.country_origins.map(&:name).join(', ') %>
-      <% description = "Search run at " + c.created_at.to_s + free_text + country_origin %>
-      <%= link_to description, case_search_path(c.id)  %>
+      <%= "Search run at " + c.created_at.to_s + ":" %>
+      <%= link_to c.description, case_search_path(c.id)  %>
       </td>
       <td>
         <%= link_to "Save", edit_case_search_path(c.id), class: "btn btn-primary white" %>
@@ -41,20 +39,8 @@
   <% @saved_searches.each do |c| %>
     <tr>
       <td>
-      <% description = [] %>
-      <% description << "for \"" + c.free_text + "\" in all fields" if !c.free_text.empty? %>
-      <% description << "for a case name containing: \"" + c.case_name + "\"" if !c.case_name.empty? %>
-      <% description << "for a case decided between " + c.date_from.strftime("%d %b %Y") + 
-                        " and " + c.date_to.strftime("%d %b %Y") if c.date_from && c.date_to %>
-      <% description << "where the applicant was from: \"" + c.country_origins.map(&:name).join(' or ') + "\"" if !c.country_origins.empty? %>
-      <% description << "decided in: \"" + c.jurisdictions.map(&:name).join(' or ') + "\"" if !c.jurisdictions.empty? %>
-      <% description << "in the: \"" + c.courts.map(&:name).join(' or ') + "\"" if !c.courts.empty? %>
-      <% description << "with the following process/procedure concepts: \"" + c.process_topics.map(&:description).join(' or ') + "\"" if !c.process_topics.empty? %>
-      <% description << "with the following children's rights concepts: \"" + c.child_topics.map(&:description).join(' or ') + "\"" if !c.child_topics.empty? %>
-      <% description << "with the following refugee rights concepts: \"" + c.refugee_topics.map(&:description).join(' or ') + "\"" if !c.refugee_topics.empty? %>
-      <% description << "with the following keywords: \"" + c.keywords.map(&:description).join(' or ') + "\"" if !c.keywords.empty? %>
       <b><%= link_to c.name + ":", case_search_path(c.id)  %></b>
-      <%= link_to "Search " + description.join(', '), case_search_path(c.id)  %>
+      <%= link_to "Search " + c.description, case_search_path(c.id)  %>
       </td>
       <td>
         <%= link_to "Edit", edit_case_search_path(c.id), class: "btn btn-primary white" %>
