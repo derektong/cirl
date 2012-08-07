@@ -19,28 +19,25 @@ class AdminController < ApplicationController
   end
 
   def restore_courts
-    restore_courts
-    @court = Court.new
+    restore_default_courts
     redirect_to admin_reset_database_path
   end
 
   def restore_keywords
-    restore_keywords
-    restore_refugee_topics
-    restore_child_topics
-    restore_process_topics
-    @keyword = Keyword.new
+    restore_default_keywords
+    restore_default_refugee_topics
+    restore_default_child_topics
+    restore_default_process_topics
     redirect_to admin_reset_database_path
   end
 
   def restore_country_origins
-    restore_country_origins
-    @country_origin = CountryOrigin.new
+    restore_default_country_origins
     redirect_to admin_reset_database_path
   end
 
   def restore_quotes
-    restore_quotes
-    redirect_to quotes_path
+    restore_default_quotes
+    redirect_to admin_reset_database_path
   end
 end

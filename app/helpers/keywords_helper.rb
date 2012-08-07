@@ -1,6 +1,6 @@
 module KeywordsHelper
 
-  def restore_keywords
+  def restore_default_keywords
     Keyword.destroy_all
     aliases = default_aliases
     default_keywords.each do |v|

@@ -1,6 +1,6 @@
 module QuotesHelper
 
-  def restore_quotes
+  def restore_default_quotes
     Quote.destroy_all
     default_quotes.each do |v|
       quote = Quote.new( description: v )

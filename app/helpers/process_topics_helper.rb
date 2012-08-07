@@ -1,6 +1,6 @@
 module ProcessTopicsHelper
   
-  def restore_process_topics
+  def restore_default_process_topics
     ProcessTopic.destroy_all
     default_process_topics.each do |k, v|
       new_process_topic = ProcessTopic.new( description: k )

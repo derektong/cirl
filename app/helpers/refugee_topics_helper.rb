@@ -1,6 +1,6 @@
 module RefugeeTopicsHelper
   
-  def restore_refugee_topics
+  def restore_default_refugee_topics
     RefugeeTopic.destroy_all
     default_refugee_topics.each do |k, v|
       new_refugee_topic = RefugeeTopic.new( description: k )

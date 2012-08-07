@@ -1,7 +1,7 @@
 module CountryOriginsHelper
   include ApplicationHelper
 
-  def restore_country_origins
+  def restore_default_country_origins
     CountryOrigin.destroy_all
     get_countries.each do |v|
       country_origin = CountryOrigin.new( name: v )

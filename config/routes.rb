@@ -17,7 +17,7 @@ Cirl::Application.routes.draw do
   match '/admin/restore_quotes', :to => 'admin#restore_quotes'
   match '/admin/restore_country_origins', :to => 'admin#restore_country_origins'
   match '/admin/restore_courts', :to => 'admin#restore_courts'
-  match '/admin/restore_keywords', :to => 'admin#restore_keyword'
+  match '/admin/restore_keywords', :to => 'admin#restore_keywords'
 
   scope "/admin" do
     resources :quotes, only: [:create, :destroy, :index] 

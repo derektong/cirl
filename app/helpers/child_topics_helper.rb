@@ -1,6 +1,6 @@
 module ChildTopicsHelper
   
-  def restore_child_topics
+  def restore_default_child_topics
     ChildTopic.destroy_all
     default_child_topics.each do |k, v|
       new_child_topic = ChildTopic.new( description: k )

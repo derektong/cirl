@@ -1,6 +1,6 @@
 module CourtsHelper
   
-  def restore_courts
+  def restore_default_courts
     Court.destroy_all
     default_courts.each do |k, v|
       jurisdiction = Jurisdiction.find_by_name( k )
