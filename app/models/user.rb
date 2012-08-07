@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   has_and_belongs_to_many :cases
+  has_and_belongs_to_many :legal_briefs
+  has_many :legal_briefs
   has_many :case_searches
 
   def managing_admin?

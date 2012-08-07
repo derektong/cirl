@@ -56,28 +56,28 @@
 <div class="control-group">
   <%= f.label :process_topic_ids, "Process/Procedure framework:", class: "control-label"  %>
   <div class="controls">
-    <%= render 'process_topics', object: f.object %>
+    <%= render 'process_topics/process_topics', object: f.object %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :child_topic_ids, "Children's rights framework:", class: "control-label"  %>
   <div class="controls">
-    <%= render 'child_topics', object: f.object %>
+    <%= render 'child_topics/child_topics', object: f.object %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :refugee_topic_ids, "Refugee framework:", class: "control-label"  %>
   <div class="controls">
-    <%= render 'refugee_topics', object: f.object %>
+    <%= render 'refugee_topics/refugee_topics', object: f.object %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :keyword_ids, "Keywords:", class: "control-label"  %>
   <div class="controls">
-    <%= render 'keywords', object: f.object %>
+    <%= render 'keywords/keywords', object: f.object %>
   </div>
 </div>
 

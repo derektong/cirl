@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806233459) do
+ActiveRecord::Schema.define(:version => 20120807220702) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -123,6 +123,11 @@ ActiveRecord::Schema.define(:version => 20120806233459) do
 
   add_index "child_topics", ["description"], :name => "index_subjects_on_description", :unique => true
 
+  create_table "child_topics_legal_briefs", :id => false, :force => true do |t|
+    t.integer "child_topic_id"
+    t.integer "legal_brief_id"
+  end
+
   create_table "country_origins", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -136,6 +141,13 @@ ActiveRecord::Schema.define(:version => 20120806233459) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "document_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "publisher_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jurisdictions", :force => true do |t|
     t.string "name", :limit => 128, :null => false
   end
@@ -144,6 +156,44 @@ ActiveRecord::Schema.define(:version => 20120806233459) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "keywords_legal_briefs", :id => false, :force => true do |t|
+    t.integer "keyword_id"
+    t.integer "legal_brief_id"
+  end
+
+  create_table "legal_briefs", :force => true do |t|
+    t.string   "name"
+    t.integer  "court_id"
+    t.integer  "organisation_id"
+    t.date     "document_date"
+    t.text     "overview"
+    t.text     "fulltext"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "legal_briefs_process_topics", :id => false, :force => true do |t|
+    t.integer "process_topic_id"
+    t.integer "legal_brief_id"
+  end
+
+  create_table "legal_briefs_refugee_topics", :id => false, :force => true do |t|
+    t.integer "refugee_topic_id"
+    t.integer "legal_brief_id"
+  end
+
+  create_table "legal_briefs_users", :id => false, :force => true do |t|
+    t.integer "legal_brief_id"
+    t.integer "user_id"
+  end
+
+  create_table "organisations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "process_links", :force => true do |t|
@@ -162,6 +212,12 @@ ActiveRecord::Schema.define(:version => 20120806233459) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "publishers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "quotes", :force => true do |t|

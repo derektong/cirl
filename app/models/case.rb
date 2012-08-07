@@ -70,7 +70,7 @@ class Case < ActiveRecord::Base
   def rename_pdf
     #for new cases need to rename file after id is assigned ("id.pdf")
     
-    directory = "public/pdfs/"
+    directory = "public/pdfs/cases/"
     File.rename( directory + "temp.pdf" , directory + self.id.to_s + ".pdf" )
   end
 
@@ -79,7 +79,7 @@ class Case < ActiveRecord::Base
   # delete pdf before deleting case
   def remove_pdf
     begin
-      File.delete "public/pdfs/" + self.id.to_s + ".pdf" 
+      File.delete "public/pdfs/cases/" + self.id.to_s + ".pdf" 
     rescue Errno::ENOENT
       # if file is not there, just ignore
     end
@@ -99,7 +99,7 @@ class Case < ActiveRecord::Base
     end
 
     begin
-      directory = "public/pdfs"
+      directory = "public/pdfs/cases/"
       # if new_record? - but this method has been deprecated?
       if self.id.nil?
         # this does not work if multiple people are uploading files all at 

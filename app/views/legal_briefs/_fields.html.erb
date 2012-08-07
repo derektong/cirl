@@ -1,0 +1,84 @@
+<div class="control-group">
+  <%= f.label :name, "Name of brief: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.text_field :name %><br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :overview, "Overview: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.text_area :overview, :rows => 3, :resize => "none" %><br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :document_date, "Date of document: ", class: "control-label" %>
+  <div class="controls">
+    <%= f.select :day, 1..31, prompt: "day" %>
+    <%= f.select :month, 1..12, prompt: "month" %>
+    <%= f.select :year, 1900..Time.now.year, prompt: "year" %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :organisation, "Organisation: ", class: "control-label" %>
+  <div class="controls">
+    <%= collection_select(:legal_brief, :organisation_id, @organisations, 
+                          :id, :name, prompt: "(Select an organisation)" ) %><br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :jurisdiction_id, "Jurisdiction decided in:", class: "control-label" %>
+  <div class="controls">
+    <%= collection_select(:legal_brief, :jurisdiction_id, @jurisdictions, 
+                          :id, :name, prompt: "(Select a jurisdiction)" ) %><br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :court_id, "Court: ", class: "control-label" %>
+  <div class="controls">
+    <%= collection_select(:legal_brief, :court_id, @courts, :id, :name, { prompt: "(Select a court)" }, 
+        { disabled: f.object.court.nil? })%>
+        <br />
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :process_topic_ids, "Process/Procedure framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'process_topics/process_topics', object: f.object %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :child_topic_ids, "Children's rights framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'child_topics/child_topics', object: f.object %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :refugee_topic_ids, "Refugee framework:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'refugee_topics/refugee_topics', object: f.object %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :keyword_ids, "Keywords:", class: "control-label"  %>
+  <div class="controls">
+    <%= render 'keywords/keywords', object: f.object %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :pdf, class: "control-label"  %>
+  <div class="controls">
+    <%= f.file_field :pdf %>
+  </div>
+</div>
+
+

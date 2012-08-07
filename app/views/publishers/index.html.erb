@@ -1,0 +1,28 @@
+<%= provide(:title, "Manage Publishers") %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
+<h3>Manage Publishers</h3><br />
+
+<% if @del_publisher != nil then %>
+  <%= render "shared/error_messages", :object => @del_publisher %>
+<% end %>
+
+<table class="table">
+  <%= render @publishers %>
+</table>
+</div>
+
+<div class="span4 basic">
+  <h3>Add a new publisher</h3><br />
+<%= form_for(@publisher, :html => { :class => "well" } ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.text_field :name %>
+    <%= f.submit "Add publisher", class: "btn btn-primary btn-large" %>
+<% end %>
+
+</div>
+</section>

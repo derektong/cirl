@@ -78,7 +78,7 @@ $(document).ready(function(){
     $.ajax({
       dataType: "json",
       cache: false,
-      url: '/cases/for_keywords/' + processVals + '/' + childVals + '/' + refugeeVals,
+      url: '/keywords/' + processVals + '/' + childVals + '/' + refugeeVals,
       timeout: 20000,
       error: function(XMLHttpRequest, errorTextStatus, error){
           alert("Failed to submit : "+ errorTextStatus+" ;"+error);

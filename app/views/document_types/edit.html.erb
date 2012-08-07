@@ -1,0 +1,22 @@
+<%= provide :title, "Manage Document Types" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<div class="span5 basic">
+<h3>Manage Document Types</h3><br />
+<%= render 'list' %>
+</div>
+
+<div class="span4 basic" >
+  <h3>Edit "<%= @document_type.name %>" </h3><br />
+<%= form_for(@document_type, :html => { :class => "well"} ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= render "fields", :f => f %>
+ <div class="actions">
+    <%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
+    <%= link_to "Cancel", document_types_path, class: "btn btn-large btn-primary white" %>
+  </div>
+<% end %>
+</div>
+
+</section>
+

@@ -1,0 +1,107 @@
+// Place all the styles related to the legal_briefs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+th.table {
+  font-size: 120%;
+  background: rgb(233,246,253); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(233,246,253,1) 0%, rgba(211,238,251,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(233,246,253,1)), color-stop(100%,rgba(211,238,251,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* IE10+ */
+  background: linear-gradient(top, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9f6fd', endColorstr='#d3eefb',GradientType=0 ); /* IE6-9 */;
+
+
+
+}
+
+// override Bootstrap to make bigger
+.control-label {
+  min-width: 180px;
+  margin-right: 20px;
+}
+
+span.legal_brief_name {
+  font-style: italic;
+  font-weight: bold;
+}
+
+span.legal_brief_court {
+  font-weight: bold;
+  float: right;
+}
+
+span.legal_brief_decision_date {
+  font-weight: bold;
+  float: right;
+}
+
+span.legal_brief_other_attribute {
+  font-style: italic;
+}
+
+input#legal_brief_claimant {
+  width: 85%;
+}
+
+input#legal_brief_respondent {
+  width: 85%;
+}
+
+text_area#legal_brief_abstract {
+  width: 85%;
+}
+
+select#legal_brief_year {
+  width: 70px;
+}
+
+select#legal_brief_month {
+  width: 70px;
+}
+
+select#legal_brief_day {
+  width: 70px;
+}
+
+.date_field {
+  width: 70px;
+}
+
+fieldset.checkboxes {
+  width: 85%;
+  padding: 10px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #555555;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+table.checkboxes {
+  border: 0px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0px;
+  padding: 0px;
+  line-height: 8px;
+  background-color: transparent;
+
+}
+
+input.search {
+  width: 95%;
+}
+
+input.search_button {
+}
+
+a.show_hide {
+  float: right;
+  color: #777;
+}
+

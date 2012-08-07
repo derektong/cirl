@@ -6,6 +6,8 @@ class AdminController < ApplicationController
   include RefugeeTopicsHelper
   include ChildTopicsHelper
   include ProcessTopicsHelper
+  include OrganisationsHelper
+  include DocumentTypesHelper
 
   before_filter :signed_in_user
   before_filter :admin_user, only: [:admin]
@@ -33,6 +35,16 @@ class AdminController < ApplicationController
 
   def restore_country_origins
     restore_default_country_origins
+    redirect_to admin_reset_database_path
+  end
+
+  def restore_document_types
+    restore_default_document_types
+    redirect_to admin_reset_database_path
+  end
+
+  def restore_organisations
+    restore_default_organisations
     redirect_to admin_reset_database_path
   end
 

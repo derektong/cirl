@@ -1,0 +1,25 @@
+<%= provide :title, "Manage Organisations" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+
+<div class="span5 basic">
+<table class="table">
+  <%= render @organisations %>
+</table>
+</div>
+
+<div class="span4 basic" >
+  <h3>Edit "<%= @organisation.name %>" </h3><br />
+<%= form_for(@organisation, :html => { :class => "well"} ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.label :name, "name: " %>
+    <%= f.text_field :name, autofocus: "autofocus" %>
+    <div class="actions">
+    <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    <%= link_to "Cancel", organisations_path, class: "btn btn-primary white" %>
+  </div>
+<% end %>
+</div>
+
+</section>
+

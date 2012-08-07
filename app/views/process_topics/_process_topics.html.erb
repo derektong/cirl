@@ -4,8 +4,17 @@
       <% @i = 1 %>
       <% @process_topics.each do |process_topic| %>
         <td>
+          <% @type = "" %>
+          <% case object.class.to_s %>
+            <% when "LegalBrief" %>
+            <%   @type = "legal_brief" %>
+            <% when "Case" %>
+            <%   @type = "case" %>
+            <% when "LegalResource" %>
+            <%   @type = "legal_resource" %>
+          <% end %>
         <label class="checkbox inline">
-          <%= check_box_tag "case[process_topic_ids][]", process_topic.id, 
+          <%= check_box_tag @type + "[process_topic_ids][]", process_topic.id, 
               object.process_topics.include?(process_topic) %>
           <%= process_topic.description %>
         </label>

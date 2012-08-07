@@ -1,12 +1,11 @@
 class CasesController < ApplicationController
   include KeywordsHelper
-  include CasesHelper
 
   before_filter :init, only: [:new, :edit, :create, :update]
   before_filter :signed_in_user, only: [:new, :index, :create, :edit, :destroy,
-                                        :update, :save, :for_keywords]
+                                        :update, :save, :unsave]
   before_filter :admin_user, only: [:new, :index, :create, :edit, 
-                                    :destroy, :update, :for_keywords]
+                                    :destroy, :update]
 
   def new
     @case = Case.new
@@ -69,8 +68,17 @@ class CasesController < ApplicationController
         @courts = Court.find_all_by_jurisdiction_id(params[:case][:jurisdiction_id])
         @selected_court = params[:case][:court_id]
       end
-      @recommended = []
-      @required = []
+      @selected_process_topics = ProcessTopic.find( params[:case][:process_topic_ids] ) if
+        params[:case][:process_topic_ids]
+      @selected_child_topics = ChildTopic.find( params[:case][:child_topic_ids] ) if
+        params[:case][:child_topic_ids]
+      @selected_refugee_topics = RefugeeTopic.find( params[:case][:refugee_topic_ids] ) if
+        params[:case][:refugee_topic_ids]
+      keyword_links = get_links( @selected_process_topics,
+                                 @selected_child_topics, 
+                                 @selected_refugee_topics )
+      @recommended = keyword_links[0]
+      @required = keyword_links[1]
       render 'new'
     end
   end
@@ -88,6 +96,7 @@ class CasesController < ApplicationController
       @case = Case.find(params[:id])
       params[:case][:child_topic_ids] ||= []
       params[:case][:refugee_topic_ids] ||= []
+      params[:case][:process_topic_ids] ||= []
       params[:case][:keyword_ids] ||= []
       params[:case][:pdf] ||= ""
 
@@ -120,37 +129,6 @@ class CasesController < ApplicationController
       flash[:error] = "Cannot remove case"
     end
     redirect_to :back
-  end
-
-  def for_keywords
-    @keywords = [];
-
-    @process_ids = params[:process_ids].split(',')
-    @process_ids.shift
-    @processes = ProcessTopic.find(@process_ids, :include => :process_links )
-    @processes.each do |process|
-      @keywords += process.process_links
-    end
-
-    @child_ids = params[:child_ids].split(',')
-    @child_ids.shift
-    @child_topics = ChildTopic.find(@child_ids, :include => :child_links )
-    @child_topics.each do |child|
-      @keywords += child.child_links
-    end
-
-    @refugee_ids = params[:refugee_ids].split(',')
-    @refugee_ids.shift
-    @refugees = RefugeeTopic.find(@refugee_ids, :include => :refugee_links )
-    @refugees.each do |refugee|
-      @keywords += refugee.refugee_links
-    end
-
-    #@keywords.uniq // will not work now that whole object included
-
-    respond_to do |format|
-      format.json {render :json => @keywords.to_json }
-    end
   end
 
   def import

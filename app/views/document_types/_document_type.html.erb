@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= document_type.name %>
+    <%= link_to "edit", edit_document_type_path(document_type.id), class: "tip"  %>
+    <span class="tip"> | </span>
+    <%= link_to "delete", document_type, method: :delete, data: { confirm: "You sure?" }, class: "tip"  %>
+  </td>
+</tr>
+
+
+

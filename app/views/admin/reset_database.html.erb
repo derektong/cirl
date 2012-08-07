@@ -28,6 +28,20 @@
   <br />
   <br />
 
+  <%= link_to "Restore default Organisations", 
+      admin_restore_organisations_path,
+      confirm: "Are you sure?", class: "btn btn-danger white" %>
+
+  <br />
+  <br />
+
+  <%= link_to "Restore default Document types/Publishers", 
+      admin_restore_document_types_path,
+      confirm: "Are you sure?", class: "btn btn-danger white" %>
+
+  <br />
+  <br />
+
   <%= link_to "Restore default quotes", 
       admin_restore_quotes_path,
       confirm: "Are you sure?", class: "btn btn-danger white" %>

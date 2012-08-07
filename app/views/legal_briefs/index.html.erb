@@ -1,0 +1,18 @@
+<%= provide :title, "View all legal briefs" %>
+
+<section class="row">
+<%= render 'legal_brief_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<h3>Viewing all legal briefs</h3><br />
+
+<%= will_paginate %>
+
+      <%= render @legal_briefs %>
+
+<%= will_paginate %>
+</div>
+</section>

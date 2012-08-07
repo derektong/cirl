@@ -9,6 +9,7 @@ class RefugeeTopic < ActiveRecord::Base
                           :format => { :with => description_regex }
 
   has_and_belongs_to_many :cases
+  has_and_belongs_to_many :legal_briefs
   has_many :refugee_links, dependent: :destroy
   has_many :keywords, through: :refugee_links
 

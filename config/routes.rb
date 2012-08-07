@@ -10,6 +10,7 @@ Cirl::Application.routes.draw do
   match '/signin', :to =>'sessions#new'
   match '/signout', :to => 'sessions#destroy', via: :delete
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
+  match '/document_types/for_publisher_id/:id' => 'document_types#for_publisher_id'
 
   # miscellaneous admin stuff
   match '/admin', :to => 'admin#index'
@@ -18,12 +19,17 @@ Cirl::Application.routes.draw do
   match '/admin/restore_country_origins', :to => 'admin#restore_country_origins'
   match '/admin/restore_courts', :to => 'admin#restore_courts'
   match '/admin/restore_keywords', :to => 'admin#restore_keywords'
+  match '/admin/restore_document_types', :to => 'admin#restore_document_types'
+  match '/admin/restore_organisations', :to => 'admin#restore_organisations'
 
   scope "/admin" do
     resources :quotes, only: [:create, :destroy, :index] 
     resources :jurisdictions
     resources :country_origins 
     resources :courts 
+    resources :publishers
+    resources :document_types
+    resources :organisations
     resources :child_topics 
     resources :child_links, only: [:create, :destroy]
     resources :refugee_topics 
@@ -45,7 +51,7 @@ Cirl::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  match '/cases/for_keywords/:process_ids/:child_ids/:refugee_ids' => 'cases#for_keywords'
+  match '/keywords/:process_ids/:child_ids/:refugee_ids' => 'keywords#refresh_keywords'
   resources :cases do
     member do
       get 'download'
@@ -56,6 +62,15 @@ Cirl::Application.routes.draw do
 
     collection do
       get 'import'
+    end
+  end
+
+  resources :legal_briefs do
+    member do
+      get 'download'
+      get 'delete'
+      get 'save'
+      get 'unsave'
     end
   end
 

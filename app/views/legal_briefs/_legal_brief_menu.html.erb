@@ -1,0 +1,8 @@
+  <div class="span3 leftmenu">
+  <ul>
+    <li><%= link_to "View all Legal Briefs", legal_briefs_path %></li>
+    <% if signed_in?  %>
+    <li><%= link_to "Add new Legal Brief", new_legal_brief_path %></li>
+    <% end %>
+  </ul>
+  </div>

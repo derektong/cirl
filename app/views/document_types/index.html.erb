@@ -1,0 +1,19 @@
+<%= provide :title, "Manage Document Types" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<%= render 'list' %>
+</div>
+
+<div class="span4 basic" >
+  <h3>Add a new Document Type</h3><br />
+  <%= form_for(@document_type, :html => { :class => "well"} ) do |f| %>
+    <%= render "shared/error_messages", :object => f.object %>
+    <%= render "fields", :f => f %>
+   <div class="actions">
+      <%= f.submit "Add", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>
+</section>
+

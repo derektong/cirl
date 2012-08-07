@@ -1,14 +1,23 @@
 <% if signed_in? && current_user.admin? %>
   <div class="span3 leftmenu">
   <ul>
-    <li><%= link_to "View all cases", cases_path %></li>
-    <li><%= link_to "Add new case", new_case_path %></li>
+    <li><%= link_to "View all Cases", cases_path %></li>
+    <li><%= link_to "Add new Case", new_case_path %></li>
+    <li><%= link_to "View all Legal Resources", '#' %></li>
+    <li><%= link_to "Add new Legal Resource", '#' %></li>
     <br />
     <% if current_user.managing_admin? %>
+      <b>Manage Publishers/Document Types</b>
+      <li><%= link_to "Document Types", document_types_path %></li>
+      <li><%= link_to "Publishers", publishers_path %></li>
+      <br />
       <b>Manage Countries/Courts</b>
       <li><%= link_to "Courts", courts_path %></li>
       <li><%= link_to "Jurisdictions", jurisdictions_path %></li>
       <li><%= link_to "Countries of Origin", country_origins_path %></li>
+      <br />
+      <b>Manage Organisations</b>
+      <li><%= link_to "Organisations", organisations_path %></li>
       <br />
       <b>Manage Concepts</b>
       <li><%= link_to "Process and Procedure", process_topics_path %></li>

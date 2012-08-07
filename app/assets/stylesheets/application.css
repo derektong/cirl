@@ -11,6 +11,7 @@
  *= require_self
  *= require custom
  *= require cases
+ *= require legal_briefs
  *= require static_pages
  *= require jquery.multiselect
  *= require jquery-ui-1.8.16.custom

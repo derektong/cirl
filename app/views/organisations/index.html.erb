@@ -1,0 +1,28 @@
+<%= provide(:title, "Manage organisations") %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
+<h3>Manage organisations</h3><br />
+
+<% if @del_organisation != nil then %>
+  <%= render "shared/error_messages", :object => @del_organisation %>
+<% end %>
+
+<table class="table">
+  <%= render @organisations %>
+</table>
+</div>
+
+<div class="span4 basic">
+  <h3>Add a new organisation</h3><br />
+<%= form_for(@organisation, :html => { :class => "well" } ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+    <%= f.text_field :name %>
+    <%= f.submit "Add organisation", class: "btn btn-primary btn-large" %>
+<% end %>
+
+</div>
+</section>

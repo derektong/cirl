@@ -1,0 +1,7 @@
+<div class="field">
+  <%= f.label :name, "Name: " %>
+  <%= f.text_field :name, autofocus: "autofocus" %>
+  <%= f.label :publisher_id, "Publisher: " %>
+  <%= collection_select(:document_type, :publisher_id, @publishers, :id, :name) %>
+</div>
+

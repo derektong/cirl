@@ -11,7 +11,16 @@
         <% end %>
         <td>
         <label class="checkbox inline aligned">
-          <%= check_box_tag "case[keyword_ids][]", keyword.id, 
+          <% @type = "" %>
+          <% case object.class.to_s %>
+            <% when "LegalBrief" %>
+            <%   @type = "legal_brief" %>
+            <% when "Case" %>
+            <%   @type = "case" %>
+            <% when "LegalResource" %>
+            <%   @type = "legal_resource" %>
+          <% end %>
+          <%= check_box_tag @type + "[keyword_ids][]", keyword.id, 
               ( object.keywords.include?(keyword) ||
                 @required.include?(keyword.id) ), 
               :disabled => ( @required.include? keyword.id ) %>

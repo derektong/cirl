@@ -1,0 +1,18 @@
+<div class="span5 basic">
+ <% flash.each do |key, value| %>
+   <div class="alert alert-<%= key %>"><%= value %></div>
+ <% end %>
+<h3>Document Types</h3><br />
+<table class="table">
+<% @publishers.each do |publisher|%>
+  <tr><th><%= publisher.name %></th></tr>
+  <% if publisher.document_types.empty? %>  
+    <tr><td><span class="tip">No document types for this publisher</span></td></tr>
+  <% else %>
+    <% publisher.document_types.each do |document_type| %>
+      <%= render document_type %>
+    <% end %>
+  <% end %>
+<% end %>
+</table>
+</div>

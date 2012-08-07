@@ -1,0 +1,15 @@
+<tr>
+  <td>
+  <%= publisher.name %>
+  <span class="tip">
+  <%= link_to "edit", edit_publisher_path(publisher.id), class: "tip" %>
+  <span class="tip"> | </span>
+  <%= link_to "delete", publisher,
+        :method => :delete, :confirm => "You sure?", 
+        :title => "Delete #{publisher.name}",
+        class: "tip" %>
+  </span>
+  </td>
+</tr>
+
+

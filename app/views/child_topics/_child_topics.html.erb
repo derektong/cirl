@@ -5,7 +5,16 @@
       <% @child_topics.each do |child_topic| %>
         <td>
         <label class="checkbox inline">
-          <%= check_box_tag "case[child_topic_ids][]", child_topic.id, 
+          <% @type = "" %>
+          <% case object.class.to_s %>
+            <% when "LegalBrief" %>
+            <%   @type = "legal_brief" %>
+            <% when "Case" %>
+            <%   @type = "case" %>
+            <% when "LegalResource" %>
+            <%   @type = "legal_resource" %>
+          <% end %>
+          <%= check_box_tag @type + "[child_topic_ids][]", child_topic.id, 
               object.child_topics.include?(child_topic) %>
           <%= child_topic.description %>
         </label>

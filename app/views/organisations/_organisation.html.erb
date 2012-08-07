@@ -1,0 +1,15 @@
+<tr>
+  <td>
+  <%= organisation.name %>
+  <span class="tip">
+  <%= link_to "edit", edit_organisation_path(organisation.id), class: "tip" %>
+  <span class="tip"> | </span>
+  <%= link_to "delete", organisation,
+        :method => :delete, :confirm => "You sure?", 
+        :title => "Delete #{organisation.name}",
+        class: "tip" %>
+  </span>
+  </td>
+</tr>
+
+

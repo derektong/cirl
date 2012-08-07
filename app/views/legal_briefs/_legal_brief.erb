@@ -1,0 +1,73 @@
+<table class="table table-bordered">
+<tr>
+  <th class="table">
+    <span class="legal_brief_name">
+      <%= "#{legal_brief.name}" %>
+    </span>
+    <span class="legal_brief_decision_date">
+      <%= "#{legal_brief.document_date.strftime("%d %b %Y")}" %>
+    </span>
+    <span class="legal_brief_court">
+      <%= legal_brief.court != nil ? legal_brief.court.name : "Unknown court" %>
+      &nbsp;|&nbsp; 
+    </span>
+  </th>
+</tr>
+<tr>
+  <td>
+    <p>
+    <span class="legal_brief_other_attribute">Overview:</span>
+    <span class="legal_brief_overview">
+      <%= legal_brief.overview != nil ? legal_brief.overview : "No overview" %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_brief_other_attribute">Organisation:</span>
+    <span class="legal_brief_organisation">
+      <%= legal_brief.organisation != nil ? legal_brief.organisation.name : "Unknown organisation" %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_brief_other_attribute">Process and Procedure Concepts:</span>
+    <span class="legal_brief_process_topics">
+      <%= legal_brief.process_topics.empty? ? "None" : 
+          legal_brief.process_topics.map(&:description).join(', ') %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_brief_other_attribute">Refugee concepts:</span>
+    <span class="legal_brief_refugee_topics">
+      <%= legal_brief.refugee_topics.empty? ? "None" :
+          legal_brief.refugee_topics.map(&:description).join(', ') %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_brief_other_attribute">Children's rights concepts:</span>
+    <span class="legal_brief_child_topics">
+      <%= legal_brief.child_topics.empty? ? "None" :
+          legal_brief.child_topics.map(&:description).join(', ') %>
+    </span><br />
+    </p>
+    <p>
+    <span class="legal_brief_other_attribute">Keywords:</span>
+    <span class="legal_brief_keywords">
+      <%= legal_brief.keywords.empty? ? "None" :
+          legal_brief.keywords.map(&:description).join(', ') %>
+    </span><br />
+    </p>
+
+  <%= link_to "Download", '/pdfs/legal_briefs' + legal_brief.id.to_s + '.pdf' %>
+  <% if signed_in? && !current_user.legal_briefs.exists?(legal_brief.id)%>
+  | <%= link_to "Save", save_legal_brief_path(legal_brief.id) %>
+  <% end %>
+  <% if signed_in? && (legal_brief.user_id == current_user.id || 
+        current_user.managing_admin? ) %>
+  | <%= link_to "Edit", edit_legal_brief_path(legal_brief.id) %>
+  <% end %>
+  <% if signed_in? && current_user.managing_admin? %>
+  | <%= link_to "Delete", legal_brief, :method => :delete, :confirm => "You sure?", 
+        :title => "Delete this legal_brief?" %>
+  <% end %>
+  </td>
+</tr>
+</table>
