@@ -1,9 +1,8 @@
 class CourtsController < ApplicationController
-  include CourtsHelper
   before_filter :signed_in_user
   before_filter :managing_admin_user
 
-  before_filter :init, :only => [:index, :create, :update, :edit, :restore]
+  before_filter :init, :only => [:index, :create, :update, :edit]
 
   def index
     @court = Court.new
@@ -48,11 +47,6 @@ class CourtsController < ApplicationController
     end
   end
 
-  def restore
-    restore_courts
-    @court = Court.new
-    redirect_to admin_reset_database_path
-  end
 
   protected
 

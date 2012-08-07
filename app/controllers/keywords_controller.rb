@@ -1,10 +1,5 @@
 class KeywordsController < ApplicationController
-  include KeywordsHelper
-  include RefugeeTopicsHelper
-  include ChildTopicsHelper
-  include ProcessTopicsHelper
-
-  before_filter :init, :only => [:index, :create, :edit, :update, :restore]
+  before_filter :init, :only => [:index, :create, :edit, :update]
   before_filter :signed_in_user
   before_filter :managing_admin_user
 
@@ -42,15 +37,6 @@ class KeywordsController < ApplicationController
     else
       render 'index'
     end
-  end
-
-  def restore
-    restore_keywords
-    restore_refugee_topics
-    restore_child_topics
-    restore_process_topics
-    @keyword = Keyword.new
-    redirect_to admin_reset_database_path
   end
 
   protected

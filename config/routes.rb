@@ -5,62 +5,33 @@ Cirl::Application.routes.draw do
   match '/about/advisory', :to => 'static_pages#about_advisory'
   match '/about/diana', :to => 'static_pages#about_diana'
   match '/about/coram', :to => 'static_pages#about_coram'
-  match '/admin', :to => 'static_pages#admin'
-  match '/admin/reset_database', :to => 'static_pages#reset_database'
   match '/help', :to => 'static_pages#help'
-  match '/admin', :to => 'static_pages#admin'
   match '/signup', :to => 'users#new'
   match '/signin', :to =>'sessions#new'
   match '/signout', :to => 'sessions#destroy', via: :delete
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
 
+  # miscellaneous admin stuff
+  match '/admin', :to => 'admin#index'
+  match '/admin/reset_database', :to => 'admin#reset_database'
+  match '/admin/restore_quotes', :to => 'admin#restore_quotes'
+  match '/admin/restore_country_origins', :to => 'admin#restore_country_origins'
+  match '/admin/restore_courts', :to => 'admin#restore_courts'
+  match '/admin/restore_keywords', :to => 'admin#restore_keyword'
+
   scope "/admin" do
-    resources :quotes, only: [:create, :destroy, :index] do
-      collection do
-        get 'restore'
-      end
-    end
-
+    resources :quotes, only: [:create, :destroy, :index] 
     resources :jurisdictions
-
-    resources :country_origins do
-      collection do
-        get 'restore'
-      end
-    end
-
-    resources :courts do
-      collection do
-        get 'restore'
-      end
-    end
-
-    resources :child_topics do
-      collection do
-        get 'restore'
-      end
-    end
+    resources :country_origins 
+    resources :courts 
+    resources :child_topics 
     resources :child_links, only: [:create, :destroy]
-
-    resources :refugee_topics do
-      collection do
-        get 'restore'
-      end
-    end
+    resources :refugee_topics 
     resources :refugee_links, only: [:create, :destroy]
-
-    resources :process_topics do
-      collection do
-        get 'restore'
-      end
-    end
+    resources :process_topics 
     resources :process_links, only: [:create, :destroy]
-
     resources :keywords do
       resources :aliases
-      collection do
-        get 'restore'
-      end
     end
   end
 

@@ -1,6 +1,4 @@
 class QuotesController < ApplicationController
-  include QuotesHelper
-
   before_filter :signed_in_user
   before_filter :managing_admin_user
 
@@ -25,8 +23,4 @@ class QuotesController < ApplicationController
     redirect_to quotes_path
   end
 
-  def restore
-    restore_quotes
-    redirect_to quotes_path
-  end
 end

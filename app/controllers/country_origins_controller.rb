@@ -1,5 +1,4 @@
 class CountryOriginsController < ApplicationController
-  include CountryOriginsHelper
 
   before_filter :signed_in_user
   before_filter :managing_admin_user
@@ -28,11 +27,6 @@ class CountryOriginsController < ApplicationController
     redirect_to country_origins_path
   end
 
-  def restore
-    restore_country_origins
-    @country_origin = CountryOrigin.new
-    redirect_to admin_reset_database_path
-  end
 
 
 
