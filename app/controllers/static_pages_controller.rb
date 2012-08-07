@@ -5,6 +5,9 @@ class StaticPagesController < ApplicationController
 
 
   def home
+    @quotes = Quote.all.shuffle
+    @quote1 = @quotes.first
+    @quote2 = @quotes.last
     @image_files = %w( .jpg .gif .png )
     @files ||= Dir.entries(
       "app/assets/images/home/bw").delete_if { |x|

@@ -51,7 +51,7 @@ class CourtsController < ApplicationController
   def restore
     restore_courts
     @court = Court.new
-    redirect_to courts_path
+    redirect_to admin_reset_database_path
   end
 
   protected

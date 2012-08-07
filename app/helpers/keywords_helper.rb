@@ -18,13 +18,14 @@ module KeywordsHelper
         end
       end
     end
-    flash[:success] = "Keywords successfully restored"
+    flash[:success] = "Keywords successfully restored. \n"
   end
 
   private
 
   def default_keywords
     return [
+      "Abandoned children",
       "Abortion",
       "Access to information",
       "Adequate standard of living",
@@ -57,11 +58,12 @@ module KeywordsHelper
       "Constructive deportation",
       "Corporal punishment",
       "Corroboration",
+      "Country of first asylum",
       "Country of origin information",
       "Country of origin reports",
       "Credibility",
       "Crimes against peace and security",
-      "Cruel, inhuman or degrading treatment ",
+      "Cruel, inhuman or degrading treatment",
       "Culture, right to",
       "Customary international law",
       "Death penalty",
@@ -72,6 +74,7 @@ module KeywordsHelper
       "Designated representatives",
       "Detention",
       "Determining nationality",
+      "Differential risk",
       "Disability, children with",
       "Discrimination",
       "Distinct risk",
@@ -83,16 +86,22 @@ module KeywordsHelper
       "Evidential standards",
       "Exclusion",
       "Exclusion of parent",
+      "Exploitation",
       "Failure of state protection",
       "Family environment, children deprived of",
+      "Family life",
       "Family reunification",
       "Family, risk because of",
       "Female genital cutting",
+      "Food",
       "Forced marriage",
       "Former gang members",
       "Forward-looking risk",
+      "Fostering",
       "Freedom of association",
+      "Freedom of conscience",
       "Freedom of expression",
+      "Freedom of religion",
       "Freedom of thought",
       "Gang recruitment",
       "Gay and lesbian",
@@ -100,8 +109,11 @@ module KeywordsHelper
       "Generalised risk",
       "Girl children",
       "Guardianship",
+      "Habitual residence",
       "Harmful traditional practices",
+      "Harm to family members",
       "Health",
+      "Housing",
       "Humanitarian protection",
       "Identity",
       "Identity documents",
@@ -120,7 +132,7 @@ module KeywordsHelper
       "Legal assistance",
       "Leisure, play and culture",
       "Linguistic analysis",
-      "Medical care",
+      "Medical treatment",
       "Medical illness, children with",
       "Membership of a particular social group",
       "Military recruitment",
@@ -132,8 +144,9 @@ module KeywordsHelper
       "Nexus",
       "Non-refoulement",
       "Non-separation",
-      "Non-state agents",
+      "Non-state agents of persecution",
       "Objective assessment of risk",
+      "Orphanages",
       "Orphans",
       "Parental guidance",
       "Parental responsibility",
@@ -149,11 +162,14 @@ module KeywordsHelper
       "Psychological harm",
       "Punishment and detention",
       "Race",
+      "Rape",
       "Regionalised failure to protect",
       "Rehabilitation",
       "Religion",
+      "Right of appeal",
       "Right to life",
       "Ritual sacrifice",
+      "Safe third country",
       "Serious harm",
       "Serious non-political crimes",
       "Sexual abuse",
@@ -162,6 +178,7 @@ module KeywordsHelper
       "Similarly situated persons",
       "Social security",
       "Standard of proof",
+      "Starvation",
       "State of reference",
       "Statelessness",
       "Street children",
@@ -169,9 +186,11 @@ module KeywordsHelper
       "Sur place",
       "Survival and development",
       "Testimony",
-      "Torture ",
+      "Torture",
+      "Tracing",
       "Trafficking",
       "Unaccompanied minors",
+      "Unlawful departure",
       "Victims of crime",
       "Well-founded fear",
       "Widowed mothers, children of",
@@ -184,12 +203,18 @@ module KeywordsHelper
     return { 
       "Age-assessment" => [
         "Age determination" ],
+      "Medical treatment" => [
+        "Health services" ],
       "Detention" => [
         "Deprivation of liberty" ],
       "Choice of asylum country" => [
-        "Safe third country" ],
+        "Protection elsewhere" ],
       "Domestic child abuse" => [
         "Parental abuse" ],
+      "Civil war" => [
+        "Internal conflict" ],
+      "Gay and lesbian" => [
+        "Sexual orientation" ],
       "Economic, social and cultural rights" => [
         "Socio-economic deprivation" ],
       "Regionalised failure to protect" => [
@@ -197,6 +222,8 @@ module KeywordsHelper
       "Nexus" => [
         "For reasons of", 
         "Causation" ],
+      "Starvation" => [
+        "Malnutrition" ],
       "Membership of a particular social group" => [
         "Particular social group" ],
       "Children, risk because of being" => [
@@ -214,13 +241,8 @@ module KeywordsHelper
         "Family unity" ],
       "Child abduction" => [
         "Kidnapping" ],
-      "Freedom of thought" => [
-        "Freedom of conscience",
-        "Freedom of religion" ],
-      "Privacy" => [
-        "Family life" ],
-      "Sexual exploitation" => [
-        "Exploitation" ]
+      "Social security" => [
+        "Social welfare" ],
     }
   end
 

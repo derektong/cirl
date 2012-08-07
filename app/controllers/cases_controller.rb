@@ -2,7 +2,7 @@ class CasesController < ApplicationController
   include KeywordsHelper
   include CasesHelper
 
-  before_filter :init, only: [:new, :edit, :create]
+  before_filter :init, only: [:new, :edit, :create, :update]
   before_filter :signed_in_user, only: [:new, :index, :create, :edit, :destroy,
                                         :update, :save, :for_keywords]
   before_filter :admin_user, only: [:new, :index, :create, :edit, 
@@ -32,8 +32,21 @@ class CasesController < ApplicationController
     @case.day = @case.decision_date.day
     @case.month = @case.decision_date.month
     @case.year = @case.decision_date.year
-    @case.jurisdiction_id = Court.find(@case.court_id).jurisdiction_id
-    @courts = Court.find_all_by_jurisdiction_id(@case.jurisdiction_id)
+
+    # error handling if courts have been deleted etc.
+    begin
+      @case.jurisdiction_id = Court.find(@case.court_id).jurisdiction_id
+      @courts = Court.find_all_by_jurisdiction_id(@case.jurisdiction_id)
+    rescue ActiveRecord::RecordNotFound
+      @case.court = Court.new
+    end
+  
+    # error handling if countries of origin have changed
+    begin
+      @case.country_origin = CountryOrigin.find(@case.country_origin_id)
+    rescue ActiveRecord::RecordNotFound
+      @case.country_origin = CountryOrigin.new
+    end
    
     @selected_process_topics = ProcessTopic.find( @case.process_topic_ids )
     @selected_child_topics = ChildTopic.find( @case.child_topic_ids )
@@ -58,7 +71,7 @@ class CasesController < ApplicationController
       end
       @recommended = []
       @required = []
-      render 'cases/new'
+      render 'new'
     end
   end
 
@@ -82,6 +95,8 @@ class CasesController < ApplicationController
         flash[:notice] = 'Case updated.'
         redirect_to cases_path 
       else
+        @recommended = []
+        @required = []
         render 'edit'
       end
     end

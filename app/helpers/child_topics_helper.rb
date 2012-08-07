@@ -24,7 +24,7 @@ module ChildTopicsHelper
         end
       end
     end
-    flash[:success] = "Child concepts successfully restored"
+    flash[:success] += "Child concepts successfully restored. \n"
   end
 
   private
@@ -35,7 +35,15 @@ module ChildTopicsHelper
         { "Definition of child" => true },
         { "Age as immutable characteristic" => false } ],
       "Equality and non-discrimination (art. 2, 22)" => [
-        { "Discrimination" => true } ],
+        { "Discrimination" => true },
+        { "Black children" => false },
+        { "Gender" => false },
+        { "Race" => false },
+        { "Nationality" => false },
+        { "Religion" => false },
+        { "Political opinion" => false },
+        { "Membership of a particular social group" => false },
+        { "Gay and lesbian" => false } ],
       "Best interests (art. 3)" => [
         { "Best interests" => true },
         { "Humanitarian protection" => false },
@@ -49,11 +57,15 @@ module ChildTopicsHelper
         { "Parental guidance" => true },
         { "Domestic child abuse" => false },
         { "Participation" => false },
+        { "Non-state agents of persecution" => false },
         { "Non-separation" => false } ],
       "Right to life, survival and development (art. 6)" => [
         { "Survival and development" => true },
         { "Right to life" => true },
         { "Non-refoulement" => false },
+        { "Housing" => false },
+        { "Food" => false },
+        { "Starvation" => false },
         { "Complementary protection" => false },
         { "Protection from violence" => false },
         { "Health" => false },
@@ -71,14 +83,15 @@ module ChildTopicsHelper
         { "Non-separation" => true },
         { "Deportation of parent" => false },
         { "Participation" => false },
-        { "Privacy" => false },
-        { "Distinct risk" => false },
+        { "Family life" => false },
         { "Denial of custody" => false },
+        { "Distinct risk" => false },
         { "Indirect persecution" => false },
         { "Derivative protection" => false },
         { "Constructive deportation" => false } ],
       "Family reunification (art. 10)" => [
         { "Family reunification" => true },
+        { "Tracing" => false },
         { "Unaccompanied minors" => false } ],
       "Child abduction (art. 11)" => [
         { "Child abduction" => true },
@@ -99,14 +112,17 @@ module ChildTopicsHelper
         { "Freedom of expression" => true },
         { "Political opinion" => false } ],
       "Freedom of thought, conscience or religion (art. 14)" => [
-        { "Freedom of thought" => true },
+        { "Freedom of thought" => false },
+        { "Freedom of conscience" => false },
+        { "Freedom of religion" => false },
         { "Political opinion" => false },
         { "Religion" => false } ],
       "Freedom of association (art. 15)" => [
         { "Freedom of association" => true },
         { "Political opinion" => false } ],
       "Privacy and family life (art. 16)" => [
-        { "Privacy" => true },
+        { "Privacy" => false },
+        { "Family life" => false },
         { "Family reunification" => false } ],
       "Access to information (art. 17)" => [
         { "Access to information" => true } ],
@@ -115,9 +131,16 @@ module ChildTopicsHelper
       "Protection from violence (art. 19)" => [
         { "Protection from violence" => true },
         { "Domestic child abuse" => false },
+        { "Psychological harm" => false },
+        { "Non-state agents of persecution" => false },
         { "Survival and development" => false } ],
       "Children deprived of family environment (art. 20)" => [
         { "Family environment, children deprived of" => true },
+        { "Adoption" => false },
+        { "Fostering" => false },
+        { "Orphanages" => false },
+        { "Orphans" => false },
+        { "Tracing" => false },
         { "Guardianship" => false } ],
       "Adoption (art. 21)" => [
         { "Adoption" => true } ],
@@ -130,12 +153,13 @@ module ChildTopicsHelper
       "Children with disabilities (art. 23)" => [
         { "Disability, children with" => true },
         { "Medical illness, children with" => false },
+        { "Monitoring of treatment" => false },
         { "Health" => false },
-        { "Medical care" => false } ],
+        { "Medical treatment" => false } ],
       "Health (art. 24)" => [
         { "Health" => true },
         { "Medical illness, children with" => false },
-        { "Medical care" => false },
+        { "Medical treatment" => false },
         { "Survival and development" => false },
         { "Right to life" => false },
         { "Economic, social and cultural rights" => false } ],
@@ -147,11 +171,14 @@ module ChildTopicsHelper
         { "Monitoring of treatment" => true },
         { "Health" => true },
         { "Medical illness, children with" => false },
-        { "Medical care" => false } ],
+        { "Medical treatment" => false } ],
       "Social security (art. 26)" => [
         { "Social security" => true } ],
       "Adequate standard of living (art. 27)" => [
         { "Adequate standard of living" => true },
+        { "Housing" => false },
+        { "Food" => false },
+        { "Starvation" => false },
         { "Survival and development" => false } ],
       "Education (arts. 28-29)" => [
         { "Education" => true },
@@ -168,8 +195,14 @@ module ChildTopicsHelper
       "Drug abuse (art. 33)" => [
         { "Drug abuse" => true } ],
       "Protection against exploitation (arts. 34 and 36, Optional Protocol)"=> [
-        { "Sexual exploitation" => true },
+        { "Sexual exploitation" => false },
         { "Incest" => false },
+        { "Rape" => false },
+        { "Protection from violence" => false },
+        { "Trafficking" => false },
+        { "Child prostitution" => false },
+        { "Child pornography" => false },
+        { "Exploitation" => true },
         { "Sexual abuse" => false } ],
       "Abduction, sale and trafficking (art. 35, Optional Protocol)" => [
         { "Child abduction" => false },
@@ -179,8 +212,8 @@ module ChildTopicsHelper
         { "Sexual exploitation" => false } ],
       "Punishment and detention (art. 37)" => [
         { "Punishment and detention" => true },
-        { "Torture " => false },
-        { "Cruel, inhuman or degrading treatment " => false },
+        { "Torture" => false },
+        { "Cruel, inhuman or degrading treatment" => false },
         { "Detention" => false },
         { "Complementary protection" => false },
         { "Non-refoulement" => false },
@@ -194,7 +227,7 @@ module ChildTopicsHelper
       "Rehabilitation (art. 39)" => [
         { "Rehabilitation" => true },
         { "Psychological harm" => false },
-        { "Medical care" => false },
+        { "Medical treatment" => false },
         { "Health" => false } ],
       "Juvenile justice (art. 40)" => [
         { "Juvenile justice" => true },

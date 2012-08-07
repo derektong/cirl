@@ -15,7 +15,11 @@ Cirl::Application.routes.draw do
   match '/courts/for_jurisdiction_id/:id' => 'courts#for_jurisdiction_id'
 
   scope "/admin" do
-    resources :quotes
+    resources :quotes, only: [:create, :destroy, :index] do
+      collection do
+        get 'restore'
+      end
+    end
 
     resources :jurisdictions
 

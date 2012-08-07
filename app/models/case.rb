@@ -34,23 +34,12 @@ class Case < ActiveRecord::Base
   validates :court_id, :presence => true
   belongs_to :court
 
-  # handle child_topics
-  validates :child_topic_ids, :presence => true
   has_and_belongs_to_many :child_topics
-
-  # handle refugee_topics
-  validates :refugee_topic_ids, :presence => true
   has_and_belongs_to_many :refugee_topics
-
-  # handle process_topics
-  validates :process_topic_ids, :presence => true
   has_and_belongs_to_many :process_topics
-
-  # handle keywords
-  validates :keywords, :presence => true
   has_and_belongs_to_many :keywords
 
-  # handle keywords
+  # handle users
   has_and_belongs_to_many :users
 
   # handle uploads

@@ -21,16 +21,24 @@
   <b>Court:</b> <%= @case.court != nil ? @case.court.name : "Unknown court" %>
   </p>
   <p>
+  <b>Process/Procedure Framework Topics: </b>
+  <%= @case.process_topics.empty? ? "None" : 
+      @case.process_topics.map(&:description).join(', ') %>
+  </p>
+  <p>
   <b>Refugee Framework Topics: </b>
-     <%= @case.refugee_topics.map(&:description).join(', ') %>
+  <%= @case.refugee_topics.empty? ? "None" : 
+      @case.refugee_topics.map(&:description).join(', ') %>
   </p>
   <p>
   <b>Children's Rights Framework Topics:</b>
-    <%= @case.child_topics.map(&:description).join(', ') %>
+  <%= @case.child_topics.empty? ? "None" :
+      @case.child_topics.map(&:description).join(', ') %>
   </p>
   <p>
   <b>Keywords:</b>
-    <%= @case.keywords.map(&:description).join(', ') %>
+  <%= @case.keywords.empty? ? "None" :
+      @case.keywords.map(&:description).join(', ') %>
   </p>
   <p>
   <b>Full text:</b><br />

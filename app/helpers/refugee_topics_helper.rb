@@ -24,7 +24,7 @@ module RefugeeTopicsHelper
         end
       end
     end
-    flash[:success] = "Refugee concepts successfully restored"
+    flash[:success] += "Refugee concepts successfully restored. \n"
   end
 
   private
@@ -35,6 +35,9 @@ module RefugeeTopicsHelper
         { "Alienage" => true },
         { "Choice of asylum country" => false },
         { "Illegal entry" => false },
+        { "Habitual residence" => false },
+        { "Country of first asylum" => false },
+        { "Safe third country" => false },
         { "State of reference" => false },
         { "Statelessness" => false },
         { "Sur place" => false },
@@ -51,6 +54,7 @@ module RefugeeTopicsHelper
         { "Generalised risk" => false },
         { "Indiscriminate harm" => false },
         { "Distinct risk" => false },
+        { "Differential risk" => false },
         { "Imputed parental fear" => false },
         { "Country of origin reports" => false },
         { "Change of country conditions" => false } ],
@@ -59,10 +63,16 @@ module RefugeeTopicsHelper
         { "Serious harm" => true },
         { "Modified standard" => false },
         { "Domestic child abuse" => false },
+        { "Detention" => false },
+        { "Cruel, inhuman or degrading treatment" => false },
+        { "Indirect persecution" => false },
+        { "Harm to family members" => false },
+        { "Starvation" => false },
         { "Female genital cutting" => false },
         { "Incest" => false },
         { "Forced marriage" => false },
         { "Sexual abuse" => false },
+        { "Torture" => false },
         { "Child prostitution" => false },
         { "Child pornography" => false },
         { "Sexual exploitation" => false },
@@ -75,7 +85,9 @@ module RefugeeTopicsHelper
         { "Gang recruitment" => false },
         { "Economic, social and cultural rights" => false },
         { "Health" => false },
-        { "Medical care" => false },
+        { "Medical treatment" => false },
+        { "Housing" => false },
+        { "Survival and development" => false },
         { "Education" => false },
         { "Non-separation" => false },
         { "Psychological harm" => false },
@@ -91,7 +103,7 @@ module RefugeeTopicsHelper
         { "Past persecution" => false } ],
       "Failure of state protection" => [
         { "Failure of state protection" => true },
-        { "Non-state agents" => false },
+        { "Non-state agents of persecution" => false },
         { "Domestic child abuse" => false },
         { "Regionalised failure to protect" => false } ],
       "Nexus" => [
@@ -99,6 +111,8 @@ module RefugeeTopicsHelper
         { "Indiscriminate harm" => false },
         { "Victims of crime" => false },
         { "Civil war" => false },
+        { "Prosecution v persecution" => false },
+        { "Unlawful departure" => false },
         { "Generalised risk" => false } ],
       "Convention ground - Race" => [
         { "Race" => true },
@@ -139,6 +153,7 @@ module RefugeeTopicsHelper
         { "Military recruitment" => false },
         { "Gang recruitment" => false },
         { "Former gang members" => false },
+        { "Abandoned children" => false },
         { "Trafficking" => false } ],
       "Cessation" => [
         { "Cessation" => true },

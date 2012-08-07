@@ -1,0 +1,16 @@
+<%= provide( :title, 'Manage quotes') %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+<%= render 'quotes/list' %>
+<div class="span4 basic">
+  <h3>Add a new quote</h3><br />
+<%= form_for(@quote, :html => { :class => "well" } ) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= f.label :description, "Description: " %>
+  <%= f.text_field :description %>
+  <%= f.submit "Add", :class => "btn btn-primary white" %>
+<% end %>
+
+
+</div>
+</section>

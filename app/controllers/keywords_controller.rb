@@ -2,6 +2,7 @@ class KeywordsController < ApplicationController
   include KeywordsHelper
   include RefugeeTopicsHelper
   include ChildTopicsHelper
+  include ProcessTopicsHelper
 
   before_filter :init, :only => [:index, :create, :edit, :update, :restore]
   before_filter :signed_in_user
@@ -49,7 +50,7 @@ class KeywordsController < ApplicationController
     restore_child_topics
     restore_process_topics
     @keyword = Keyword.new
-    redirect_to keywords_path
+    redirect_to admin_reset_database_path
   end
 
   protected

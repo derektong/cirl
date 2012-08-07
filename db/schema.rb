@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806204741) do
+ActiveRecord::Schema.define(:version => 20120806233459) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -160,6 +160,12 @@ ActiveRecord::Schema.define(:version => 20120806204741) do
 
   create_table "process_topics", :force => true do |t|
     t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "quotes", :force => true do |t|
+    t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

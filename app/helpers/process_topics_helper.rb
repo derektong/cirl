@@ -24,7 +24,7 @@ module ProcessTopicsHelper
         end
       end
     end
-    flash[:success] = "Process concepts successfully restored"
+    flash[:success] += "Process concepts successfully restored."
   end
 
   private
@@ -36,6 +36,7 @@ module ProcessTopicsHelper
         { "Participation" => true },
         { "Distinct risk" => false },
         { "Indirect persecution" => false },
+        { "Right of appeal" => false },
         { "Derivative protection" => false },
         { "Constructive deportation" => false } ],
       "Procedural concessions" => [

@@ -31,25 +31,29 @@
     <p>
     <span class="case_other_attribute">Process and Procedure Concepts:</span>
     <span class="case_process_topics">
-      <%= @case.process_topics.map(&:description).join(', ') %>
+      <%= @case.process_topics.empty? ? "None" : 
+          @case.process_topics.map(&:description).join(', ') %>
     </span>
     </p>
     <p>
     <span class="case_other_attribute">Refugee concepts:</span>
     <span class="case_refugee_topics">
-      <%= @case.refugee_topics.map(&:description).join(', ') %>
+      <%= @case.refugee_topics.empty? ? "None" :
+          @case.refugee_topics.map(&:description).join(', ') %>
     </span>
     </p>
     <p>
     <span class="case_other_attribute">Children's rights concepts:</span>
     <span class="case_child_topics">
-      <%= @case.child_topics.map(&:description).join(', ') %>
+      <%= @case.child_topics.empty? ? "None" :
+          @case.child_topics.map(&:description).join(', ') %>
     </span><br />
     </p>
     <p>
     <span class="case_other_attribute">Keywords:</span>
     <span class="case_keywords">
-      <%= @case.keywords.map(&:description).join(', ') %>
+      <%= @case.keywords.empty? ? "None" :
+          @case.keywords.map(&:description).join(', ') %>
     </span><br />
     </p>
 

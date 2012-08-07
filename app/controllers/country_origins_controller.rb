@@ -31,7 +31,7 @@ class CountryOriginsController < ApplicationController
   def restore
     restore_country_origins
     @country_origin = CountryOrigin.new
-    redirect_to country_origins_path
+    redirect_to admin_reset_database_path
   end
 
 
