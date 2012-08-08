@@ -1,0 +1,56 @@
+<%= provide :title, @user.name %>
+<section class="row">
+<%= render 'user_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  <h3>My Recent Legal Resource Searches</h3><br />
+  <table class="table">
+  <% if @recent_legal_resource_searches.empty? %>
+    <tr>
+      <td>
+      <%= "No searches run" %>
+      </td>
+    </tr>
+  <% end %>
+  <% @recent_legal_resource_searches.each do |c| %>
+    <tr>
+      <td>
+      <%= "Search run at " + c.created_at.to_s + ":" %>
+      <%= link_to c.description, legal_resource_search_path(c.id)  %>
+      </td>
+      <td>
+        <%= link_to "Save", edit_legal_resource_search_path(c.id), class: "btn btn-primary white" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <h3>My Saved Legal Resource Searches</h3>
+  <table class="table">
+  <% if @saved_searches.empty? %>
+    <tr>
+      <td>
+      <%= "No saved searches" %>
+      </td>
+    </tr>
+  <% end %>
+  <% @saved_searches.each do |c| %>
+    <tr>
+      <td>
+      <b><%= link_to c.name + ":", legal_resource_search_path(c.id)  %></b>
+      <%= link_to "Search " + c.description, legal_resource_search_path(c.id)  %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_legal_resource_search_path(c.id), class: "btn btn-primary white" %>
+        <%= link_to "Delete", c, :method=> :delete, :confirm => "You sure?",
+            :title => "Delete this search?", class: "btn btn-primary white" %>
+      </td>
+  </tr>
+  <% end %>
+  </table>
+  </div>
+</section>
+
+

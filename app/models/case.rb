@@ -52,6 +52,7 @@ class Case < ActiveRecord::Base
     indexes court(:name), :as => :court
     indexes country_origin(:name), :as => :country_origin
     indexes child_topics.description, :as => :child_topics
+    indexes process_topics.description, :as => :process_topics
     indexes refugee_topics.description, :as => :refugee_topics
     indexes keywords.description, :as => :keywords
     indexes fulltext
@@ -63,6 +64,7 @@ class Case < ActiveRecord::Base
     has "CAST(TO_CHAR(decision_date, 'YYYYMMDD') as INTEGER)", :type => :integer, :as => :decision_date
     has child_topics(:id), :as => :child_topic_ids
     has refugee_topics(:id), :as => :refugee_topic_ids
+    has process_topics(:id), :as => :process_topic_ids
     has keywords(:id), :as => :keyword_ids
     has court.jurisdiction(:id), :as => :jurisdiction_id
   end

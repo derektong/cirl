@@ -1,0 +1,18 @@
+<%= provide :title, "My uploaded briefs" %>
+<section class="row">
+<%= render 'legal_briefs/legal_brief_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <h3>My uploaded legal_briefs</h3><br />
+  <% if @legal_briefs.nil? %>
+  <%= "No uploaded legal briefs" %>
+  <% end %>
+  <%= render @legal_briefs %>
+  </table>
+
+  </div>
+</section>
+
+

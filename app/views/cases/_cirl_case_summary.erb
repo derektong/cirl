@@ -57,7 +57,7 @@
     </span><br />
     </p>
 
-  <%= link_to "Download", '/pdfs/cases' + @case.id.to_s + '.pdf' %>
+  <%= link_to "Download", '/pdfs/cases/' + @case.id.to_s + '.pdf' %>
   | <%= link_to "View", case_path(@case.id) %>
   <% if signed_in? && !current_user.cases.exists?(@case.id)%>
   | <%= link_to "Save", save_case_path(@case.id) %>

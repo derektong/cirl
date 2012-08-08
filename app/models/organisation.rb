@@ -8,4 +8,5 @@ class Organisation < ActiveRecord::Base
                     :uniqueness => { :case_sensitive => false },
                     :format => { :with => description_regex }
 
+  has_many :legal_briefs
 end

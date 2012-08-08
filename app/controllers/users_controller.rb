@@ -12,11 +12,31 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def legal_briefs
+    @user = User.find(params[:id])
+  end
+
+  def uploaded_legal_briefs
+    @user = User.find(params[:id])
+    @legal_briefs = LegalBrief.find_all_by_user_id( @user.id )
+  end
+
+  def legal_resources
+    @user = User.find(params[:id])
+  end
+
   def case_searches
     @user = User.find(params[:id])
     @recent_case_searches = @user.case_searches.find_all_by_name( nil, :order => "created_at DESC" )
     @saved_searches = @user.case_searches.find(:all, :conditions => "name IS NOT NULL" )
   end
+
+  def legal_resource_searches
+    @user = User.find(params[:id])
+    @recent_legal_resource_searches = @user.legal_resource_searches.find_all_by_name( nil, :order => "created_at DESC" )
+    @saved_searches = @user.legal_resource_searches.find(:all, :conditions => "name IS NOT NULL" )
+  end
+
 
   def edit
   end

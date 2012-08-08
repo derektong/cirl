@@ -46,6 +46,10 @@ Cirl::Application.routes.draw do
       get 'toggle_admin'
       get 'cases'
       get 'case_searches'
+      get 'legal_resources'
+      get 'legal_resource_searches'
+      get 'legal_briefs'
+      get 'uploaded_legal_briefs'
     end
   end
 
@@ -67,6 +71,14 @@ Cirl::Application.routes.draw do
 
   resources :legal_briefs do
     member do
+      get 'delete'
+      get 'save'
+      get 'unsave'
+    end
+  end
+
+  resources :legal_resources do
+    member do
       get 'download'
       get 'delete'
       get 'save'
@@ -83,6 +95,17 @@ Cirl::Application.routes.draw do
       get 'save'
     end
   end
+
+  resources :legal_resource_searches do
+    collection do
+      get 'results'
+    end
+
+    member do
+      get 'save'
+    end
+  end
+
 
 
   # The priority is based upon order of creation:

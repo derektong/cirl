@@ -8,5 +8,5 @@ class DocumentType < ActiveRecord::Base
                     :format => { :with => description_regex }
 
   belongs_to :publisher
-  #has_many :legal_resources
+  has_many :legal_resources
 end

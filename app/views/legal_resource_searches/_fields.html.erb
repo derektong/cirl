@@ -1,0 +1,72 @@
+  <div class="slider" style="display: <%=@advanced_used%>;">
+
+  <b>Advanced options</b><br /><br />
+  <%= f.label :legal_resource_name, "legal_resource name: " %>
+  <%= f.text_field :legal_resource_name, class: "search popper", 
+      title: "Enter the name or part of the name of the legal_resource to search for" %>
+
+  <i>Date Range</i><br />
+
+  <%= f.select :day_from, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_from, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_from, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+  <br /><i>to</i><br />
+  <%= f.select :day_to, 1..31, { prompt: "day" }, class: "date_field" %>
+  <%= f.select :month_to, 1..12, { prompt: "month" }, class: "date_field" %>
+  <%= f.select :year_to, 1900..Time.now.year, { prompt: "year" }, class: "date_field" %>
+
+  <br /><br />
+
+  <i>Publisher decided in</i><br />
+  <%= f.select :publisher_ids, 
+               options_from_collection_for_select(@publishers, "id", "name", 
+                                                  @attributes[:publisher_id]), 
+                                                  {},
+                                                  multiple: true -%>
+               <span id="publisher_popper" class="popper"
+                title="Select one or more publishers to search">&nbsp;</span><br /><br />
+
+  <i>DocumentTypes</i><br />
+  <%= f.select :document_type_ids, 
+               options_from_collection_for_select(@document_types, "id", "name", @attributes[:document_type_id]),
+               {},
+               multiple: true -%>
+               <span id="document_type_popper" class="popper"
+                title="Select one or more document_type to search">&nbsp;</span><br /><br />
+
+  <i>Process/Procedure framework</i><br />
+  <%= f.select :process_topic_ids, 
+               options_from_collection_for_select(@process_topics,"id", "description", 
+                                                  @attributes[:process_topic_ids]),
+               {},
+               multiple: true -%>
+               <span id="process_topic_popper" class="popper"
+                title="Select one or more process/procedure framework topics to search">&nbsp;</span><br /><br />
+
+
+  <i>Children's rights framework</i><br />
+  <%= f.select :child_topic_ids, 
+               options_from_collection_for_select(@child_topics,"id", "description", 
+                                                  @attributes[:child_topic_ids]),
+               {},
+               multiple: true -%>
+               <span id="child_topic_popper" class="popper"
+                title="Select one or more children's rights framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Refugee framework</i><br />
+  <%= f.select :refugee_topic_ids, 
+               options_from_collection_for_select(@refugee_topics, "id", "description", 
+                                                  @attributes[:refugee_topic_ids]), 
+               {},
+               multiple: true -%>
+               <span id="refugee_topic_popper" class="popper"
+                title="Select one or more refugee framework topics to search">&nbsp;</span><br /><br />
+
+  <i>Keywords</i><br />
+  <%= f.select :keyword_ids, 
+               options_for_select(@keywords_with_aliases, @attributes[:keyword_ids]), 
+               {},
+               multiple: true -%>
+               <span id="keyword_popper" class="popper"
+                title="Select one or more keywords to search">&nbsp;</span><br /><br />
+</div>

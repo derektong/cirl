@@ -1,0 +1,26 @@
+<%= javascript_include_tag "legal_resources" %>
+<%= provide :title, "Add new legal resource" %>
+<section class="row">
+<%= render 'shared/admin_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+    <h3>Add new legal resource</h3><br />
+    <%= form_for @legal_resource, :html => { :class => "well form-horizontal change_legal_resource" } do |f| %>
+    <%= render "shared/error_messages", :object => f.object %>
+    <%= render 'fields', :f => f %>
+
+    <div class="control-group">
+      <label class="control-label">
+        &nbsp;
+      </label>
+      <div class="controls">
+        <%= f.submit "Add", { :class => "btn btn-primary white" } %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</section>
+
+

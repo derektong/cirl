@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807220702) do
+ActiveRecord::Schema.define(:version => 20120807235237) do
 
   create_table "aliases", :force => true do |t|
     t.integer  "keyword_id"
@@ -128,6 +128,16 @@ ActiveRecord::Schema.define(:version => 20120807220702) do
     t.integer "legal_brief_id"
   end
 
+  create_table "child_topics_legal_resource_searches", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "child_topic_id"
+  end
+
+  create_table "child_topics_legal_resources", :id => false, :force => true do |t|
+    t.integer "child_topic_id"
+    t.integer "legal_resource_id"
+  end
+
   create_table "country_origins", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -148,6 +158,11 @@ ActiveRecord::Schema.define(:version => 20120807220702) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "document_types_legal_resource_searches", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "document_type_id"
+  end
+
   create_table "jurisdictions", :force => true do |t|
     t.string "name", :limit => 128, :null => false
   end
@@ -161,6 +176,16 @@ ActiveRecord::Schema.define(:version => 20120807220702) do
   create_table "keywords_legal_briefs", :id => false, :force => true do |t|
     t.integer "keyword_id"
     t.integer "legal_brief_id"
+  end
+
+  create_table "keywords_legal_resource_searches", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "keyword_id"
+  end
+
+  create_table "keywords_legal_resources", :id => false, :force => true do |t|
+    t.integer "keyword_id"
+    t.integer "legal_resource_id"
   end
 
   create_table "legal_briefs", :force => true do |t|
@@ -188,6 +213,56 @@ ActiveRecord::Schema.define(:version => 20120807220702) do
   create_table "legal_briefs_users", :id => false, :force => true do |t|
     t.integer "legal_brief_id"
     t.integer "user_id"
+  end
+
+  create_table "legal_resource_searches", :force => true do |t|
+    t.string   "name"
+    t.string   "free_text"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.string   "legal_resource_name"
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "legal_resource_searches_process_topics", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "process_topic_id"
+  end
+
+  create_table "legal_resource_searches_publishers", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "publisher_id"
+  end
+
+  create_table "legal_resource_searches_refugee_topics", :id => false, :force => true do |t|
+    t.integer "legal_resource_search_id"
+    t.integer "refugee_topic_id"
+  end
+
+  create_table "legal_resources", :force => true do |t|
+    t.string   "name"
+    t.integer  "document_type_id"
+    t.date     "publish_date"
+    t.text     "fulltext"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "legal_resources_process_topics", :id => false, :force => true do |t|
+    t.integer "process_topic_id"
+    t.integer "legal_resource_id"
+  end
+
+  create_table "legal_resources_refugee_topics", :id => false, :force => true do |t|
+    t.integer "refugee_topic_id"
+    t.integer "legal_resource_id"
+  end
+
+  create_table "legal_resources_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "legal_resource_id"
   end
 
   create_table "organisations", :force => true do |t|

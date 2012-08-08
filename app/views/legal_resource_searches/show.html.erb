@@ -1,0 +1,24 @@
+<%= provide :title, "Viewing search results" %>
+
+<section class="row">
+<%= render 'shared/legal_resource_search_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<% if !@legal_resources.empty? then %>
+  <%= will_paginate @legal_resources %>
+
+  <span class="per_page">Show <%= select_tag :per_page, options_for_select([10,20,50], @per_page), 
+      :onchange => "if(this.value){window.location='?per_page='+this.value;}" %> 
+      results per page</span>
+    <h3>Search results (<%= pluralize( @legal_resources.total_entries, "legal_resource" )%> found) </h3><br />
+    <%= render @legal_resources %>
+
+  <%= will_paginate @legal_resources %>
+<% else %>
+  <h3>No legal_resources found</h3>
+<% end %>
+</div>
+</section>

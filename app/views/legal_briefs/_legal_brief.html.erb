@@ -56,7 +56,7 @@
     </span><br />
     </p>
 
-  <%= link_to "Download", '/pdfs/legal_briefs' + legal_brief.id.to_s + '.pdf' %>
+  <%= link_to "Download", '/pdfs/legal_briefs/' + legal_brief.id.to_s + '.pdf' %>
   <% if signed_in? && !current_user.legal_briefs.exists?(legal_brief.id)%>
   | <%= link_to "Save", save_legal_brief_path(legal_brief.id) %>
   <% end %>

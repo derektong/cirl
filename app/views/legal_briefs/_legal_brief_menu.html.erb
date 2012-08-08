@@ -3,6 +3,7 @@
     <li><%= link_to "View all Legal Briefs", legal_briefs_path %></li>
     <% if signed_in?  %>
     <li><%= link_to "Add new Legal Brief", new_legal_brief_path %></li>
+    <li><%= link_to "My uploaded Legal Brief", uploaded_legal_briefs_user_path(current_user.id) %></li>
     <% end %>
   </ul>
   </div>

@@ -1,0 +1,29 @@
+<%= javascript_include_tag "legal_resource_searches" %>
+<%= provide :title, "Edit a search" %>
+
+<section class="row">
+<%= render 'shared/legal_resource_search_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<h3>Edit Search</h3><br />
+<%= form_for @legal_resource_search, :html => { class: "well" } do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= f.label :Name, "Name:" %>
+  <%= f.text_field :name, class: "popper", autofocus: "autofocus",
+      title: "Type a name to describe what you are searching for" %>
+  <%= f.label :free_text, "Full text search: " %>
+  <%= f.text_field :free_text, class: "search popper",
+      title: "Type the text you are searching for. E.g. 'num num'"  %>
+  <br />
+  <br />
+
+  <%= render 'fields', :f => f %>
+  <%= f.submit "Save", class: "btn btn-primary white" %>
+  <%= f.submit "Cancel", class: "btn btn-primary white" %>
+<% end %>
+
+</div>
+</section>

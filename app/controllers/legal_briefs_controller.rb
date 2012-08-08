@@ -114,7 +114,7 @@ class LegalBriefsController < ApplicationController
   def save
     @legal_brief = LegalBrief.find(params[:id])
     if current_user.save_legal_brief(@legal_brief)
-      flash[:success] = "LegalBrief: " + @legal_brief.claimant + " saved"
+      flash[:success] = "LegalBrief: " + @legal_brief.name + " saved"
     else
       flash[:error] = "Cannot save legal_brief"
     end
@@ -124,7 +124,7 @@ class LegalBriefsController < ApplicationController
   def unsave
     @legal_brief = LegalBrief.find(params[:id])
     if current_user.unsave_legal_brief(@legal_brief)
-      flash[:success] = "LegalBrief: " + @legal_brief.claimant + " removed"
+      flash[:success] = "LegalBrief: " + @legal_brief.name + " removed"
     else
       flash[:error] = "Cannot remove legal_brief"
     end

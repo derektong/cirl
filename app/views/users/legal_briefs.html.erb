@@ -1,0 +1,30 @@
+<%= provide :title, @user.name %>
+<section class="row">
+<%= render 'user_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <h3>My Saved legal_briefs</h3><br />
+  <table class="table">
+  <% if @user.legal_briefs.empty? %>
+    <tr>
+      <td>
+      <%= "No saved legal briefs" %>
+      </td>
+    </tr>
+  <% end %>
+  <% @user.legal_briefs.each do |c| %>
+    <tr>
+      <td>
+        <%= render c  %>
+        <%= link_to "remove", unsave_legal_brief_path(c.id), class: "tip" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
+  </div>
+</section>
+
+

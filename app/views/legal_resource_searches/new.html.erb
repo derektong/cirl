@@ -1,0 +1,28 @@
+<%= javascript_include_tag "legal_resource_searches" %>
+<%= provide :title, "Search legal_resources" %>
+
+<section class="row">
+<%= render 'shared/legal_resource_search_menu' %>
+  <div class="basic span9">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<h3>Search legal_resources</h3><br />
+<%= form_for @legal_resource_search, :html => { class: "well" } do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= f.label :free_text, "Full text search: " %>
+  <%= f.text_field :free_text, class: "search popper", autofocus: "autofocus",
+      title: "Type the text you are searching for. E.g. 'num num'"  %>
+  <br />
+  <br />
+
+  <%= render 'fields', :f => f %>
+  <%= hidden_field_tag 'advanced', @advanced_used %>
+  <%= submit_tag "Search", name: nil, class: "btn btn-primary white" %>
+  <b><a href="#" class="show_hide"><%= @advanced_used == "block" ? "Hide" : "Show" %> advanced options</a></b><br /><br />
+
+<% end %>
+
+</div>
+</section>

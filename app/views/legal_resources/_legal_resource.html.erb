@@ -1,0 +1,61 @@
+<table class="table table-bordered">
+<tr>
+  <th class="table">
+    <span class="legal_resource_name">
+      <%= "#{legal_resource.name}" %>
+    </span>
+    <span class="legal_resource_decision_date">
+      <%= "#{legal_resource.publish_date.strftime("%d %b %Y")}" %>
+    </span>
+    <span class="legal_resource_document_type">
+      <%= legal_resource.document_type != nil ? legal_resource.document_type.name : "Unknown document_type" %>
+      &nbsp;|&nbsp; 
+    </span>
+  </th>
+</tr>
+<tr>
+  <td>
+    <p>
+    <span class="legal_resource_other_attribute">Process and Procedure Concepts:</span>
+    <span class="legal_resource_process_topics">
+      <%= legal_resource.process_topics.empty? ? "None" : 
+          legal_resource.process_topics.map(&:description).join(', ') %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_resource_other_attribute">Refugee concepts:</span>
+    <span class="legal_resource_refugee_topics">
+      <%= legal_resource.refugee_topics.empty? ? "None" :
+          legal_resource.refugee_topics.map(&:description).join(', ') %>
+    </span>
+    </p>
+    <p>
+    <span class="legal_resource_other_attribute">Children's rights concepts:</span>
+    <span class="legal_resource_child_topics">
+      <%= legal_resource.child_topics.empty? ? "None" :
+          legal_resource.child_topics.map(&:description).join(', ') %>
+    </span><br />
+    </p>
+    <p>
+    <span class="legal_resource_other_attribute">Keywords:</span>
+    <span class="legal_resource_keywords">
+      <%= legal_resource.keywords.empty? ? "None" :
+          legal_resource.keywords.map(&:description).join(', ') %>
+    </span><br />
+    </p>
+
+  <%= link_to "Download", '/pdfs/legal_resources/' + legal_resource.id.to_s + '.pdf' %>
+  <% if signed_in? && !current_user.legal_resources.exists?(legal_resource.id)%>
+  | <%= link_to "Save", save_legal_resource_path(legal_resource.id) %>
+  <% end %>
+  <% if signed_in? && current_user.admin? %>
+  | <%= link_to "Edit", edit_legal_resource_path(legal_resource.id) %>
+  <% end %>
+  <% if signed_in? && current_user.managing_admin? %>
+  | <%= link_to "Delete", legal_resource, :method => :delete, :confirm => "You sure?", 
+        :title => "Delete this legal_resource?" %>
+  <% end %>
+  </td>
+
+</tr>
+</table>

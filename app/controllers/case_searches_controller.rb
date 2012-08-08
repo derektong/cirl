@@ -63,7 +63,7 @@ class CaseSearchesController < ApplicationController
 
   def show
     @conditions = Hash.new
-    @per_page = params[:per_page] || Post.per_page || 10
+    @per_page = params[:per_page] || 10
 
     @case_search = CaseSearch.find(params[:id])
     set_attributes
@@ -97,7 +97,7 @@ class CaseSearchesController < ApplicationController
     end
 
     @cases = Case.search @case_search.free_text,
-             :include => [:country_origin, :court, :child_topics, 
+             :include => [:country_origin, :court, :child_topics, :process_topics,
                           :refugee_topics, :keywords],
              :with => @attributes,
              :conditions => @conditions,

@@ -9,7 +9,10 @@ class Keyword < ActiveRecord::Base
                           :format => { :with => description_regex }
 
   has_and_belongs_to_many :cases
+  has_and_belongs_to_many :case_searches
   has_and_belongs_to_many :legal_briefs
+  has_and_belongs_to_many :legal_resources
+  has_and_belongs_to_many :legal_resource_searches
   has_many :aliases, :dependent => :destroy
   has_many :refugee_links, :dependent => :destroy
   has_many :refugee_topics, :through => :refugee_links

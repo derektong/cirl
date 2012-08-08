@@ -3,8 +3,8 @@
   <ul>
     <li><%= link_to "View all Cases", cases_path %></li>
     <li><%= link_to "Add new Case", new_case_path %></li>
-    <li><%= link_to "View all Legal Resources", '#' %></li>
-    <li><%= link_to "Add new Legal Resource", '#' %></li>
+    <li><%= link_to "View all Legal Resources", legal_resources_path %></li>
+    <li><%= link_to "Add new Legal Resource", new_legal_resource_path %></li>
     <br />
     <% if current_user.managing_admin? %>
       <b>Manage Publishers/Document Types</b>

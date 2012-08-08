@@ -10,4 +10,6 @@ class Court < ActiveRecord::Base
 
   belongs_to :jurisdiction
   has_many :cases
+  has_and_belongs_to_many :case_searches
+  has_many :legal_briefs
 end
